@@ -76,7 +76,7 @@ const fs = require('fs');
 const ytdl = require('ytdl-core-discord');
 const { apiurl } = require('ytsearcher');
 const { YTSearcher } = require('ytsearcher');
-const searcher = new YTSearcher('AIzaSyCzjSsPUu9d1el4Aq5njMIZ4qcR6xwrpOA');
+const searcher = new YTSearcher('AIzaSyALqowrUUelRZOyrjC_NzdLUTnsW9PNj5k');
 var usrInput = voice.content.substr(5).trim();
 
 //!play <search>
@@ -94,10 +94,10 @@ if (voice.content.startsWith(`${prefix}play`)) {
     voice.channel.send(`**Error:** Song name empty!`); 
   } else {
   voiceChannel.join().then(async connection => {
-    let result = await searcher.search(usrInput);
+    let result = await searcher.search(usrInput).catch(error => console.log(error));
 
     const dispatcher = connection.play(await ytdl(result.first.url), { type: 'opus' }, {quality: 'highest' });
-    voice.channel.send(`**Now Playing:** ${result.first.url}`);
+    voice.channel.send(`> **Now Playing:** ${result.first.url}`);
 
     dispatcher.on('finish', () => voiceChannel.leave());
 
