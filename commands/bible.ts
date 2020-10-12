@@ -6,7 +6,7 @@ module.exports = {
         const fetch = require('node-fetch');
         
         var input = msg.content;
-        var author = msg.author
+        var author = msg.author;
         var usrInput = input.substr('6');
         var splitInput = usrInput.split(" ");
         var book = splitInput[1];
@@ -19,7 +19,7 @@ module.exports = {
             var url = 'https://bible-api.com/' + book + "+" + chapter + ':' + verse;
          } else {
              var url = 'https://bible-api.com/' + book + "+" + chapter + ':' + verse + '-' + verse2;
-          }
+        }
         
 
         fetch(url)
