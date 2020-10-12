@@ -64,6 +64,9 @@ client.on('message', msg => {
 
 });
 
+//////////////////////////////////////////////////
+//Voice commands
+//////////////////////////////////////////////////
 
 client.on('message', async voice => {
 
@@ -73,10 +76,10 @@ const fs = require('fs');
 const ytdl = require('ytdl-core-discord');
 const { apiurl } = require('ytsearcher');
 const { YTSearcher } = require('ytsearcher');
-const searcher = new YTSearcher('AIzaSyB5z_jpc7739sKPjMOYJP13zyYXl9VPoZA');
+const searcher = new YTSearcher('AIzaSyCzjSsPUu9d1el4Aq5njMIZ4qcR6xwrpOA');
 var usrInput = voice.content.substr(5).trim();
-let result = await searcher.search(usrInput);
 
+//!play <search>
 if (voice.content.startsWith(`${prefix}play`)) {
   if (voice.channel.type === 'dm') return;
 
@@ -91,6 +94,7 @@ if (voice.content.startsWith(`${prefix}play`)) {
     voice.channel.send(`**Error:** Song name empty!`); 
   } else {
   voiceChannel.join().then(async connection => {
+    let result = await searcher.search(usrInput);
 
     const dispatcher = connection.play(await ytdl(result.first.url), { type: 'opus' }, {quality: 'highest' });
     voice.channel.send(`**Now Playing:** ${result.first.url}`);
@@ -101,6 +105,7 @@ if (voice.content.startsWith(`${prefix}play`)) {
 }
 }
 
+//!stop
 if (voice.content.startsWith(`${prefix}stop`)) {
   if (voice.channel.type === 'dm') return;
 
@@ -113,6 +118,7 @@ if (voice.content.startsWith(`${prefix}stop`)) {
   voiceChannel.leave();
 }
 
+//!bitrate
 if (voice.content.startsWith(`${prefix}bitrate`)) {
   if (voice.channel.type === 'dm') return;
 
