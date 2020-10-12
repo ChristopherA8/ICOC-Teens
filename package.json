@@ -1,0 +1,23 @@
+{
+  "name": "icocteens",
+  "version": "1.0.0",
+  "description": "discord bot",
+  "main": "ICOCteen.ts",
+  "dependencies": {
+    "@discordjs/opus": "^0.3.2",
+    "discord.js": "12.3.1",
+    "ffmpeg-static": "^4.2.7",
+    "node-fetch": "2.6.0",
+    "shoukaku": "^1.5.2",
+    "ws": "^7.3.1",
+    "xmlhttprequest": "1.8.0",
+    "ytdl-core-discord": "^1.2.1",
+    "ytsearcher": "^1.2.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node ."
+  },
+  "author": "",
+  "license": "ISC"
+}
