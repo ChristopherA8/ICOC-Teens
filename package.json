@@ -19,5 +19,5 @@
     "start": "node ."
   },
   "author": "",
-  "license": "ISC"
+  "license": "MIT"
 }
