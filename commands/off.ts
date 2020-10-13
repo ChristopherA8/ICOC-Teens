@@ -3,10 +3,10 @@ module.exports = {
 	description: '',
 	execute(msg) {
 	const member = msg.member;
-	if (member.roles.cache.some(role => role.name === 'bot manager')) {
+	if (member.roles.cache.some(role => role.name === 'Engineer')) {
 		process.exit();
 	}else {
-		msg.channel.send(`\**Error:\** You are missing "Bot Manager" role!`);
+		msg.channel.send(`\**Error:\** You are missing "Engineer" role!`);
 	}
 },
 };
