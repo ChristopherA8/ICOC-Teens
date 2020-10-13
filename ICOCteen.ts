@@ -86,7 +86,7 @@ if (voice.content.startsWith(`${prefix}play`)) {
   const voiceChannel = voice.member.voice.channel;
 
   if (!voiceChannel) {
-    return voice.reply('please join a voice channel first!');
+    return voice.reply(`**Error:** Please join a voice channel first!`);
   }
 
 
@@ -112,7 +112,7 @@ if (voice.content.startsWith(`${prefix}stop`)) {
   const voiceChannel = voice.member.voice.channel;
 
   if (!voiceChannel) {
-    return voice.reply('please join a voice channel first!');
+    return voice.reply(`**Error:** Please join a voice channel first!`);
   }
 
   voiceChannel.leave();
@@ -125,13 +125,35 @@ if (voice.content.startsWith(`${prefix}bitrate`)) {
   const voiceChannel = voice.member.voice.channel;
 
   if (!voiceChannel) {
-    return voice.reply('please join a voice channel first!');
+    return voice.reply(`**Error:** Please join a voice channel first!`);
+  }
+
+  voice.channel.send(`**Channel Bitrate: **${voiceChannel.bitrate}bps`);
+}
+
+
+//!fx
+if (voice.content.startsWith(`${prefix}fx`)) {
+  if (voice.channel.type === 'dm') return;
+
+  const voiceChannel = voice.member.voice.channel;
+
+  if (!voiceChannel) {
+    return voice.reply(`**Error:** Please join a voice channel first!`);
+  }
+  if (voice.content.substr(3).trim() == "") {
+    voice.channel.send(`**Error:** missing fx name!\nCheck #chat pins for list of fx`);
+  } else {
+    var input = voice.content.substr(3).trim();
+    const fx = voice.client.voice.createBroadcast();
+    fx.play(`${input}.mp3`);
   }
 
   voice.channel.send(`**Channel Bitrate: **${voiceChannel.bitrate}bps`);
 }
 
 });
+
 
 
 client.login(token)
