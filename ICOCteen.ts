@@ -74,7 +74,6 @@ client.on('message', async voice => {
 
 const fs = require('fs');
 const ytdl = require('ytdl-core-discord');
-const { apiurl } = require('ytsearcher');
 const { YTSearcher } = require('ytsearcher');
 const searcher = new YTSearcher('AIzaSyALqowrUUelRZOyrjC_NzdLUTnsW9PNj5k');
 var usrInput = voice.content.substr(5).trim();
