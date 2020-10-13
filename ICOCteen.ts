@@ -78,6 +78,7 @@ const { apiurl } = require('ytsearcher');
 const { YTSearcher } = require('ytsearcher');
 const searcher = new YTSearcher('AIzaSyALqowrUUelRZOyrjC_NzdLUTnsW9PNj5k');
 var usrInput = voice.content.substr(5).trim();
+var fxInput = voice.content.substr(3).trim();
 
 //!play <search>
 if (voice.content.startsWith(`${prefix}play`)) {
@@ -141,15 +142,18 @@ if (voice.content.startsWith(`${prefix}fx`)) {
   if (!voiceChannel) {
     return voice.reply(`**Error:** Please join a voice channel first!`);
   }
-  if (voice.content.substr(3).trim() == "") {
-    voice.channel.send(`**Error:** missing fx name!\nCheck #chat pins for list of fx`);
-  } else {
-    var input = voice.content.substr(3).trim();
-    const fx = voice.client.voice.createBroadcast();
-    fx.play(`${input}.mp3`);
-  }
 
-  voice.channel.send(`**Channel Bitrate: **${voiceChannel.bitrate}bps`);
+
+  if (fxInput === "") {
+    voice.channel.send(`**Error:** missing fx name!\nCheck #chat pins for list of fx`); 
+  } else {
+  voiceChannel.join().then(async connection => {
+
+    const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
+    dispatcher.on('finish', () => voiceChannel.leave());
+
+  });
+}
 }
 
 });
