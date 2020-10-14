@@ -35,7 +35,7 @@ client.on('guildMemberAdd', join => {
   var teensrole = join.guild.roles.cache.get("698634625077215372")
   join.roles.add(teensrole);
   const channel = join.client.channels.cache.find(channel => channel.name === `welcome`);
-  channel.send(`Welcome ${join.member} to ICOC Teens!`);
+  channel.send(`Welcome ${join} to ICOC Teens!`);
 
 });
 
