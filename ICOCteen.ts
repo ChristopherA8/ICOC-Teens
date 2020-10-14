@@ -32,10 +32,10 @@ client.on('ready', () => {
 //Runs when a member joins a guild
 client.on('guildMemberAdd', join => {
 
-  var member = join.guild.roles.cache.get("698634625077215372")
-  join.roles.add(member);
+  var teensrole = join.guild.roles.cache.get("698634625077215372")
+  join.roles.add(teensrole);
   const channel = join.client.channels.cache.find(channel => channel.name === `welcome`);
-  channel.send(`Welcome ${member} to ICOC Teens!`);
+  channel.send(`Welcome ${join.member} to ICOC Teens!`);
 
 });
 
@@ -156,7 +156,7 @@ if (voice.content.startsWith(`${prefix}fx`)) {
   } else {
   voiceChannel.join().then(async connection => {
     const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
-    dispatcher.setVolume(10);
+    dispatcher.setVolume(5);
     dispatcher.on('finish', () => {
       dispatcher.setVolume(1);
       voiceChannel.leave()
