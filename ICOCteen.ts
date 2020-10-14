@@ -154,7 +154,11 @@ if (voice.content.startsWith(`${prefix}fx`)) {
   } else {
   voiceChannel.join().then(async connection => {
     const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
-    dispatcher.on('finish', () => voiceChannel.leave());
+    dispatcher.setVolume(10);
+    dispatcher.on('finish', () => {
+      dispatcher.setVolume(1);
+      voiceChannel.leave()
+    });
   });
 }
 }
