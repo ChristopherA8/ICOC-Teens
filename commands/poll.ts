@@ -4,29 +4,14 @@ module.exports = {
     execute(msg) {
 
         //const pollEmbed = require('discord.js-poll-embed');
+       
 
-        function askForName() {
-            const askName = new Discord65.MessageCollector(msg.channel, m => m.author.id === msg.author.id);
-            askName.on('collect', message => {
-                msg.channel.send(`Poll name:`);
-                var name = message.content;
-                msg.channel.send(`Name: "${name}"`);
-                askName.stop();
-            })
-        }
 
-        function askForItem() {
-            const askItem = new Discord65.MessageCollector(msg.channel, m => m.author.id === msg.author.id);
-            askItem.on('collect', message => {
-                msg.channel.send(`Item 1:`);
-                var title = message.content;
-                msg.channel.send(`Title: "${title}"`);
-                askItem.stop();
-            })
-        }
-
-        askForName();
-        askForItem();
+        msg.channel.send('Name: ').then(message => {
+        msg.channel.awaitMessages(m => m.author.id === msg.author.id, { max: 1, time: 5000, errors: ['time'] })
+        .then(collected => msg.channel.send(`Name = "${collected.first()}"`))
+        .catch(collected => message.delete());
+        });
 
         var options = ['ice', 'party'];
         var timeout = 30;
