@@ -13,7 +13,7 @@ client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.ts'));
 
 
-//Include Command Files ending in .ts
+//Include Command Files ending in .ts or .js
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
@@ -145,12 +145,16 @@ if (voice.content.startsWith(`${prefix}fx`)) {
 
   if (fxInput === "") {
     voice.channel.send(`**Error:** missing fx name!\nCheck #chat pins for list of fx`); 
+  } else if(fxInput == `rickroll`) {
+    voice.channel.send(`https://tenor.com/view/rickroll-dance-funny-you-music-gif-7755460`);
+    voiceChannel.join().then(async connection => {
+      const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
+      dispatcher.on('finish', () => voiceChannel.leave());
+    });
   } else {
   voiceChannel.join().then(async connection => {
-
     const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
     dispatcher.on('finish', () => voiceChannel.leave());
-
   });
 }
 }
