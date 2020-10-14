@@ -153,6 +153,12 @@ if (voice.content.startsWith(`${prefix}fx`)) {
       const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
       dispatcher.on('finish', () => voiceChannel.leave());
     });
+  } else if(fxInput == `ayesir`) {
+    voice.channel.send(`https://tenor.com/view/fairytail-cat-aye-yes-excited-gif-4531180`);
+    voiceChannel.join().then(async connection => {
+      const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
+      dispatcher.on('finish', () => voiceChannel.leave());
+    });
   } else {
   voiceChannel.join().then(async connection => {
     const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
