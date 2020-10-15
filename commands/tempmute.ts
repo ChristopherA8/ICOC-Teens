@@ -6,9 +6,9 @@ module.exports = {
 	    if (member.hasPermission('KICK_MEMBERS')) {
 
             var input = msg.content;
-            //var reason = input.substr('29').trim();
             const ping = msg.mentions.members.first();
             const time = input.split(' ');
+            //Emilio, if you see this comment. Ping me lol
             const Time = time[2];
             const role = msg.member.guild.roles.cache.get('759587936429277214');
 
@@ -23,8 +23,12 @@ module.exports = {
             //    msg.channel.send(`${ping} has been muted`);
             //    ping.roles.add(role);
             //}
-            } else {
-                msg.channel.send(`${ping} has been muted for ${Time}minute(s)`);
+            } else if(Time == `1`){
+                msg.channel.send(`${ping} has been muted for ${Time}minute`);
+                msg.channel.send(`Time = "${Time}"\ntime = "${time}"`);
+                ping.roles.add(role);
+            } else if(Time > 1){
+                msg.channel.send(`${ping} has been muted for ${Time}minutes`);
                 msg.channel.send(`Time = "${Time}"\ntime = "${time}"`);
                 ping.roles.add(role);
             }
