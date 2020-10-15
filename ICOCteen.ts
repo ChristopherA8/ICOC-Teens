@@ -98,7 +98,7 @@ if (voice.content.startsWith(`${prefix}play`)) {
   voiceChannel.join().then(async connection => {
     let result = await searcher.search(usrInput).catch(error => console.log(error));
 
-    const dispatcher = connection.play(await ytdl(result.first.url), { type: 'opus' }, {quality: 'highest' });
+    const dispatcher = connection.play(await ytdl(result.first.url), { type: 'opus' }, {quality: 'highest' }, {highWaterMark: 1024 * 1024 * 10});
     voice.channel.send(`> **Now Playing:** ${result.first.url}`);
 
     dispatcher.on('finish', () => voiceChannel.leave());
