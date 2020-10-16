@@ -9,13 +9,17 @@
     "discord.js-poll-embed": "^1.0.2",
     "ffmpeg-static": "^4.2.7",
     "node-fetch": "2.6.0",
+    "npx": "^10.2.2",
     "shoukaku": "^1.5.2",
+    "ts-node": "^9.0.0",
     "ws": "^7.3.1",
     "xmlhttprequest": "1.8.0",
     "ytdl-core-discord": "^1.2.1",
     "ytsearcher": "^1.2.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "typescript": "^4.0.3"
+  },
   "scripts": {
     "start": "node ."
   },
