@@ -3,22 +3,28 @@ module.exports = {
     name: "poll",
     execute(msg) {
 
-        //const pollEmbed = require('discord.js-poll-embed');
-       
+        const pollEmbed = require('discord.js-poll-embed');
+
+        var input = msg.content.substr(5);
+        if (input == "") {
+            msg.channel.send(`**Error:** Missing input!`);
+        } else {
+            var inputTrim = input.trim(); // removes space at beginning and end of string
+            var inputs = inputTrim.split('-');
+            var name = inputs[0];
+            var option1 = inputs[1];
+            var option2 = inputs[2];
+            var time = inputs[3];
+
+            var options = [`${option1}`, `${option2}`];
+            var timeout = `${time}`;
+            var emojiList = ['1️⃣', '2️⃣'];
+            var forceEndPollEmoji = '🛑';
+            var title = `${name}`;
+            pollEmbed(msg, title, options, timeout, emojiList, forceEndPollEmoji);
+        }
 
 
-        msg.channel.send('Name: ').then(message => {
-        msg.channel.awaitMessages(m => m.author.id === msg.author.id, { max: 1, time: 5000, errors: ['time'] })
-        .then(collected => msg.channel.send(`Name = "${collected.first()}"`))
-        .catch(collected => message.delete());
-        });
-
-        var options = ['ice', 'party'];
-        var timeout = 30;
-        var emojiList = ['🧊', '🎉'];
-        var forceEndPollEmoji = '✌';
-        var title = `test`;
-        //pollEmbed(msg, title, options, timeout, emojiList, forceEndPollEmoji);
 
 
     },
