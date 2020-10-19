@@ -1,4 +1,4 @@
-const Discord65 = require('discord.js');
+const Discord67 = require('discord.js');
 module.exports = {
     name: "poll",
     execute(msg) {
@@ -36,12 +36,11 @@ module.exports = {
            var name = inputs[0];
            var option1 = inputs[1];
            var option2 = inputs[2];
-           var option3 = inputs[3];
            var time = inputs[4];
 
-           var options = [`${option1}`, `${option2}`, `${option3}`];
+           var options = [`${option1}`, `${option2}`];
            var timeout = `${time}`;
-           var emojiList = ['1️⃣', '2️⃣', '3️⃣'];
+           var emojiList = ['1️⃣', '2️⃣'];
            var forceEndPollEmoji = '🛑';
            var title = `${name}`;
            pollEmbed(msg, title, options, timeout, emojiList, forceEndPollEmoji);
