@@ -99,7 +99,8 @@ module.exports = {
             .setDescription(``)
                 .addFields(
                 { name: '\`!ping <@user>\`', value: `pings user a lot`, inline: true},
-                { name: `\`!off\``, value: `shutdown bot, limited to "Engineer" role`, inline: true}
+                { name: `\`!off\``, value: `shutdown bot, limited to "Engineer" role`, inline: true},
+                { name: `\`!annoy\``, value: `repeats what you say for 10 seconds`, inline: false}
             )
             msg.channel.send(exampleEmbed);
 
