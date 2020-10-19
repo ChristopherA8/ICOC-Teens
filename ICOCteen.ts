@@ -213,13 +213,13 @@ const channel = oldMember.client.channels.cache.find(channel => channel.name ===
 
   //nickname changed
   if (oldMember.nickname !== newMember.nickname) {
-    nick(oldMember, newMember, channel);
+    change = Changes.nickname;
   }
 
-    //username changed
-    if (oldMember.username !== newMember.username) {
-      username(oldMember, newMember, channel);
-    }
+  //username changed
+  if (oldMember.user.username !== newMember.user.username) {
+    change = Changes.username;
+  }
 
   switch (change) {
     case Changes.addedRole:
@@ -227,6 +227,12 @@ const channel = oldMember.client.channels.cache.find(channel => channel.name ===
       break;
     case Changes.removedRole:
       delRole(removedRole, oldMember, channel);
+      break;
+    case Changes.username:
+      username(oldMember, newMember, channel);
+      break;
+    case Changes.nickname:
+      nick(oldMember, newMember, channel);
       break;
   }
 
@@ -277,7 +283,7 @@ function username(oldMember, newMember, auditChannel) {
   .setAuthor(`${oldMember.displayName}`, `${oldMember.user.displayAvatarURL({ dynamic: true })}`)
   .setColor('#00FF86')
   .setFooter(`ID: ${oldMember.id}`)
-  .setDescription(`Username Changed:\n\nOld: \`${oldMember.username}\` -> New: \`${newMember.username}\``)
+  .setDescription(`Username Changed:\n\nOld: \`${oldMember.user.username}\` -> New: \`${newMember.user.username}\``)
   auditChannel.send(exampleEmbed);
 
 }
