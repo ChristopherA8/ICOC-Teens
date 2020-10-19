@@ -83,7 +83,7 @@ module.exports = {
                 { name: '\`!play\`', value: `plays song from youtube`, inline: true},
                 { name: `\`!stop\``, value: `stops song`, inline: true},
                 { name: '\`!bitrate\`', value: `fetches bitrate of channel`, inline: true},
-                { name: '\`!fx <name>\`', value: `available fx: airhorn, ayesir, chottomate, easy, heyaha, hourslater, illuminati, johncena, ohh, oof, replay, ricknmorty, rickroll, wow, yeet, gay, longoof, megaoof, zawarudo`, inline: true},
+                { name: '\`!fx <name>\`', value: `available fx: airhorn, ayesir, chottomate, easy, heyaha, hourslater, illuminati, johncena, ohh, oof, replay, ricknmorty, rickroll, wow, yeet, gay, longoof, megaoof, zawarudo, nice`, inline: true},
             )
             msg.channel.send(exampleEmbed);
 
