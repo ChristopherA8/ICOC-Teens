@@ -175,7 +175,7 @@ if (voice.content.startsWith(`${prefix}fx`)) {
 
 
 ///////////////////////////////////////
-// LOGGING
+// MEMBER LOGGING
 ///////////////////////////////////////
 
 client.on('guildMemberUpdate', async (oldMember, newMember) => {
@@ -250,6 +250,163 @@ function addRole(addedRole, oldMember, auditChannel) {
 
 }
 
+});
+
+
+//////////////////////////////////
+// CHANNEL LOGGING
+//////////////////////////////////
+
+client.on('channelCreate', newChannel => {
+
+  const channel = newChannel.client.channels.cache.find(channel => channel.name === `audit-log`);
+
+  addChannel(newChannel, channel);
+
+  //////////////////
+  // EMBED
+  //////////////////
+
+  function addChannel(newChannel, channel) {
+    
+    const exampleEmbed = new Discord.MessageEmbed()
+    .setAuthor(`Channel Updated -`)
+    .setColor('#00FF86')
+    .setFooter(`Channel ID: ${newChannel.id}`)
+    .setDescription(`Channel Created: #${newChannel.name}`)
+    channel.send(exampleEmbed);
+
+  }
+
+});
+
+
+client.on('channelDelete', removedChannel => {
+
+  const channel = removedChannel.client.channels.cache.find(channel => channel.name === `audit-log`);
+
+  removeChannel(removedChannel, channel);
+
+  //////////////////
+  // EMBED
+  //////////////////
+
+  function removeChannel(removedChannel, channel) {
+    
+    const exampleEmbed = new Discord.MessageEmbed()
+    .setAuthor(`Channel Updated -`)
+    .setColor('#00FF86')
+    .setFooter(`Channel ID: ${removedChannel.id}`)
+    .setDescription(`Channel Removed: #${removedChannel.name}`)
+    channel.send(exampleEmbed);
+
+  }
+
+});
+
+client.on(`channelUpdate`, (oldChannel, newChannel) => {
+
+  const channel = oldChannel.client.channels.cache.find(channel => channel.name === `audit-log`);
+
+  if(newChannel.name !== oldChannel.name) {
+    channelName(oldChannel, newChannel, channel);
+  }
+  
+
+  //////////////////
+  // EMBED
+  //////////////////
+
+  function channelName(oldChannel, newChannel, channel) {
+    
+    const exampleEmbed = new Discord.MessageEmbed()
+    .setAuthor(`Channel Updated -`)
+    .setColor('#00FF86')
+    .setFooter(`Channel ID: ${newChannel.id}`)
+    .setDescription(`Channel Name Changed:\n\nOld: \`${oldChannel.name}\` -> New: \`${newChannel.name}\``)
+    channel.send(exampleEmbed);
+
+  }
+
+});
+
+
+////////////////////////////
+// ROLE LOGGING
+////////////////////////////
+
+client.on(`roleCreate`, newRole => {
+
+const channel = newRole.client.channels.cache.find(channel => channel.name === `audit-log`);
+
+createRole(newRole, channel);
+  
+
+  //////////////////
+  // EMBED
+  //////////////////
+
+  function createRole(newRole, channel) {
+    
+    const exampleEmbed = new Discord.MessageEmbed()
+    .setAuthor(`Roles Updated -`)
+    .setColor('#00FF86')
+    .setFooter(`Channel ID: ${newRole.id}`)
+    .setDescription(`Role Created: ${newRole}`)
+    channel.send(exampleEmbed);
+
+  }
+
+});
+
+client.on(`roleDelete`, delRole => {
+
+  const channel = delRole.client.channels.cache.find(channel => channel.name === `audit-log`);
+  
+  deleteRole(delRole, channel);
+    
+  
+    //////////////////
+    // EMBED
+    //////////////////
+  
+    function deleteRole(delRole, channel) {
+      
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setAuthor(`Roles Updated -`)
+      .setColor('#00FF86')
+      .setFooter(`Channel ID: ${delRole.id}`)
+      .setDescription(`Role Removed: ${delRole.name}`)
+      channel.send(exampleEmbed);
+  
+    }
+  
+});
+
+client.on(`roleUpdate`, (oldRole, newRole) => {
+
+  const channel = oldRole.client.channels.cache.find(channel => channel.name === `audit-log`);
+  
+  if (oldRole.name !== newRole.name) {
+    roleName(oldRole, newRole, channel);
+  }
+
+  
+    //////////////////
+    // EMBED
+    //////////////////
+  
+    function roleName(oldRole, newRole, channel) {
+      
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setAuthor(`Roles Updated -`)
+      .setColor('#00FF86')
+      .setFooter(`Channel ID: ${newRole.id}`)
+      .setDescription(`Role Name Changed:\n\nOld: \`${oldRole.name}\` -> New: \`${newRole.name}\``)
+      channel.send(exampleEmbed);
+  
+    }
+  
 });
 
 
