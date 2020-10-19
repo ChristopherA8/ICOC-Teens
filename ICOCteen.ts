@@ -216,6 +216,11 @@ const channel = oldMember.client.channels.cache.find(channel => channel.name ===
     nick(oldMember, newMember, channel);
   }
 
+    //username changed
+    if (oldMember.username !== newMember.username) {
+      username(oldMember, newMember, channel);
+    }
+
   switch (change) {
     case Changes.addedRole:
       addRole(addedRole, oldMember, channel);
@@ -262,6 +267,17 @@ function nick(oldMember, newMember, auditChannel) {
   .setColor('#00FF86')
   .setFooter(`ID: ${oldMember.id}`)
   .setDescription(`Nickname Changed:\n\nOld: \`${oldMember.displayName}\` -> New: \`${newMember.displayName}\``)
+  auditChannel.send(exampleEmbed);
+
+}
+
+function username(oldMember, newMember, auditChannel) {
+  
+  const exampleEmbed = new Discord.MessageEmbed()
+  .setAuthor(`${oldMember.displayName}`, `${oldMember.user.displayAvatarURL({ dynamic: true })}`)
+  .setColor('#00FF86')
+  .setFooter(`ID: ${oldMember.id}`)
+  .setDescription(`Username Changed:\n\nOld: \`${oldMember.username}\` -> New: \`${newMember.username}\``)
   auditChannel.send(exampleEmbed);
 
 }
