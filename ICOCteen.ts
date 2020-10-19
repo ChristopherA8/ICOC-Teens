@@ -174,6 +174,84 @@ if (voice.content.startsWith(`${prefix}fx`)) {
 });
 
 
+///////////////////////////////////////
+// LOGGING
+///////////////////////////////////////
+
+client.on('guildMemberUpdate', async (oldMember, newMember) => {
+
+const channel = oldMember.client.channels.cache.find(channel => channel.name === `audit-log`);
+
+  //declare changes
+  var Changes = {
+    unknown: 0,
+    addedRole: 1,
+    removedRole: 2,
+    username: 3,
+    nickname: 4,
+    avatar: 5,
+  };
+  var change = Changes.unknown;
+  var removedRole;
+  var addedRole;
+
+  //Removed role
+  oldMember.roles.cache.forEach((value) => {
+    if (!newMember.roles.cache.find((role) => role.id === value.id)) {
+     change = Changes.removedRole;
+     removedRole = value.name;
+    }
+  });
+
+  //Added role
+  newMember.roles.cache.forEach((value) => {
+    if (!oldMember.roles.cache.find((role) => role.id === value.id)) {
+     change = Changes.addedRole;
+     addedRole = value.name;
+    }
+  });
+
+  switch (change) {
+    case Changes.addedRole:
+      addRole(addedRole, oldMember, channel);
+      break;
+    case Changes.removedRole:
+      delRole(removedRole, oldMember, channel);
+      break;
+  }
+
+
+
+////////////////////////
+// EMBEDS
+////////////////////////
+
+function delRole(removedRole, oldMember, auditChannel) {
+  
+  const exampleEmbed = new Discord.MessageEmbed()
+  .setAuthor(`${oldMember.nickname}`)
+  .setColor('#00FF86')
+  .setFooter(`ID: ${oldMember.id}`)
+  .setDescription(`Role Removed: \`${removedRole}\``)
+  //.setThumbnail(`${oldMember}`)
+  auditChannel.send(exampleEmbed);
+
+}
+
+function addRole(addedRole, oldMember, auditChannel) {
+  
+  const exampleEmbed = new Discord.MessageEmbed()
+  .setAuthor(`${oldMember.nickname}`)
+  .setColor('#00FF86')
+  .setFooter(`ID: ${oldMember.id}`)
+  .setDescription(`Role Added: \`${addedRole}\``)
+  //.setThumbnail(`${oldMember}`)
+  auditChannel.send(exampleEmbed);
+
+}
+
+});
+
 
 client.login(token)
 
