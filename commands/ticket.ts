@@ -19,6 +19,8 @@ module.exports = {
             channel.send(exampleEmbed);
             //embed end
 
+            msg.channel.send(`You're message was sent! `);
+
         }
 
     },
