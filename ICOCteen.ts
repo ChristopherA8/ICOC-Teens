@@ -217,7 +217,7 @@ const channel = oldMember.client.channels.cache.find(channel => channel.name ===
   }
 
   //username changed
-  if (oldMember.user.username !== newMember.user.username) {
+  if (newMember.user.username !== oldMember.user.username) {
     change = Changes.username;
   }
 
