@@ -20,7 +20,7 @@ module.exports = {
 		.setThumbnail(`${msg.author.displayAvatarURL(({dynamic : true}))}`)
         .addFields(
 			{ name: '**Registered**', value: `${s}`, inline: true},
-			{ name: `**Nickname**`, value: `${msg.member.nickname}`, inline: true}
+			{ name: `**Nickname**`, value: `${msg.member.displayName}`, inline: true}
 		)
 		.addField('Roles', roles ? roles : 'No roles.')
 		msg.channel.send(exampleEmbed);

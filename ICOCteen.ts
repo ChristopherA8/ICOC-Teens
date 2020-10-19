@@ -211,6 +211,11 @@ const channel = oldMember.client.channels.cache.find(channel => channel.name ===
     }
   });
 
+  //nickname changed
+  if (oldMember.nickname !== newMember.nickname) {
+    nick(oldMember, newMember, channel);
+  }
+
   switch (change) {
     case Changes.addedRole:
       addRole(addedRole, oldMember, channel);
@@ -229,7 +234,7 @@ const channel = oldMember.client.channels.cache.find(channel => channel.name ===
 function delRole(removedRole, oldMember, auditChannel) {
   
   const exampleEmbed = new Discord.MessageEmbed()
-  .setAuthor(`${oldMember.nickname}`)
+  .setAuthor(`${oldMember.displayName}`, `${oldMember.user.displayAvatarURL({ dynamic: true })}`)
   .setColor('#00FF86')
   .setFooter(`ID: ${oldMember.id}`)
   .setDescription(`Role Removed: \`${removedRole}\``)
@@ -241,11 +246,22 @@ function delRole(removedRole, oldMember, auditChannel) {
 function addRole(addedRole, oldMember, auditChannel) {
   
   const exampleEmbed = new Discord.MessageEmbed()
-  .setAuthor(`${oldMember.nickname}`)
+  .setAuthor(`${oldMember.displayName}`, `${oldMember.user.displayAvatarURL({ dynamic: true })}`)
   .setColor('#00FF86')
   .setFooter(`ID: ${oldMember.id}`)
   .setDescription(`Role Added: \`${addedRole}\``)
   //.setThumbnail(`${oldMember}`)
+  auditChannel.send(exampleEmbed);
+
+}
+
+function nick(oldMember, newMember, auditChannel) {
+  
+  const exampleEmbed = new Discord.MessageEmbed()
+  .setAuthor(`${oldMember.displayName}`, `${oldMember.user.displayAvatarURL({ dynamic: true })}`)
+  .setColor('#00FF86')
+  .setFooter(`ID: ${oldMember.id}`)
+  .setDescription(`Nickname Changed:\n\nOld: \`${oldMember.displayName}\` -> New: \`${newMember.displayName}\``)
   auditChannel.send(exampleEmbed);
 
 }
