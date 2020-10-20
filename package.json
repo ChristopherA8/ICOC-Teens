@@ -7,6 +7,7 @@
     "@discordjs/opus": "^0.3.2",
     "discord.js": "12.3.1",
     "discord.js-poll-embed": "^1.0.2",
+    "entities": "^2.1.0",
     "ffmpeg-static": "^4.2.7",
     "node-fetch": "2.6.0",
     "npx": "^10.2.2",
