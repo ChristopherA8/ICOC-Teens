@@ -162,7 +162,7 @@ if (voice.content.startsWith(`${prefix}fx`)) {
   } else {
   voiceChannel.join().then(async connection => {
     const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
-    dispatcher.setVolume(40);
+    dispatcher.setVolume(5);
     dispatcher.on('finish', () => {
       dispatcher.setVolume(1);
       voiceChannel.leave()
@@ -359,6 +359,9 @@ client.on(`channelUpdate`, (oldChannel, newChannel) => {
     channelName(oldChannel, newChannel, channel);
   }
   
+  if(newChannel.bitrate !== oldChannel.bitrate) {
+    bitrate(oldChannel, newChannel, channel);
+  }
 
   //////////////////
   // EMBED
@@ -371,6 +374,17 @@ client.on(`channelUpdate`, (oldChannel, newChannel) => {
     .setColor('#00FF86')
     .setFooter(`Channel ID: ${newChannel.id}`)
     .setDescription(`Channel Name Changed:\n\nOld: \`${oldChannel.name}\` -> New: \`${newChannel.name}\``)
+    channel.send(exampleEmbed);
+
+  }
+
+  function bitrate(oldChannel, newChannel, channel) {
+    
+    const exampleEmbed = new Discord.MessageEmbed()
+    .setAuthor(`Channel Updated -`)
+    .setColor('#00FF86')
+    .setFooter(`Channel ID: ${newChannel.id}`)
+    .setDescription(`Channel Bitrate Changed:\n\nOld: \`${oldChannel.bitrate / 1000}kbps\` -> New: \`${newChannel.bitrate / 1000}kbps\``)
     channel.send(exampleEmbed);
 
   }
