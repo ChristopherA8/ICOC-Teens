@@ -162,7 +162,7 @@ if (voice.content.startsWith(`${prefix}fx`)) {
   } else {
   voiceChannel.join().then(async connection => {
     const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
-    dispatcher.setVolume(3);
+    dispatcher.setVolume(40);
     dispatcher.on('finish', () => {
       dispatcher.setVolume(1);
       voiceChannel.leave()
