@@ -290,7 +290,7 @@ client.on(`userUpdate`, (oldUser, newUser) => {
 function username(oldUser, newUser, auditChannel) {
   
   const exampleEmbed = new Discord.MessageEmbed()
-  .setAuthor(`${oldUser}`, `${oldUser.displayAvatarURL({ dynamic: true })}`)
+  .setAuthor(`${oldUser.username}`, `${oldUser.displayAvatarURL({ dynamic: true })}`)
   .setColor('#00FF86')
   .setFooter(`ID: ${oldUser.id}`)
   .setDescription(`Username Changed:\n\nOld: \`${oldUser.username}\` -> New: \`${newUser.username}\``)
