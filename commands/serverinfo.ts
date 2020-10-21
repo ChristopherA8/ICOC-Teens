@@ -13,7 +13,7 @@ module.exports = {
 		.setAuthor(`Server Name: ${msg.guild.name}`)
 		.setTitle(`Server Info:`)
         .setColor('#00FF86')
-		.setFooter(`ID: ${msg.guild.id}`)
+		.setFooter(`Guild ID: ${msg.guild.id}`)
 		.addFields(
 			{ name: 'Member Count:', value: `${msg.guild.memberCount}`, inline: true},
 			{ name: `Created At:`, value: `${s}`, inline: true},
