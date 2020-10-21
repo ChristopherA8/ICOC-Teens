@@ -84,7 +84,7 @@ module.exports = {
                 { name: '\`!play\`', value: `plays song from youtube`, inline: true},
                 { name: `\`!stop\``, value: `stops song`, inline: true},
                 { name: '\`!bitrate\`', value: `fetches bitrate of channel`, inline: true},
-                { name: '\`!fx <name>\`', value: `available fx: airhorn, ayesir, chottomate, easy, heyaha, hourslater, illuminati, johncena, ohh, oof, replay, ricknmorty, rickroll, wow, yeet, gay, longoof, megaoof, zawarudo, nice`, inline: true},
+                { name: '\`!fx <name>\`', value: `available fx: airhorn, ayesir, chottomate, easy, heyaha, hourslater, illuminati, johncena, ohh, oof, replay, ricknmorty, rickroll, wow, yeet, gay, longoof, megaoof, zawarudo, nice, gucci, letsgo`, inline: true},
             )
             msg.channel.send(exampleEmbed);
 
@@ -101,7 +101,8 @@ module.exports = {
                 .addFields(
                 { name: '\`!ping <@user>\`', value: `pings user a lot`, inline: true},
                 { name: `\`!off\``, value: `shutdown bot, limited to "Engineer" role`, inline: true},
-                { name: `\`!annoy\``, value: `repeats what you say for 10 seconds`, inline: false}
+                { name: `\`!annoy\``, value: `repeats what you say for 10 seconds`, inline: false},
+                { name: `\`!question\``, value: `fetches a random true/false question`, inline: false}
             )
             msg.channel.send(exampleEmbed);
 
