@@ -5,6 +5,10 @@ module.exports = {
 	description: '',
 	execute(msg, args) {
 
+        if (msg.author.id == `689910756711727193`) {
+            msg.channel.send(`hahaha you thought`);
+        } else {
+
         var input = msg.content;
         var usrInput = input.substr(6);
         var amount = usrInput;
@@ -40,6 +44,7 @@ module.exports = {
         } else {
             msg.channel.send(`\**Error:\** You are missing "Manage Messages" perms`);
         }
+    }//closing bracket for davids if()
         
 	},
 };
