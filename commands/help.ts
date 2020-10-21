@@ -41,7 +41,8 @@ module.exports = {
                 { name: '\`!icon\`', value: `get server icon`, inline: true},
                 { name: '\`!pfp\`', value: `get user profile picture`, inline: true},
                 { name: '\`!serverinfo\`', value: `get server info`, inline: true},
-                { name: '\`!userinfo\`', value: `get user info`, inline: true}
+                { name: '\`!userinfo\`', value: `get user info`, inline: true},
+                { name: '\`!roles\`', value: `lists all server roles`, inline: true}
             )
             msg.channel.send(exampleEmbed);
             
