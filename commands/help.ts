@@ -65,7 +65,8 @@ module.exports = {
                 { name: '\`!mute <@user> [reason]\`', value: `mute user`, inline: true},
                 { name: '\`!unmute <@user> [reason]\`', value: `unmute user`, inline: true},
                 { name: '\`!tempmute <@user> <time (don\'t make this rly big or it breaks)>\`', value: `tempmute user`, inline: true},
-                { name: '\`!ticket <message>\`', value: `send message to staff only channel`, inline: true}
+                { name: '\`!ticket <message>\`', value: `send message to staff only channel`, inline: true},
+                { name: '\`!bans\`', value: `lists all banned users`, inline: true}
                 
             )
             msg.channel.send(exampleEmbed);
