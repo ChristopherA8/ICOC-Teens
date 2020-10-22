@@ -34,7 +34,7 @@ client.on('guildMemberAdd', join => {
 
   var teensrole = join.guild.roles.cache.get("698634625077215372")
   join.roles.add(teensrole);
-  const channel = join.client.channels.cache.find(channel => channel.name === `welcome`);
+  const channel = join.client.channels.cache.find(channel => channel.id == `698591277205422171`);
   channel.send(`Welcome ${join} to ICOC Teens!`);
 
 });
@@ -180,7 +180,7 @@ if (voice.content.startsWith(`${prefix}fx`)) {
 
 client.on('guildMemberUpdate', async (oldMember, newMember) => {
 
-const channel = oldMember.client.channels.cache.find(channel => channel.name === `audit-log`);
+const channel = oldMember.client.channels.cache.find(channel => channel.id === `759967435309842494`);
 
   //declare changes
   var Changes = {
@@ -298,7 +298,7 @@ client.on('guildMemberRemove', async member => {
 
 client.on(`userUpdate`, (oldUser, newUser) => {
 
-  const channel = oldUser.client.channels.cache.find(channel => channel.name === `audit-log`);
+  const channel = oldUser.client.channels.cache.find(channel => channel.id === `759967435309842494`);
 
   if (oldUser.username !== newUser.username) {
     username(oldUser, newUser, channel);
@@ -327,7 +327,7 @@ function username(oldUser, newUser, auditChannel) {
 
 client.on('channelCreate', newChannel => {
 
-  const channel = newChannel.client.channels.cache.find(channel => channel.name === `audit-log`);
+  const channel = newChannel.client.channels.cache.find(channel => channel.id === `759967435309842494`);
 
   addChannel(newChannel, channel);
 
@@ -341,7 +341,7 @@ client.on('channelCreate', newChannel => {
     .setAuthor(`Channel Updated -`)
     .setColor('#00FF86')
     .setFooter(`Channel ID: ${newChannel.id}`)
-    .setDescription(`Channel Created: #${newChannel.name}`)
+    .setDescription(`Channel Created: \`#${newChannel.name}\``)
     channel.send(exampleEmbed);
 
   }
@@ -351,7 +351,7 @@ client.on('channelCreate', newChannel => {
 
 client.on('channelDelete', removedChannel => {
 
-  const channel = removedChannel.client.channels.cache.find(channel => channel.name === `audit-log`);
+  const channel = removedChannel.client.channels.cache.find(channel => channel.id === `759967435309842494`);
 
   removeChannel(removedChannel, channel);
 
@@ -365,7 +365,7 @@ client.on('channelDelete', removedChannel => {
     .setAuthor(`Channel Updated -`)
     .setColor('#00FF86')
     .setFooter(`Channel ID: ${removedChannel.id}`)
-    .setDescription(`Channel Removed: #${removedChannel.name}`)
+    .setDescription(`Channel Removed: \`#${removedChannel.name}\``)
     channel.send(exampleEmbed);
 
   }
@@ -374,7 +374,7 @@ client.on('channelDelete', removedChannel => {
 
 client.on(`channelUpdate`, (oldChannel, newChannel) => {
 
-  const channel = oldChannel.client.channels.cache.find(channel => channel.name === `audit-log`);
+  const channel = oldChannel.client.channels.cache.find(channel => channel.id === `759967435309842494`);
 
   if(newChannel.name !== oldChannel.name) {
     channelName(oldChannel, newChannel, channel);
@@ -419,7 +419,7 @@ client.on(`channelUpdate`, (oldChannel, newChannel) => {
 
 client.on(`roleCreate`, newRole => {
 
-const channel = newRole.client.channels.cache.find(channel => channel.name === `audit-log`);
+const channel = newRole.client.channels.cache.find(channel => channel.id === `759967435309842494`);
 
 createRole(newRole, channel);
   
@@ -433,7 +433,7 @@ createRole(newRole, channel);
     const exampleEmbed = new Discord.MessageEmbed()
     .setAuthor(`Roles Updated -`)
     .setColor('#00FF86')
-    .setFooter(`Channel ID: ${newRole.id}`)
+    .setFooter(`Role ID: ${newRole.id}`)
     .setDescription(`Role Created: ${newRole}`)
     channel.send(exampleEmbed);
 
@@ -443,7 +443,7 @@ createRole(newRole, channel);
 
 client.on(`roleDelete`, delRole => {
 
-  const channel = delRole.client.channels.cache.find(channel => channel.name === `audit-log`);
+  const channel = delRole.client.channels.cache.find(channel => channel.id === `759967435309842494`);
   
   deleteRole(delRole, channel);
     
@@ -457,8 +457,8 @@ client.on(`roleDelete`, delRole => {
       const exampleEmbed = new Discord.MessageEmbed()
       .setAuthor(`Roles Updated -`)
       .setColor('#00FF86')
-      .setFooter(`Channel ID: ${delRole.id}`)
-      .setDescription(`Role Removed: ${delRole.name}`)
+      .setFooter(`Role ID: ${delRole.id}`)
+      .setDescription(`Role Removed: \`${delRole.name}\``)
       channel.send(exampleEmbed);
   
     }
@@ -467,7 +467,7 @@ client.on(`roleDelete`, delRole => {
 
 client.on(`roleUpdate`, (oldRole, newRole) => {
 
-  const channel = oldRole.client.channels.cache.find(channel => channel.name === `audit-log`);
+  const channel = oldRole.client.channels.cache.find(channel => channel.id === `759967435309842494`);
   
   if (oldRole.name !== newRole.name) {
     roleName(oldRole, newRole, channel);
@@ -483,7 +483,7 @@ client.on(`roleUpdate`, (oldRole, newRole) => {
       const exampleEmbed = new Discord.MessageEmbed()
       .setAuthor(`Roles Updated -`)
       .setColor('#00FF86')
-      .setFooter(`Channel ID: ${newRole.id}`)
+      .setFooter(`Role ID: ${newRole.id}`)
       .setDescription(`Role Name Changed:\n\nOld: \`${oldRole.name}\` -> New: \`${newRole.name}\``)
       channel.send(exampleEmbed);
   
@@ -491,6 +491,122 @@ client.on(`roleUpdate`, (oldRole, newRole) => {
   
 });
 
+/////////////////////
+// MESSAGE LOGGING
+/////////////////////
+
+client.on(`messageDelete`, del => {
+
+  var deletedMessage = del.content;
+  const channel = del.client.channels.cache.find(channel => channel.id === `768882922379280464`);
+
+  delMsg(del, channel);
+    
+  
+//////////////////
+// EMBED
+//////////////////
+
+function delMsg(del, channel) {
+  
+  const exampleEmbed = new Discord.MessageEmbed()
+  .setAuthor(`Message Updated -`)
+  .setColor('#00FF86')
+  .setFooter(`Message Author: ${del.author.tag} | In Channel: ${del.channel.toString()}`)
+  .setDescription(`Message Deleted: \n\`\`\`${del}\`\`\``)
+  channel.send(exampleEmbed);
+
+}
+
+});
+
+client.on(`messageDeleteBulk`, bulk => {
+
+  const channel = client.channels.cache.find(channel => channel.id === `768882922379280464`);
+
+  var i = 1;
+  var bulkDel = bulk.map((b) => b.content).join(`\n`);
+
+  bulkDelEmbed(bulk, channel, bulkDel);
+
+  ///////////////
+  // EMBED
+  ///////////////
+
+  function bulkDelEmbed(bulk, channel, array) {
+    
+    const exampleEmbed = new Discord.MessageEmbed()
+    .setAuthor(`Message Updated -`)
+    .setColor('#00FF86')
+    //.setFooter(`Message(s) Author: ${array.author.tag}`)
+    .setDescription(`${array.size} Message(s) Deleted (reverse order): \n\`\`\`${array}\`\`\``)
+    channel.send(exampleEmbed);
+
+  }
+
+});
+
+client.on(`messageUpdate`, (oldMsg, newMsg) => {
+
+  const channel = client.channels.cache.find(channel => channel.id === `768882922379280464`);
+
+  if (oldMsg.content !== newMsg.content) {
+    editMessage(oldMsg, newMsg, channel);
+  }
+
+
+  //////////////////
+  // EMBED
+  //////////////////
+
+  function editMessage(oldMsg, newMsg, channel) {
+    
+    const exampleEmbed = new Discord.MessageEmbed()
+    .setAuthor(`Message Updated -`)
+    .setColor('#00FF86')
+    .setFooter(`Message ID: ${newMsg.id}`)
+    //.setDescription(`Message Edited:\nIn Channel ${newMsg.channel.toString()}\nOld: \`\`\`${oldMsg.content}\`\`\` \nNew: \`\`\`${newMsg.content}\`\`\``)
+    .addFields(
+      { name:`In Channel:`, value:`"${newMsg.channel.toString()}"`, inline: true },
+      { name:`Message Contents:`, value:`Old: \`\`\`${oldMsg.content}\`\`\` \nNew: \`\`\`${newMsg.content}\`\`\``, inline: false },
+    )
+    channel.send(exampleEmbed);
+
+  }
+
+});
+
+//////////////////////
+// INVITE LOGGING
+//////////////////////
+
+client.on(`inviteCreate`, inv => {
+
+  const channel = inv.client.channels.cache.find(channel => channel.id === `759967435309842494`);
+  createInv(inv, channel);
+
+//////////////////
+// EMBED
+//////////////////
+
+function createInv(inv, channel) {
+  
+  const exampleEmbed = new Discord.MessageEmbed()
+  .setAuthor(`Invite Created -`)
+  .setColor('#00FF86')
+  .setFooter(`Invite Code: ${inv.code}`)
+  .addFields(
+    { name:`Invite URL`, value:`"<${inv}>"`, inline: true },
+    { name:`Invite Maker:`, value:`${inv.inviter}`, inline: true },
+    { name:`Max Uses:`, value:`${inv.maxUses}`, inline: false },
+    { name:`Length:`, value:`${inv.maxAge}`, inline: true }
+  )
+  //.setDescription(`Invite Created: ${inv}`)
+  channel.send(exampleEmbed);
+
+}
+
+});
 
 client.login(token)
 

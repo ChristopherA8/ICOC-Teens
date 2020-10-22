@@ -102,8 +102,9 @@ module.exports = {
                 .addFields(
                 { name: '\`!ping <@user>\`', value: `pings user a lot`, inline: true},
                 { name: `\`!off\``, value: `shutdown bot, limited to "Engineer" role`, inline: true},
-                { name: `\`!annoy\``, value: `repeats what you say for 10 seconds`, inline: false},
-                { name: `\`!question\``, value: `fetches a random true/false question`, inline: false}
+                { name: `\`!annoy\``, value: `repeats what you say for 10 seconds`, inline: true},
+                { name: `\`!trivia\``, value: `fetches a random true/false question`, inline: true},
+                { name: `\`!status <status>\``, value: `changes status of bot`, inline: true},
             )
             msg.channel.send(exampleEmbed);
 
