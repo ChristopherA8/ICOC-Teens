@@ -2,7 +2,7 @@ module.exports = {
     name: "status",
     execute(msg) {
 
-        var input = msg.content.substr(7);
+        var input = msg.content.substr(7).trim();
 
         switch (input) {
             case `invisible`:
