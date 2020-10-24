@@ -2,12 +2,13 @@ const Discord90 = require('discord.js');
 module.exports = {
     name: "ticket",
     execute(msg) {
-        const channel = msg.client.channels.cache.find(channel => channel.name === `staff-chat`);
+        const channel = msg.client.channels.cache.find(channel => channel.id === `698594785803501629`);
         var ticket = msg.content.substr(7);
 
         if (ticket == "") {
             msg.channel.send(`**Error:** Invalid ticket!`);
         } else {
+            msg.delete();
             const trimmedTicket = ticket.trim();
             //embed start
             const exampleEmbed = new Discord90.MessageEmbed()
@@ -25,3 +26,5 @@ module.exports = {
 
     },
 };
+
+//hell, omg
