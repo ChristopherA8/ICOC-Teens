@@ -504,9 +504,9 @@ client.on(`messageDelete`, del => {
   const channel = del.client.channels.cache.find(channel => channel.id === `768882922379280464`);
 
   if (del.author.id !== `234395307759108106`) {
-    
+    delMsg(del, channel);
   }
-  delMsg(del, channel);
+
     
   
 //////////////////
@@ -641,7 +641,7 @@ for (let i = 0; i < arr.length; i++) {
   // Shifting to lowercase here allows case iNsEnSiTiViTy.
   if (str.toLowerCase().includes(elem)) {
     nono.delete();
-    nono.channel.send(`Get Rekt <:thonksweat:732320557659586590><:thonksweat:732320557659586590>`);
+    nono.channel.send(`Get Rekt <:PikaKek:761290239046058016> <:PikaKek:761290239046058016>`);
   }
 }
 
