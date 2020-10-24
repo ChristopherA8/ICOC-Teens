@@ -82,7 +82,7 @@ module.exports = {
                 .setFooter(`page 3/4`)
             .setDescription(``)
                 .addFields(
-                { name: '\`!play\`', value: `plays song from youtube`, inline: true},
+                { name: '\`!play <song name>\`', value: `plays song from youtube`, inline: true},
                 { name: `\`!stop\``, value: `stops song`, inline: true},
                 { name: '\`!bitrate\`', value: `fetches bitrate of channel`, inline: true},
                 { name: '\`!fx <name>\`', value: `available fx: airhorn, ayesir, chottomate, easy, heyaha, hourslater, illuminati, johncena, ohh, oof, replay, ricknmorty, rickroll, wow, yeet, gay, longoof, megaoof, zawarudo, nice, gucci, letsgo`, inline: true},
