@@ -35,7 +35,7 @@ client.on('guildMemberAdd', join => {
   var teensrole = join.guild.roles.cache.get("698634625077215372")
   join.roles.add(teensrole);
   const channel = join.client.channels.cache.find(channel => channel.id == `698591277205422171`);
-  channel.send(`Welcome ${join} to ICOC Teens!`);
+  channel.send(`Welcome ${join} to ICOC Teens! <a:wavehi:769217908373979156>`);
 
 });
 
@@ -272,12 +272,15 @@ function nick(oldMember, newMember, auditChannel) {
 });
 
 client.on('guildMemberRemove', async member => {
+
+  const channel = member.client.channels.cache.find(channel => channel.id === `759967435309842494`);
+
   const fetchedLogs = await member.guild.fetchAuditLogs({
       limit: 1,
       type: 'MEMBER_KICK',
   });
   const kickLog = fetchedLogs.entries.first();
-  if (!kickLog) return console.log(`${member.user.tag} left the guild <:cry:>`);
+  if (!kickLog) return channel.send(`> ${member.user.tag} left the guild <:dead:765721212033695784>`);
 
   // We now grab the user object of the person who kicked our member
   // Let us also grab the target of this action to double check things
@@ -286,9 +289,9 @@ client.on('guildMemberRemove', async member => {
   // And now we can update our output with a bit more information
   // We will also run a check to make sure the log we got was for the same kicked member
   if (target.id === member.id) {
-      console.log(`${member.user.tag} left the guild; kicked by ${executor.tag}?`);
+    channel.send(`> ${member.user.tag} left the guild; kicked by ${executor.tag}? <:dead:765721212033695784>`);
   } else {
-      console.log(`${member.user.tag} left the guild, audit log fetch was inconclusive.`);
+    channel.send(`> ${member.user.tag} left the guild, audit log fetch was inconclusive. <:dead:765721212033695784><:dead:765721212033695784><:dead:765721212033695784>`);
   }
 });
 
@@ -500,6 +503,9 @@ client.on(`messageDelete`, del => {
   var deletedMessage = del.content;
   const channel = del.client.channels.cache.find(channel => channel.id === `768882922379280464`);
 
+  if (del.author.id !== `234395307759108106`) {
+    
+  }
   delMsg(del, channel);
     
   
@@ -512,7 +518,7 @@ function delMsg(del, channel) {
   const exampleEmbed = new Discord.MessageEmbed()
   .setAuthor(`Message Updated -`)
   .setColor('#00FF86')
-  .setFooter(`Message Author: ${del.author.tag} | In Channel: ${del.channel.toString()}`)
+  .setFooter(`Message Author: ${del.author.tag} | In Channel: ${del.channel.name}`)
   .setDescription(`Message Deleted: \n\`\`\`${del}\`\`\``)
   channel.send(exampleEmbed);
 
@@ -607,6 +613,44 @@ function createInv(inv, channel) {
 }
 
 });
+
+
+
+
+//////////////////////////////////
+// BAD BAD NONO WORD HEHEHEHEHEHE
+//////////////////////////////////
+
+client.on(`message`, nono => {
+
+  const words = require(`./bannedWords.json`);
+
+  const channel = nono.client.channels.cache.find(channel => channel.id === `698594785803501629`);
+
+  /*if (words.words.includes(nono.content)) {
+    nono.delete();
+    nono.channel.send(`DADDY CAUGHT YOU SAYING BAD WORD <:strawfr:756546161162322000>`);
+  }*/
+
+const arr = words.words;
+const str = nono.content;
+
+for (let i = 0; i < arr.length; i++) {
+  const elem = arr[i];
+  
+  // Shifting to lowercase here allows case iNsEnSiTiViTy.
+  if (str.toLowerCase().includes(elem)) {
+    nono.delete();
+    nono.channel.send(`Get Rekt <:thonksweat:732320557659586590><:thonksweat:732320557659586590>`);
+  }
+}
+
+})
+
+
+
+
+
 
 client.login(token)
 
