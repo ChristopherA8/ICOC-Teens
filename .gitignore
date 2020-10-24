@@ -3,3 +3,4 @@
 /oldvoicecommand.ts
 /package-lock.json
 collectorexample.ts
+bannedWords.json
