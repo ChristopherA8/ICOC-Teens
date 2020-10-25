@@ -620,17 +620,12 @@ function createInv(inv, channel) {
 //////////////////////////////////
 // BAD BAD NONO WORD HEHEHEHEHEHE
 //////////////////////////////////
-
+/*
 client.on(`message`, nono => {
 
   const words = require(`./bannedWords.json`);
 
   const channel = nono.client.channels.cache.find(channel => channel.id === `698594785803501629`);
-
-  /*if (words.words.includes(nono.content)) {
-    nono.delete();
-    nono.channel.send(`DADDY CAUGHT YOU SAYING BAD WORD <:strawfr:756546161162322000>`);
-  }*/
 
 const arr = words.words;
 const str = nono.content;
@@ -647,10 +642,7 @@ for (let i = 0; i < arr.length; i++) {
 
 })
 
-
-
-
-
+*/
 
 client.login(token)
 
