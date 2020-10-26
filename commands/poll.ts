@@ -36,7 +36,7 @@ module.exports = {
            var name = inputs[0];
            var option1 = inputs[1];
            var option2 = inputs[2];
-           var time = inputs[4];
+           var time = inputs[3];
 
            var options = [`${option1}`, `${option2}`];
            var timeout = `${time}`;
