@@ -39,7 +39,7 @@ module.exports = {
                 { name: `\`!about\``, value: `About the bot ._.`, inline: true},
                 { name: '\`!bible <book> <chapter> <verse> [through verse2]\`', value: `fetch verse`, inline: true},
                 { name: '\`!icon\`', value: `get server icon`, inline: true},
-                { name: '\`!pfp\`', value: `get user profile picture`, inline: true},
+                { name: '\`!pfp [@user]\`', value: `get user profile picture`, inline: true},
                 { name: '\`!serverinfo\`', value: `get server info`, inline: true},
                 { name: '\`!userinfo\`', value: `get user info`, inline: true},
                 { name: '\`!roles\`', value: `lists all server roles`, inline: true}
@@ -105,6 +105,7 @@ module.exports = {
                 { name: `\`!annoy\``, value: `repeats what you say for 10 seconds`, inline: true},
                 { name: `\`!trivia\``, value: `fetches a random true/false question`, inline: true},
                 { name: `\`!status <status>\``, value: `changes status of bot`, inline: true},
+                { name: `\`!rhyme <word>\``, value: `finds words that rhyme`, inline: true},
             )
             msg.channel.send(exampleEmbed);
 
