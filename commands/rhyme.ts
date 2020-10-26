@@ -12,7 +12,13 @@ module.exports = {
             if (api == "") {
                 msg.channel.send(`**Error:** Word Not Found!`)
             } else {
-                msg.channel.send(`Words that rhyme with *${input}*:\n${api[0].word}`);
+                var i = 0;
+                var words = [];
+                while(api[i] !== undefined) {
+                    words[i] = api[i].word;
+                    i++;
+                }
+                msg.channel.send(`Words that rhyme with *${input}*\n${words.join(`\n`).substr(0,20)}`);
             }
 
 
