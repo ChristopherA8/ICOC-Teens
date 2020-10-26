@@ -10,7 +10,7 @@ module.exports = {
         .then(api => {
 
             if (api == "") {
-                msg.channel.send(`**Error:** Missing Word!`)
+                msg.channel.send(`**Error:** Word Not Found!`)
             } else {
                 msg.channel.send(`Words that rhyme with *${input}*:\n${api[0].word}`);
             }
