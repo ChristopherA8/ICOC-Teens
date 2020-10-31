@@ -1,0 +1,28 @@
+module.exports = {
+    name:"verify",
+    execute(msg) {
+
+        //ICOC TEENS ROLE
+        const icoc = msg.member.guild.roles.cache.get(`698634625077215372`);
+        //Define reaction
+        //const reactionEmoji = msg.guild.emojis.cache.find(emoji => emoji.id === '770461194787749948');
+        //msg.react(reactionEmoji);
+
+        const filter = (reaction, user) => {
+            return reaction.emoji.name === '👍';
+        };
+
+        const collector = msg.createReactionCollector(filter);
+        
+        collector.on('collect', (reaction, user) => {
+            var userz = '';
+            reaction.users.cache.map((u) => userz += `${u} `)
+            var users = userz.split(' ');
+            var length = users.length;
+            msg.channel.send(`${users[length]} is now Verified!`);
+            const member = 
+        });
+            
+
+    },
+};

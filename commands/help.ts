@@ -3,7 +3,16 @@ module.exports = {
 	name: 'help',
 	description: 'Lists all commands',
 	execute(msg) {
-        
+
+        function millisToMinutesAndSeconds(millis) {
+            var minutes = Math.floor(millis / 60000);
+            let seconds = ((millis % 60000) / 1000).toFixed(0);
+            return minutes + ":" + (Number(seconds) < 10 ? '0' : '') + seconds;
+          }
+          
+        var uptime = millisToMinutesAndSeconds(msg.client.uptime);
+          
+
         var input = msg.content.substr(5).trim();
 
         switch (input) {
@@ -32,7 +41,7 @@ module.exports = {
                 .setAuthor(`!help`, ``)
                 .setColor('#00FF86')
                 .setTitle(`Information:`)
-                .setFooter(`page 1/4`)
+                .setFooter(`page 1/4  |  Uptime: ${uptime}`)
                 .setDescription(``)
                 .addFields(
                 { name: '\`!help [page]\`', value: `lists all commands`, inline: true},
@@ -42,7 +51,8 @@ module.exports = {
                 { name: '\`!pfp [@user]\`', value: `get user profile picture`, inline: true},
                 { name: '\`!serverinfo\`', value: `get server info`, inline: true},
                 { name: '\`!userinfo\`', value: `get user info`, inline: true},
-                { name: '\`!roles\`', value: `lists all server roles`, inline: true}
+                { name: '\`!roles\`', value: `lists all server roles`, inline: true},
+                { name: '\`!uptime\`', value: `show bot uptime in minutes and seconds`, inline: true}
             )
             msg.channel.send(exampleEmbed);
             
@@ -54,7 +64,7 @@ module.exports = {
             .setAuthor(`!help`, ``)
                 .setColor('#00FF86')
                 .setTitle(`Moderation:`)
-                .setFooter(`page 2/4`)
+                .setFooter(`page 2/4  |  Uptime: ${uptime}`)
             .setDescription(``)
                 .addFields(
                 { name: '\`!ban <@user> [reason]\`', value: `ban user`, inline: true},
@@ -79,13 +89,13 @@ module.exports = {
             .setAuthor(`!help`, ``)
                 .setColor('#00FF86')
                 .setTitle(`Music:`)
-                .setFooter(`page 3/4`)
+                .setFooter(`page 3/4  |  Uptime: ${uptime}`)
             .setDescription(``)
                 .addFields(
                 { name: '\`!play <song name>\`', value: `plays song from youtube`, inline: true},
                 { name: `\`!stop\``, value: `stops song`, inline: true},
                 { name: '\`!bitrate\`', value: `fetches bitrate of channel`, inline: true},
-                { name: '\`!fx <name>\`', value: `available fx: airhorn, ayesir, chottomate, easy, heyaha, hourslater, illuminati, johncena, ohh, oof, replay, ricknmorty, rickroll, wow, yeet, gay, longoof, megaoof, zawarudo, nice, gucci, letsgo`, inline: true},
+                { name: '\`!fx <name>\`', value: `available fx: airhorn, ayesir, chottomate, easy, heyaha, hourslater, illuminati, johncena, ohh, oof, replay, ricknmorty, rickroll, wow, yeet, longoof, megaoof, zawarudo, nice, gucci, letsgo, ~~ussr~~`, inline: true},
             )
             msg.channel.send(exampleEmbed);
 
@@ -97,7 +107,7 @@ module.exports = {
             .setAuthor(`!help`, ``)
                 .setColor('#00FF86')
                 .setTitle(`Misc:`)
-                .setFooter(`page 4/4`)
+                .setFooter(`page 4/4  |  Uptime: ${uptime}`)
             .setDescription(``)
                 .addFields(
                 { name: '\`!ping <@user>\`', value: `pings user a lot`, inline: true},
@@ -106,6 +116,7 @@ module.exports = {
                 { name: `\`!trivia\``, value: `fetches a random true/false question`, inline: true},
                 { name: `\`!status <status>\``, value: `changes status of bot`, inline: true},
                 { name: `\`!rhyme <word>\``, value: `finds words that rhyme`, inline: true},
+                { name: '\`!poll <title>-<option1>-<option2>-<time in seconds>\`', value: `example; !poll dog or cat-dog-cat-30`, inline: true}
             )
             msg.channel.send(exampleEmbed);
 

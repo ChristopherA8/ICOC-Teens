@@ -24,6 +24,7 @@ client.on('ready', () => {
 
     // Sets Bot Status
     console.log("Connected as " + client.user.tag + ", Icoc Teens Bot is online")
+    //client.user.setActivity("!help", {type: "PLAYING"})
     client.user.setActivity("!help", {type: "PLAYING"})
 
 
@@ -32,8 +33,9 @@ client.on('ready', () => {
 //Runs when a member joins a guild
 client.on('guildMemberAdd', join => {
 
-  var teensrole = join.guild.roles.cache.get("698634625077215372")
-  join.roles.add(teensrole);
+  //var teensrole = join.guild.roles.cache.get("698634625077215372");
+  //Commented out because of the Verification system
+  //join.roles.add(teensrole);
   const channel = join.client.channels.cache.find(channel => channel.id == `698591277205422171`);
   channel.send(`Welcome ${join} to ICOC Teens! <a:wavehi:769217908373979156>`);
 
@@ -41,6 +43,21 @@ client.on('guildMemberAdd', join => {
 
 
 client.on('message', msg => {
+
+  // KEEP SPAM OUT OF #RULES
+  if (msg.channel.id == `770730379077353494`) {
+    /*
+    switch (msg.content) {
+      case `!join`:
+        break;
+      default:
+        msg.delete();
+        break;
+    }*/
+    msg.delete();
+  }
+
+
 
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
@@ -63,6 +80,11 @@ client.on('message', msg => {
     msg.reply(`\**Crashlog:\** ${error}`);
     
   }
+
+
+
+
+
 
 });
 
@@ -503,7 +525,7 @@ client.on(`messageDelete`, del => {
   var deletedMessage = del.content;
   const channel = del.client.channels.cache.find(channel => channel.id === `768882922379280464`);
 
-  if (del.author.id !== `234395307759108106`) {
+  if (del.author.id !== `234395307759108106` && del.author.id !== `765662774445080616`) {
     delMsg(del, channel);
   }
 
