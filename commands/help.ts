@@ -116,7 +116,8 @@ module.exports = {
                 { name: `\`!trivia\``, value: `fetches a random true/false question`, inline: true},
                 { name: `\`!status <status>\``, value: `changes status of bot`, inline: true},
                 { name: `\`!rhyme <word>\``, value: `finds words that rhyme`, inline: true},
-                { name: '\`!poll <title>-<option1>-<option2>-<time in seconds>\`', value: `example; !poll dog or cat-dog-cat-30`, inline: true}
+                { name: '\`!poll <title>-<option1>-<option2>-<time in seconds>\`', value: `example; !poll dog or cat-dog-cat-30`, inline: true},
+                { name: `\`!flip\``, value: `flip a coin`, inline: true},
             )
             msg.channel.send(exampleEmbed);
 

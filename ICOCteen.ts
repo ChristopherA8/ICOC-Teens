@@ -73,7 +73,12 @@ client.on('message', msg => {
   }
 
   try {
-    command.execute(msg, args);
+    //if (msg.author.id !== `689910756711727193`) {
+      command.execute(msg, args);
+    //} else {
+      //msg.channel.send(`you can use the bot if you give back admin`);
+    //}
+    //command.execute(msg, args);
   } catch (error) {
 
     console.error(error);
