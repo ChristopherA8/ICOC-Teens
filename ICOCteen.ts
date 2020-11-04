@@ -12,7 +12,6 @@ const client = new Discord.Client()
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.ts'));
 
-
 //Include Command Files ending in .ts or .js
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
@@ -20,13 +19,12 @@ for (const file of commandFiles) {
 }
 
 // Runs once at startup
-client.on('ready', () => {
+client.on('ready', async () => {
 
     // Sets Bot Status
     console.log("Connected as " + client.user.tag + ", Icoc Teens Bot is online")
     //client.user.setActivity("!help", {type: "PLAYING"})
     client.user.setActivity("!help", {type: "PLAYING"})
-
 
 });
 
