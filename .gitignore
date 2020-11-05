@@ -5,3 +5,6 @@
 collectorexample.ts
 bannedWords.json
 ICOCTeens.code-workspace
+scores.sqlite
+scores.sqlite-shm
+scores.sqlite-wal
