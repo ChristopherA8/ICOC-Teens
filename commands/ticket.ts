@@ -20,7 +20,7 @@ module.exports = {
             channel.send(exampleEmbed);
             //embed end
 
-            msg.channel.send(`You're message was sent! `);
+            msg.channel.send(`Your message was sent! `);
 
         }
 
