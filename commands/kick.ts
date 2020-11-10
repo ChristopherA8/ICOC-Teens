@@ -16,8 +16,6 @@ module.exports = {
             //Define pinged member constant
             const ping = msg.mentions.members.first();
 
-            msg.channel.send(`Reason/inputArr[2] = "${inputArr[2]}"`);
-
             //Check for mention
             if (ping == undefined) {
                 msg.channel.send(`\**Error:\** Ping the person you want to kick!`);
