@@ -38,7 +38,7 @@ client.on('ready', () => {
       const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'scores';").get();
       if (!table['count(*)']) {
         // If the table isn't there, create it and setup the database correctly.
-        sql.prepare("CREATE TABLE scores (id TEXT PRIMARY KEY, user TEXT, guild TEXT, points INTEGER, level INTEGER);").run();
+        sql.prepare("CREATE TABLE scores (id TEXT PRIMARY KEY, user TEXT, guild TEXT, points INTEGER, level INTEGER, name TEXT);").run();
         // Ensure that the "id" row is always unique and indexed.
         sql.prepare("CREATE UNIQUE INDEX idx_scores_id ON scores (id);").run();
         sql.pragma("synchronous = 1");
@@ -47,7 +47,10 @@ client.on('ready', () => {
 
       // And then we have two prepared statements to get and set the score data.
       client.getScore = sql.prepare("SELECT * FROM scores WHERE user = ? AND guild = ?");
-      client.setScore = sql.prepare("INSERT OR REPLACE INTO scores (id, user, guild, points, level) VALUES (@id, @user, @guild, @points, @level);");
+      client.setScore = sql.prepare("INSERT OR REPLACE INTO scores (id, user, guild, points, level, name) VALUES (@id, @user, @guild, @points, @level, @name);");
+      //Moderation
+      client.getWarns = sql.prepare("SELECT * FROM moderation WHERE id = ?");
+      client.setWarns = sql.prepare("INSERT OR REPLACE INTO moderation (id, name, warns) VALUES (@id, @name, @warns);");
 
     //////////////////////////////
 
@@ -67,6 +70,8 @@ client.on('guildMemberAdd', join => {
 
 client.on('message', msg => {
 
+  if (msg.channel.type === 'dm') return;
+
   //////////////////////
   // XP
   //////////////////////
@@ -75,9 +80,17 @@ client.on('message', msg => {
     let score;
     score = client.getScore.get(msg.author.id, msg.guild.id);
     if (!score) {
-      score = { id: `${msg.guild.id}-${msg.author.id}`, user: msg.author.id, guild: msg.guild.id, points: 0, level: 1 }
+      score = { id: `${msg.guild.id}-${msg.author.id}`, user: msg.author.id, guild: msg.guild.id, points: 0, level: 1, name: msg.author.tag}
     }
-    score.points++;
+    if (!score.name) {
+      score.name = msg.author.tag;
+    }
+    function getXP() {
+      score.points++;
+      client.setScore.run(score);
+    }
+    setTimeout(getXP, 6000);
+    //score.points++;
     const curLevel = Math.floor(0.3 * Math.sqrt(score.points));
     if(score.level < curLevel) {
       score.level++;
@@ -86,40 +99,214 @@ client.on('message', msg => {
     client.setScore.run(score);
 
 
-    if (msg.content == `!xp` || msg.content == `!rank`) {
+    if (msg.content.startsWith(`!xp`) || msg.content.startsWith(`!rank`)) {
+      //msg.channel.send(`**REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT**`);
+      
+      const ping = msg.mentions.members.first();
 
-      const exampleEmbed = new Discord.MessageEmbed()
-			.setAuthor(`${msg.author.tag}`, `${msg.author.displayAvatarURL(({dynamic : true}))}`)
-			.setColor('#00FF86')
-			.setFooter(`ID: ${msg.author.id}`)
-			.addFields(
-        { name: '**XP:**', value: `${score.points}`, inline: true},
-        { name: '**Level:**', value: `${score.level}`, inline: true}
-			)
-			msg.channel.send(exampleEmbed);
+      if (!ping) {
+        let score;
+        score = client.getScore.get(msg.author.id, msg.guild.id);
+        const exampleEmbed = new Discord.MessageEmbed()
+        .setAuthor(`${msg.author.tag}`, `${msg.author.displayAvatarURL(({dynamic : true}))}`)
+        .setColor('#00FF86')
+        //.setFooter(`ID: ${msg.author.id}`)
+        .addFields(
+          { name: '**XP:**', value: `${score.points}`, inline: true},
+          { name: '**Level:**', value: `${score.level}`, inline: true}
+        )
+        msg.channel.send(exampleEmbed);
+      } else {
+        let scorePing;
+        scorePing = client.getScore.get(ping.id, msg.guild.id);
+        const exampleEmbed = new Discord.MessageEmbed()
+        .setAuthor(`${ping.displayName}`, `${ping.user.displayAvatarURL(({dynamic : true}))}`)
+        .setColor('#00FF86')
+        //.setFooter(`ID: ${msg.author.id}`)
+        .addFields(
+          { name: '**XP:**', value: `${scorePing.points}`, inline: true},
+          { name: '**Level:**', value: `${scorePing.level}`, inline: true}
+        )
+        msg.channel.send(exampleEmbed);
+      }
+
     }
 
-  if (msg.content.startsWith(`!lvlup`) && (msg.author.id == `279032930926592000`)) {
-
-    msg.channel.send(score.level);
+  if (msg.content.startsWith(`!lvlup`) && (msg.author.id == `279032930926592000` || msg.author.id == `329039487474860032`  || msg.author.id == `707844228977524757`)) {
     score.level++;
-    msg.channel.send(score.level);
-
+    msg.channel.send(`Leveled up!`);
     client.setScore.run(score);
-
-
   }
+
+  if (msg.content.startsWith(`!lvldown`) && (msg.author.id == `279032930926592000` || msg.author.id == `329039487474860032`  || msg.author.id == `707844228977524757`)) {
+    score.level--;
+    msg.channel.send(`Leveled down!`);
+    client.setScore.run(score);
+  }
+/*
+  if (msg.content.startsWith(`!setxp`) && (msg.author.id == `620438897217896459`)) {
+    var input = msg.content.substr(6).trim();
+    if (input === '') {
+      msg.channel.send(`**Error:** Enter Amount!`);
+    } else {
+      input = Number(input);
+      score.points = input;
+      const newLevel = Math.floor(0.3 * Math.sqrt(input));
+      score.level = newLevel;
+      client.setScore.run(score);
+      msg.channel.send(`**XP Set To:** ${input}`);
+    }
+  }*/
+//620438897217896459
+/*
+  if (msg.content.startsWith(`!setxp`) && (msg.author.id == `620438897217896459`)) {
+    var input = msg.content.split(' ');
+    if (input[1] == null) {
+      msg.channel.send(`**Error:** Format \`!setxp @user amount\``);
+    } else {
+      const ping = msg.mentions.members.first();
+      let scorePing;
+      if (ping) {
+        input[2] = Number(input[2]);
+        scorePing = client.getScore.get(ping.id, msg.guild.id);
+        scorePing.points = input[2];
+        const newLevel = Math.floor(0.3 * Math.sqrt(input[2]));
+        scorePing.level = newLevel;
+        client.setScore.run(scorePing);
+        msg.channel.send(`**XP Set To:** ${input[2]}`);
+      }
+    }
+  }
+
+  if (msg.content.startsWith(`!givexp`) && (msg.author.id == `620438897217896459`)) {
+    var input = msg.content.substr(7).trim();
+    if (input === '') {
+      msg.channel.send(`**Error:** Enter Amount!`);
+    } else {
+      input = Number(input);
+      score.points = score.points + input;
+      client.setScore.run(score);
+      msg.channel.send(`**XP Given:** ${input}`);
+    }
+  }
+
+  if (msg.content.startsWith(`!removexp`) && (msg.author.id == `620438897217896459`)) {
+    var input = msg.content.substr(9).trim();
+    if (input === '') {
+      msg.channel.send(`**Error:** Enter Amount!`);
+    } else {
+      input = Number(input);
+      score.points = score.points - input;
+      client.setScore.run(score);
+      msg.channel.send(`**XP Removed:** ${input}`);
+    }
+  }*/
+
+  if (msg.content == `!resetxp`) {
+    let score;
+    score = client.getScore.get(msg.author.id, msg.guild.id);
+    score.points = 0;
+    client.setScore.run(score);
+  }
+
+  if (msg.content == `!resetlvl`) {
+    let score;
+    score = client.getScore.get(msg.author.id, msg.guild.id);
+    score.level = 0;
+    client.setScore.run(score);
+  }
+
+  if ((msg.content == `!top`) || (msg.content == `!lead`)) {
+    const top10 = sql.prepare("SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 10").all(msg.guild.id);
+    const exampleEmbed = new Discord.MessageEmbed()
+    .setAuthor(`${msg.author.tag}`, `${msg.author.displayAvatarURL(({dynamic : true}))}`)
+    .setColor('#00FF86')
+    .setDescription(`\`\`\`md\n1. ${top10[0].name} | XP: ${top10[0].points}\n2. ${top10[1].name} | XP: ${top10[1].points}\n3. ${top10[2].name} | XP: ${top10[2].points}\n4. ${top10[3].name} | XP: ${top10[3].points}\n5. ${top10[4].name} | XP: ${top10[4].points}\n6. ${top10[5].name} | XP: ${top10[5].points}\n7. ${top10[6].name} | XP: ${top10[6].points}\n8. ${top10[7].name} | XP: ${top10[7].points}\n9. ${top10[8].name} | XP: ${top10[8].points}\n10. ${top10[9].name} | XP: ${top10[9].points}\n\`\`\``)
+    msg.channel.send(exampleEmbed);
+  }
+
+  if (msg.content.startsWith(`!setname`)) {
+    score.name = msg.content.substr(8).trim();
+    msg.channel.send(`Name set to: "${msg.content.substr(8).trim()}"`);
+    client.setScore.run(score);
+  }
+
+  if (msg.content == `!name`) {
+    let score;
+    score = client.getScore.get(msg.author.id, msg.guild.id);
+    msg.channel.send(`Name: "${score.name}"`);
+  }
+
+  let mod;
+  mod = client.getWarns.get(msg.author.id);
+  if (!mod) {
+    mod = { id: msg.author.id, name: msg.author.tag, warns: 0}
+  }
+  client.setWarns.run(mod);
+
+  if (msg.content.startsWith(`!listwarns`)) {
+    const ping = msg.mentions.members.first();
+
+    if (!ping) {
+    const exampleEmbed = new Discord.MessageEmbed()
+    .setAuthor(`${msg.author.tag}`, `${msg.author.displayAvatarURL(({dynamic : true}))}`)
+    .setColor('#00FF86')
+    .setDescription(`Warns: ${mod.warns}`)
+    msg.channel.send(exampleEmbed);
+    } else {
+      let modPing;
+      modPing = client.getWarns.get(ping.id);
+      const exampleEmbed = new Discord.MessageEmbed()
+      .setAuthor(`${ping.user.tag}`, `${ping.user.displayAvatarURL(({dynamic : true}))}`)
+      .setColor('#00FF86')
+      .setDescription(`Warns: ${modPing.warns}`)
+      msg.channel.send(exampleEmbed);
+    }
+  }
+
+  if (msg.content.startsWith(`!warn`)) {
+    const ping = msg.mentions.members.first();
+
+    if (!ping) {
+      msg.channel.send(`**Error:** Ping the person you want to warn!`);
+    } else {
+      let modPing;
+      modPing = client.getWarns.get(ping.id);
+      msg.channel.send(`${ping} has been warned! :eyes:`);
+      modPing.warns++;
+      client.setWarns.run(modPing);
+    }
+  }
+
+  if (msg.content.startsWith(`!clearwarns`)) {
+    let mod;
+    const ping = msg.mentions.members.first();
+
+    if (!ping) {
+      msg.channel.send(`**Error:** Ping the person you want to clear!`);
+    } else {
+      mod = client.getWarns.get(ping.id);
+      msg.channel.send(`${ping} warns have been cleared! <a:nezukovibin:745998060731105291>`);
+      mod.warns = 0;
+      client.setWarns.run(mod);
+    }
+  }
+
+
+/*
+  if (msg.content == `!purge`) {
+    sql.close();
+    fs.unlinkSync(`./scores.sqlite`);
+    fs.unlinkSync(`./scores.sqlite-shm`);
+    fs.unlinkSync(`./scores.sqlite-wal`);
+    
+   msg.channel.send(`***XP RESET!!***`);
+}*/
+
+
 
   // KEEP SPAM OUT OF #RULES
   if (msg.channel.id == `770730379077353494`) {
-    /*
-    switch (msg.content) {
-      case `!join`:
-        break;
-      default:
-        msg.delete();
-        break;
-    }*/
     msg.delete();
   }
 
@@ -249,6 +436,15 @@ if (voice.content.startsWith(`${prefix}fx`)) {
     voiceChannel.join().then(async connection => {
       const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
       dispatcher.on('finish', () => voiceChannel.leave());
+    });
+  } else if(fxInput == `johncena`) {
+    voiceChannel.join().then(async connection => {
+      const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
+      dispatcher.setVolume(20);
+      dispatcher.on('finish', () => { 
+        dispatcher.setVolume(1);
+        voiceChannel.leave();
+      });
     });
   } else {
   voiceChannel.join().then(async connection => {
@@ -693,9 +889,9 @@ function createInv(inv, channel) {
   .setColor('#00FF86')
   .setFooter(`Invite Code: ${inv.code}`)
   .addFields(
-    { name:`Invite URL`, value:`"<${inv}>"`, inline: true },
-    { name:`Invite Maker:`, value:`${inv.inviter}`, inline: true },
-    { name:`Max Uses:`, value:`${inv.maxUses}`, inline: false },
+    { name:`Invite URL`, value:`<${inv}>`, inline: true },
+    { name:`Invite Maker:`, value:`${inv.inviter}`, inline: false },
+    { name:`Max Uses:`, value:`${inv.maxUses}`, inline: true },
     { name:`Length:`, value:`${inv.maxAge}`, inline: true }
   )
   //.setDescription(`Invite Created: ${inv}`)

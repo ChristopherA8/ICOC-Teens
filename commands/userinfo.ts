@@ -18,7 +18,7 @@ module.exports = {
 			var xstr = `${ping.user.createdAt}`;
 			var xcreated = /\([^)]*\)/g;
 			var xresult = xstr.match(xcreated).toString();
-			var x = str.replace(xresult, '')
+			var xdate = xstr.replace(xresult, '');
 		}
 
 		if (ping !== undefined) {
@@ -29,7 +29,7 @@ module.exports = {
 			.setDescription(`${ping}`)
 			.setThumbnail(`${ping.user.displayAvatarURL(({dynamic : true}))}`)
 			.addFields(
-				{ name: '**Registered (Not Working atm)**', value: `${x}`, inline: true},
+				{ name: '**Registered**', value: `${xdate}`, inline: true},
 				{ name: `**Nickname**`, value: `${ping.displayName}`, inline: true}
 			)
 			.addField('Roles', xroles ? xroles : 'No roles.')
