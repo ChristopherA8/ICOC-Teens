@@ -6,12 +6,12 @@ module.exports = {
             msg.channel.send(`David abusing power again lol`);
             msg.member.roles.remove(mute);
         } else {
-            msg.channel.send(`angy tutle caught you cheating, you will be muted now\n${msg.author} is muted for 1 minute`);
+            msg.channel.send(`angy tutle caught you cheating, you will be muted now\n${msg.author} is muted for 10 seconds`);
             msg.member.roles.add(mute);
             setTimeout(() => {
                 msg.channel.send(`Temporary mute expired for ${msg.author}`);
                 msg.member.roles.remove(mute);
-            }, 1 * 60000);
+            }, 1 * 10000);
         }
 
     },
