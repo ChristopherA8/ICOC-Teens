@@ -121,6 +121,7 @@ module.exports = {
                 { name: `\`!rhyme <word>\``, value: `finds words that rhyme`, inline: true},
                 { name: '\`!poll <title>-<option1>-<option2>-<time in seconds>\`', value: `example; !poll dog or cat-dog-cat-30`, inline: true},
                 { name: `\`!flip\``, value: `flip a coin`, inline: true},
+                { name: `\`!wiki <search>\``, value: `Search wikipedia`, inline: true}
             )
             msg.channel.send(exampleEmbed);
 
