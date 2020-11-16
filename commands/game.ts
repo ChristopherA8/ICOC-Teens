@@ -81,5 +81,8 @@ function removeHTML(str) {
     .replace(`</h1>`, ``)
     .replace(`</h2>`, ``)
     .replace(`</h3>`, ``)
-    .replace(`<br>`, ``);
+    .replace(`<br>`, ``)
+    .replace(`&#39;`, `'`)
+    .replace(`<br>`, ``)
+    .replace('<p>', '');
 }

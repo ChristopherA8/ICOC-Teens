@@ -18,7 +18,7 @@ for (const file of commandFiles) {
 	client.commands.set(command.name, command);
 }
 
-//////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////
 
 const SQLite = require('better-sqlite3');
 const sql = new SQLite('./scores.sqlite');
@@ -30,7 +30,7 @@ client.on('ready', () => {
     // Sets Bot Status
     console.log("Connected as " + client.user.tag + ", Icoc Teens Bot is online")
     //client.user.setActivity("!help", {type: "PLAYING"})
-    client.user.setActivity("!help", {type: "PLAYING"})
+    client.user.setActivity("frogge gang propaganda", {type: "LISTENING"})
 
     //////////////////////////////
 
@@ -71,6 +71,10 @@ client.on('guildMemberAdd', join => {
 client.on('message', msg => {
 
   if (msg.channel.type === 'dm') return;
+
+  if (msg.content.includes(`ur mom`) || (msg.content.includes(`your mom`))) {
+    msg.channel.send(`airhorn airhorn airhorn`);
+  }
 
   //////////////////////
   // XP
@@ -340,7 +344,6 @@ client.on('message', msg => {
     msg.reply(`\**Crashlog:\** ${error}`);
     
   }
-
 
 });
 
