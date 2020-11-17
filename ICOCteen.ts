@@ -30,7 +30,7 @@ client.on('ready', () => {
     // Sets Bot Status
     console.log("Connected as " + client.user.tag + ", Icoc Teens Bot is online")
     //client.user.setActivity("!help", {type: "PLAYING"})
-    client.user.setActivity("frogge gang propaganda", {type: "LISTENING"})
+    client.user.setActivity("Ur Mom", {type: "WATCHING"})
 
     //////////////////////////////
 
@@ -315,9 +315,9 @@ client.on('message', msg => {
   }
 
 
-///////////////////////////////////
-// Command Handler
-///////////////////////////////////
+  ///////////////////////////////////
+  // Command Handler
+  ///////////////////////////////////
   if (!msg.content.startsWith(prefix) || msg.author.bot) return;
 
 	const args = msg.content.slice(prefix.length).split(/ +/);
@@ -332,8 +332,16 @@ client.on('message', msg => {
   }
 
   try {
-    
+    if (msg.content.startsWith(`${prefix}clear`)) {
       command.execute(msg, args);
+    } else if(msg.content.startsWith(`${prefix}access`)) {
+      command.execute(msg, args);
+    } else {
+      setTimeout(() => {
+        msg.delete();
+      }, 3000);
+      command.execute(msg, args);
+    }
   } catch (error) {
 
     console.error(error);
