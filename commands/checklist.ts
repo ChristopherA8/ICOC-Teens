@@ -2,8 +2,13 @@ const Discord659 = require('discord.js');
 module.exports = {
     name:"checklist",
     execute(msg) {
+
+        if (!msg.member.roles.cache.some(role => role.id === '698594429711417415')) {
+            return;
+        } else {
+
         /////////////////////////////////
-        // POGGERS POGGERS If you are reading this, dm christopher#8888 on discord and say "why is the sky a green"
+        // POGGERS POGGERS If you are reading this, dm christopher#8888 on discord and say "nano > vim"
         /////////////////////////////////
 
         //capture input
@@ -65,6 +70,7 @@ module.exports = {
                 msg.channel.send(listEmbed);
 
                 break;
+            }
         }
     }
 }
