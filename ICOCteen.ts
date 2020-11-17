@@ -30,7 +30,7 @@ client.on('ready', () => {
     // Sets Bot Status
     console.log("Connected as " + client.user.tag + ", Icoc Teens Bot is online")
     //client.user.setActivity("!help", {type: "PLAYING"})
-    client.user.setActivity("Ur Mom", {type: "WATCHING"})
+    client.user.setActivity("to Trash Taste Podcast", {type: "LISTENING"})
 
     //////////////////////////////
 
