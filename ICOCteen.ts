@@ -388,7 +388,7 @@ if (voice.content.startsWith(`${prefix}play`)) {
 */
 
 if (voice.content.startsWith(`${prefix}play`)) {
-  voice.channel.send(`**Error:** Play has been temporarily disabled while I squash some bugs :smile:`);
+  voice.channel.send(`**Error:** Play has been temporarily/not so temporarily disabled while I squash some bugs :smile:`);
 }
 
 //!stop

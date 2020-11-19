@@ -31,13 +31,13 @@ module.exports = {
             case "check":
                 var id = input[2];
                 var thingz = sql.prepare("SELECT * FROM checklist WHERE id = ?").get(id);
-                sql.prepare("REPLACE INTO checklist (id, item, creator, completed) VALUES (?, ?, ?, ?);").run(id, thingz.item, thingz.creator, "yes");
+                sql.prepare("REPLACE INTO checklist (id, item, creator, completed, notes) VALUES (?, ?, ?, ?, ?);").run(id, thingz.item, thingz.creator, "yes", thingz.notes);
                 msg.channel.send(`Checked item ${thingz.id}`);
                 break;
             case "uncheck":
                 var id = input[2];
                 var thingz = sql.prepare("SELECT * FROM checklist WHERE id = ?").get(id);
-                sql.prepare("REPLACE INTO checklist (id, item, creator, completed) VALUES (?, ?, ?, ?);").run(id, thingz.item, thingz.creator, "no");
+                sql.prepare("REPLACE INTO checklist (id, item, creator, completed, notes) VALUES (?, ?, ?, ?, ?);").run(id, thingz.item, thingz.creator, "no", thingz.notes);
                 msg.channel.send(`Unchecked item ${thingz.id}`);
                 break;
             case "edit":
@@ -51,6 +51,23 @@ module.exports = {
                 var id = input[2];
                 sql.prepare("DELETE FROM checklist WHERE id = ?").run(id);
                 msg.channel.send(`Removed item ${id}!`);
+                break;
+            case "note":
+                var id = input[2];
+                var stuffz = sql.prepare("SELECT * FROM checklist WHERE id = ?").get(id);
+                const listEmbed2 = new Discord659.MessageEmbed()
+                .setAuthor(`Checklist Item:`)
+                .setColor('#00FF86')
+                .addField(`Item:\n\`\`\`${stuffz.item}\`\`\``, stuffz.notes ? `**Note:**\`\`\`${stuffz.notes}\`\`\`` : `**Note:** \`\`\`No Notes\`\`\``)
+                .setFooter(`Item Creator: ${stuffz.creator}`);
+                msg.channel.send(listEmbed2);
+                break;
+            case "addnote":
+                var id = input[2];
+                var stuffz = sql.prepare("SELECT * FROM checklist WHERE id = ?").get(id);
+                var itemz = msg.content.split(`"`);
+                sql.prepare("REPLACE INTO checklist (id, item, creator, completed, notes) VALUES (?, ?, ?, ?, ?);").run(stuffz.id, stuffz.item, stuffz.creator, stuffz.completed, itemz[1]);
+                msg.channel.send(`Note Added!`);
                 break;
             default:
                 items = sql.prepare("SELECT * FROM checklist ORDER BY id").all();

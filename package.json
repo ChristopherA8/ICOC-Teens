@@ -6,6 +6,7 @@
   "dependencies": {
     "@discordjs/opus": "^0.3.3",
     "better-sqlite3": "^7.1.1",
+    "cloudconvert": "^2.1.6",
     "discord.js": "12.3.1",
     "discord.js-poll-embed": "^1.0.2",
     "ffmpeg-static": "^4.2.7",
