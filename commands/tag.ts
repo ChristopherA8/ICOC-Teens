@@ -21,7 +21,7 @@ module.exports = {
     },
 };
 
-function tagEmbed(message, name, desc) {
+function tagEmbed(msg, name, desc) {
     const embed = new discord788.MessageEmbed()
     .setAuthor(`${name} -`)
     .setDescription(`${desc}`)
