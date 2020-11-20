@@ -872,7 +872,7 @@ client.on(`messageUpdate`, (oldMsg, newMsg) => {
     //.setDescription(`Message Edited:\nIn Channel ${newMsg.channel.toString()}\nOld: \`\`\`${oldMsg.content}\`\`\` \nNew: \`\`\`${newMsg.content}\`\`\``)
     .addFields(
       { name:`In Channel:`, value:`"${newMsg.channel.toString()}"`, inline: true },
-      { name:`Message Contents:`, value:`Old: \`\`\`${oldMsg.content}\`\`\` \nNew: \`\`\`${newMsg.content}\`\`\``, inline: false },
+      { name:`Message Contents:`, value:`Old: \`\`\`${oldMsg.content.replace("`", `\``).replace("`", `\``).replace("`", `\``).replace("`", `\``).replace("`", `\``).replace("`", `\``).replace("`", `\``).replace("`", `\``)}\`\`\` \nNew: \`\`\`${newMsg.content.replace("`", `\``)}\`\`\``, inline: false },
     )
     channel.send(exampleEmbed);
 
