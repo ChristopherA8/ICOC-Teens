@@ -28,7 +28,7 @@ client.on('ready', () => {
     // Sets Bot Status
     console.log("Connected as " + client.user.tag + ", Icoc Teens Bot is online")
     //client.user.setActivity("!help", {type: "PLAYING"})
-    client.user.setActivity("to AOT openings", {type: "LISTENING"})
+    client.user.setActivity("new challenges from David Cole", {type: "WATCHING"})
 
     // Check if the table "points" exists.
     const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'scores';").get();
@@ -74,6 +74,8 @@ client.on('message', msg => {
   // XP
   //////////////////////
 
+  //disable xp in #rules
+    if (msg.channel.id !== `770730379077353494`) {
     if (msg.author.bot) return;
     let score;
     score = client.getScore.get(msg.author.id, msg.guild.id);
@@ -289,7 +291,8 @@ client.on('message', msg => {
       client.setWarns.run(mod);
     }
   }
-
+  
+  }//if for the #rules channel
 
 /*
   if (msg.content == `!purge`) {
@@ -329,6 +332,8 @@ client.on('message', msg => {
     if (msg.content.startsWith(`${prefix}clear`)) {
       command.execute(msg, args);
     } else if(msg.content.startsWith(`${prefix}access`)) {
+      command.execute(msg, args);
+    } else if(msg.content.startsWith(`${prefix}ticket`)) {
       command.execute(msg, args);
     } else {
       setTimeout(() => {
