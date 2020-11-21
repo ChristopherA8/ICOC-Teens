@@ -13,6 +13,9 @@ module.exports = {
                 case "roles":
                     tagEmbed(msg, `Roles`, `Roles are a method of organizing server members. They can be used to limit access to certain channels, and give them elevated permissions. Roles can be set to show separately in the member list. Great for clout...  <:smileW:779176924818833438>`);
                     break;
+                case "ur mom":
+                    tagEmbed(msg, `ur mom`, `A maternal insult, also referred to as a "Yo mama" joke, is a reference to a person's mother through the use of phrases such as "your mother" or other regional variants, frequently used to insult the target by way of their mother`);
+                    break;
             default:
                 tagEmbed(msg, `Available Tags`, `pings, roles`);
                 break;

@@ -69,6 +69,9 @@ module.exports = {
                 sql.prepare("REPLACE INTO checklist (id, item, creator, completed, notes) VALUES (?, ?, ?, ?, ?);").run(stuffz.id, stuffz.item, stuffz.creator, stuffz.completed, itemz[1]);
                 msg.channel.send(`Note Added!`);
                 break;
+            case "help":
+                msg.channel.send(`\*\*Checklist Help:\*\*\`\n!checklist\`\n\`!checklist add "item" (don't forget the quotes)\`\n\`!checklist edit "item"\`\n\`!checklist check itemNumber\`\n\`!checklist uncheck itemNumber\`\n\`!checklist del itemNumber\`\n\`!checklist note itemNumber\`\n\`!checklist addNote itemNumber "note"\``);
+                break;
             default:
                 items = sql.prepare("SELECT * FROM checklist ORDER BY id").all();
                 const listEmbed = new Discord659.MessageEmbed()
