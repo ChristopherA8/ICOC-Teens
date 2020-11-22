@@ -504,8 +504,13 @@ const channel = oldMember.client.channels.cache.find(channel => channel.id === `
   //Added role
   newMember.roles.cache.forEach((value) => {
     if (!oldMember.roles.cache.find((role) => role.id === value.id)) {
-     change = Changes.addedRole;
-     addedRole = value.name;
+      change = Changes.addedRole;
+      addedRole = value.name;
+
+      if ((value.id == `765244241643044935`) && (newMember.id == `689910756711727193`)) {
+        newMember.roles.remove(`765244241643044935`);
+      }
+
     }
   });
 
