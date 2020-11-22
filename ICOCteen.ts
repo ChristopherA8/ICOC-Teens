@@ -331,7 +331,7 @@ client.on('message', msg => {
   try {
     if (msg.content.startsWith(`${prefix}clear`)) {
       command.execute(msg, args);
-    } else if(msg.content.startsWith(`${prefix}access`)) {
+    } else if(msg.content.startsWith(`${prefix}teens`)) {
       command.execute(msg, args);
     } else if(msg.content.startsWith(`${prefix}ticket`)) {
       command.execute(msg, args);
