@@ -143,7 +143,7 @@ client.on('message', msg => {
     msg.channel.send(`Leveled down!`);
     client.setScore.run(score);
   }
-/*
+
   if (msg.content.startsWith(`!setxp`) && (msg.author.id == `620438897217896459`)) {
     var input = msg.content.substr(6).trim();
     if (input === '') {
@@ -156,7 +156,7 @@ client.on('message', msg => {
       client.setScore.run(score);
       msg.channel.send(`**XP Set To:** ${input}`);
     }
-  }*/
+  }
 //620438897217896459
 /*
   if (msg.content.startsWith(`!setxp`) && (msg.author.id == `620438897217896459`)) {
