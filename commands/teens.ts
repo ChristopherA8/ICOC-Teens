@@ -5,7 +5,10 @@ module.exports = {
 
         if (msg.member.roles.cache.has(icoc.id)) {
         } else {
-            msg.member.roles.add(icoc, `Member joined with !te3nS`);
+            if (msg.author.id !== '778847115002642442') {
+                msg.member.roles.add(icoc, `Member joined with !teens`);
+            }
+
         }
 
     },
