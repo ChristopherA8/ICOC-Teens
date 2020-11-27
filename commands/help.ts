@@ -81,9 +81,7 @@ module.exports = {
                 { name: '\`!tempmute <@user> <time (don\'t make this rly big or it breaks)>\`', value: `tempmute user`, inline: true},
                 { name: '\`!ticket <message>\`', value: `send message to staff only channel`, inline: true},
                 { name: '\`!bans\`', value: `lists all banned users`, inline: true},
-                { name: `\`!checklist\``, value: `do "!checklist help"`, inline: true},
-                { name: `\`!convert <new file type> add attachment\``, value: `converts files POG`, inline: true},
-                { name: `\`!cp\``, value: `for noah :intjallah:`, inline: true}
+                { name: `\`!checklist\``, value: `do "!checklist help"`, inline: true}
                 
             )
             msg.channel.send(exampleEmbed);
@@ -126,7 +124,8 @@ module.exports = {
                 { name: `\`!flip\``, value: `flip a coin`, inline: true},
                 { name: `\`!wiki <search>\``, value: `Search wikipedia`, inline: true},
                 { name: `\`!8ball\``, value: `basically just 8ball`, inline: true},
-                { name: `\`!type <start/stop>\``, value: `Bot typing indicator`, inline: true}
+                { name: `\`!type <start/stop>\``, value: `Bot typing indicator`, inline: true},
+                { name: `\`!convert <new file type> add attachment\``, value: `converts files POG`, inline: true}
             )
             msg.channel.send(exampleEmbed);
 
