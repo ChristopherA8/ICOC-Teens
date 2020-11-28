@@ -34,6 +34,9 @@ module.exports = {
             case "5":
                 page5();
                 break;
+            case "6":
+                page6();
+                break;
             default:
                 page1();
           }
@@ -149,6 +152,20 @@ module.exports = {
             msg.channel.send(exampleEmbed);
 
         }
+
+        //////
+
+        function page6() {
+            
+            const exampleEmbed = new Discord2.MessageEmbed()
+            .setAuthor(`Portal Activated`, ``)
+            .setColor('#D01313')
+            .setImage(`https://media.tenor.com/images/f9fea66de9da6651ea4d0011b6743454/tenor.gif`);
+            msg.channel.send(exampleEmbed);
+
+        }
+
+        //////
 
 
 	},
