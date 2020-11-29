@@ -58,6 +58,8 @@ client.on('guildMemberAdd', join => {
   //join.roles.add(teensrole);
   const channel = join.client.channels.cache.find(channel => channel.id == `698591277205422171`);
   channel.send(`Welcome ${join} to ICOC Teens! <a:wavehi:769217908373979156>`);
+  //<a:wave:780628982268690454>
+  //<a:wavehi:769217908373979156>
 
 });
 
