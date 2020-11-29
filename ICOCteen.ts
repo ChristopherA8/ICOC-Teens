@@ -15,7 +15,7 @@ const { prefix, token } = require('./config.json');
 const SQLite = require('better-sqlite3');
 
 // Create SQLite database
-const sql = new SQLite('./scores.sqlite');
+const sql = new SQLite('./databases/scores.sqlite');
 
 // Instantiate new Discord Client
 const client = new Discord.Client()
