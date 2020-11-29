@@ -64,7 +64,7 @@ client.on('ready', () => {
 
   console.log("Connected as " + client.user.tag + ", Icoc Teens Bot is online")
   //Set Bot Status
-  client.user.setActivity("Aqua VTUBER", {type: "STREAMING", url: "https://www.youtube.com/watch?v=KwGKOBSZf7s"})
+  client.user.setActivity("songs", {type: "STREAMING", url: "https://www.youtube.com/watch?v=oHg5SJYRHA0"})
 
   // Check if the table "points" exists.
   const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'scores';").get();
