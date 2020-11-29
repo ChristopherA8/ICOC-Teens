@@ -13,3 +13,4 @@ list.sqlite-shm
 list.sqlite-wal
 members.sqlite-shm
 members.sqlite-wal
+members.sqlite
