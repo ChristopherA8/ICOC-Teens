@@ -17,7 +17,7 @@ module.exports = {
         //declare SQLite
         const SQLite = require('better-sqlite3');
         //include database
-        const sql = new SQLite('./list.sqlite');
+        const sql = new SQLite('./databases/list.sqlite');
         //get list of items
         var items;
 

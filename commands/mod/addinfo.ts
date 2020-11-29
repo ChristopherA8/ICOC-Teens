@@ -5,7 +5,7 @@ module.exports = {
         //declare SQLite
         const SQLite = require('better-sqlite3');
         //include database
-        const db = new SQLite('./members.sqlite');
+        const db = new SQLite('./databases/members.sqlite');
 
         var input = msg.content.substr(8).trim();
         var inputArr = input.split(' ');
