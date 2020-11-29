@@ -1,4 +1,4 @@
-const Discord90 = require('discord.js');
+const Discord9090 = require('discord.js');
 module.exports = {
     name: "ticket",
     execute(msg) {
@@ -11,7 +11,7 @@ module.exports = {
             msg.delete();
             const trimmedTicket = ticket.trim();
             //embed start
-            const exampleEmbed = new Discord90.MessageEmbed()
+            const exampleEmbed = new Discord9090.MessageEmbed()
             .setAuthor(`You've got Mail!`, `https://chr1s.dev/assets/mailbox.png`)
             .setColor('#00FF86')
             .setTitle('New Ticket -')
