@@ -29,6 +29,8 @@ client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.ts'));
 const otherCommandFiles = fs.readdirSync('./commands/fun').filter(file => file.endsWith('.ts'));
 const infoCommandFiles = fs.readdirSync('./commands/info').filter(file => file.endsWith('.ts'));
+const miscCommandFiles = fs.readdirSync('./commands/misc').filter(file => file.endsWith('.ts'));
+const modCommandFiles = fs.readdirSync('./commands/mod').filter(file => file.endsWith('.ts'));
 
 // Add file names to command collection
 for (const file of commandFiles) {
@@ -41,6 +43,14 @@ for (const file of otherCommandFiles) {
 }
 for (const file of infoCommandFiles) {
 	const command = require(`./commands/info/${file}`);
+	client.commands.set(command.name, command);
+}
+for (const file of miscCommandFiles) {
+	const command = require(`./commands/misc/${file}`);
+	client.commands.set(command.name, command);
+}
+for (const file of modCommandFiles) {
+	const command = require(`./commands/mod/${file}`);
 	client.commands.set(command.name, command);
 }
 
