@@ -1,52 +1,75 @@
-// bot add link
+/*
+
+// ICOC Teens bot! A multipurpose chat bot for Discord. Features include, moderation, sound effects, XP/Leveling, etc...
+// Written completely in TypeScript!
+// Invite Link
 // https://discord.com/api/oauth2/authorize?client_id=761792910088994816&permissions=8&scope=bot
 
-//Permissions site
-// https://discordapi.com/permissions.html#8
+*/
 
+// INCLUDES
 const fs = require('fs');
 const Discord = require('discord.js')
 const config = require('./config.json');
 const { prefix, token } = require('./config.json');
+const SQLite = require('better-sqlite3');
+
+// Create SQLite database
+const sql = new SQLite('./scores.sqlite');
+
+// Instantiate new Discord Client
 const client = new Discord.Client()
+
+////////////////////
+// COMMAND HANDLER
+////////////////////
+
+// Searches through "./commands" for files ending in .ts
 client.commands = new Discord.Collection();
 const commandFiles = fs.readdirSync('./commands').filter(file => file.endsWith('.ts'));
+const otherCommandFiles = fs.readdirSync('./commands/fun').filter(file => file.endsWith('.ts'));
+const infoCommandFiles = fs.readdirSync('./commands/info').filter(file => file.endsWith('.ts'));
 
-//Include Command Files ending in .ts or .js
+// Add file names to command collection
 for (const file of commandFiles) {
 	const command = require(`./commands/${file}`);
 	client.commands.set(command.name, command);
 }
+for (const file of otherCommandFiles) {
+	const command = require(`./commands/fun/${file}`);
+	client.commands.set(command.name, command);
+}
+for (const file of infoCommandFiles) {
+	const command = require(`./commands/info/${file}`);
+	client.commands.set(command.name, command);
+}
 
-const SQLite = require('better-sqlite3');
-const sql = new SQLite('./scores.sqlite');
+///////////////////////////
+// END OF COMMAND HANDLER
+///////////////////////////
 
 
-// Runs once at startup
+// Runs on ready
 client.on('ready', () => {
 
-    // Sets Bot Status
-    console.log("Connected as " + client.user.tag + ", Icoc Teens Bot is online")
-    //client.user.setActivity("!help", {type: "PLAYING"})
-    client.user.setActivity("new challenges from David Cole", {type: "WATCHING"})
+  console.log("Connected as " + client.user.tag + ", Icoc Teens Bot is online")
+  //Set Bot Status
+  client.user.setActivity("Aqua VTUBER", {type: "STREAMING", url: "https://www.youtube.com/watch?v=KwGKOBSZf7s"})
 
-    // Check if the table "points" exists.
-    const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'scores';").get();
-    if (!table['count(*)']) {
-      // If the table isn't there, create it and setup the database correctly.
-      sql.prepare("CREATE TABLE scores (id TEXT PRIMARY KEY, user TEXT, guild TEXT, points INTEGER, level INTEGER, name TEXT);").run();
-      // Ensure that the "id" row is always unique and indexed.
-      sql.prepare("CREATE UNIQUE INDEX idx_scores_id ON scores (id);").run();
-      sql.pragma("synchronous = 1");
-      sql.pragma("journal_mode = wal");
-    }
+  // Check if the table "points" exists.
+  const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'scores';").get();
+  if (!table['count(*)']) {
+    // If the table isn't there, create it and setup the database correctly.
+    sql.prepare("CREATE TABLE scores (id TEXT PRIMARY KEY, user TEXT, guild TEXT, points INTEGER, level INTEGER, name TEXT);").run();
+    // Ensure that the "id" row is always unique and indexed.
+    sql.prepare("CREATE UNIQUE INDEX idx_scores_id ON scores (id);").run();
+    sql.pragma("synchronous = 1");
+    sql.pragma("journal_mode = wal");
+  }
 
-    // And then we have two prepared statements to get and set the score data.
-    client.getScore = sql.prepare("SELECT * FROM scores WHERE user = ? AND guild = ?");
-    client.setScore = sql.prepare("INSERT OR REPLACE INTO scores (id, user, guild, points, level, name) VALUES (@id, @user, @guild, @points, @level, @name);");
-    //Moderation
-    client.getWarns = sql.prepare("SELECT * FROM moderation WHERE id = ?");
-    client.setWarns = sql.prepare("INSERT OR REPLACE INTO moderation (id, name, warns) VALUES (@id, @name, @warns);");
+  // And then we have two prepared statements to get and set the score data.
+  client.getScore = sql.prepare("SELECT * FROM scores WHERE user = ? AND guild = ?");
+  client.setScore = sql.prepare("INSERT OR REPLACE INTO scores (id, user, guild, points, level, name) VALUES (@id, @user, @guild, @points, @level, @name);");
 
 });
 
@@ -227,18 +250,11 @@ client.on('message', msg => {
     msg.channel.send(exampleEmbed);
   }
 
-  if (msg.content.startsWith(`!setname`)) {
-    score.name = msg.content.substr(8).trim();
-    msg.channel.send(`Name set to: "${msg.content.substr(8).trim()}"`);
-    client.setScore.run(score);
-  }
-
-  if (msg.content == `!name`) {
-    let score;
-    score = client.getScore.get(msg.author.id, msg.guild.id);
-    msg.channel.send(`Name: "${score.name}"`);
-  }
-
+/////////////////////////////////////////
+// Warns
+/////////////////////////////////////////
+  client.getWarns = sql.prepare("SELECT * FROM moderation WHERE id = ?");
+  client.setWarns = sql.prepare("INSERT OR REPLACE INTO moderation (id, name, warns) VALUES (@id, @name, @warns);");
   let mod;
   mod = client.getWarns.get(msg.author.id);
   if (!mod) {
