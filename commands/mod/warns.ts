@@ -1,27 +1,39 @@
+const Discord7842 = require('discord.js');
 module.exports = {
-    name:"warns",
-    execute(msg) {
+  name:"warns",
+  execute(msg) {
 
-        //Check if table exists, if not then create it.
-        //msg.channel.send(`listing warns....`);
-/*
-        const ping = msg.mentions.members.first();
+    if (msg.member.hasPermission('KICK_MEMBERS')) {
 
-        if (!ping) {
-        const exampleEmbed = new Discord.MessageEmbed()
-        .setAuthor(`${msg.author.tag}`, `${msg.author.displayAvatarURL(({dynamic : true}))}`)
-        .setColor('#00FF86')
-        .setDescription(`Warns: ${mod.warns}`)
-        msg.channel.send(exampleEmbed);
+      const SQLite = require('better-sqlite3');
+      const ping = msg.mentions.members.first();
+
+      // Create SQLite database
+      const sql = new SQLite('./databases/warns.sqlite');
+
+      if (!ping) {
+        msg.channel.send(`**Error:** Missing ping!`);
+      } else {
+        const warns = sql.prepare("SELECT * FROM warns WHERE id = ?").get(ping.id);
+        if (warns == undefined) {
+          sql.prepare("INSERT OR REPLACE INTO warns (id, name, warns) VALUES (?, ?, ?);").run(ping.id, ping.user.tag, 0);
+          warnEmbed(msg, ping, warns);
         } else {
-          let modPing;
-          modPing = client.getWarns.get(ping.id);
-          const exampleEmbed = new Discord.MessageEmbed()
-          .setAuthor(`${ping.user.tag}`, `${ping.user.displayAvatarURL(({dynamic : true}))}`)
-          .setColor('#00FF86')
-          .setDescription(`Warns: ${modPing.warns}`)
-          msg.channel.send(exampleEmbed);
-        }*/
+          warnEmbed(msg, ping, warns);
+        }
+      }
 
-    },
+      } else {
+        msg.channel.send(`**Error:** Missing Permissions!`);
+      }
+
+  },
 };
+
+function warnEmbed(msg, ping, warns) {
+  const exampleEmbed = new Discord7842.MessageEmbed()
+  .setAuthor(`${ping.user.tag}`, `${ping.user.displayAvatarURL(({dynamic : true}))}`)
+  .setColor('#00FF86')
+  .setDescription(`Warns: ${warns ? warns.warns : '0'}`)
+  msg.channel.send(exampleEmbed);
+}

@@ -101,6 +101,10 @@ client.on('message', msg => {
 
   if (msg.channel.type === 'dm') return;
 
+  if (msg.content.includes(`simp`)) {
+    msg.channel.send(`Therefore, my dear friends, flee from idolatry. - 1 Corinthians 10:14`);
+  }
+
   if (msg.content.includes(`ur mom`) || (msg.content.includes(`your mom`))) {
     msg.channel.send(`airhorn airhorn airhorn`);
   }
@@ -260,66 +264,6 @@ client.on('message', msg => {
     msg.channel.send(exampleEmbed);
   }
 
-/////////////////////////////////////////
-// Warns
-/////////////////////////////////////////
-  client.getWarns = sql.prepare("SELECT * FROM moderation WHERE id = ?");
-  client.setWarns = sql.prepare("INSERT OR REPLACE INTO moderation (id, name, warns) VALUES (@id, @name, @warns);");
-  let mod;
-  mod = client.getWarns.get(msg.author.id);
-  if (!mod) {
-    mod = { id: msg.author.id, name: msg.author.tag, warns: 0}
-  }
-  client.setWarns.run(mod);
-
-  if (msg.content.startsWith(`!listwarns`)) {
-    const ping = msg.mentions.members.first();
-
-    if (!ping) {
-    const exampleEmbed = new Discord.MessageEmbed()
-    .setAuthor(`${msg.author.tag}`, `${msg.author.displayAvatarURL(({dynamic : true}))}`)
-    .setColor('#00FF86')
-    .setDescription(`Warns: ${mod.warns}`)
-    msg.channel.send(exampleEmbed);
-    } else {
-      let modPing;
-      modPing = client.getWarns.get(ping.id);
-      const exampleEmbed = new Discord.MessageEmbed()
-      .setAuthor(`${ping.user.tag}`, `${ping.user.displayAvatarURL(({dynamic : true}))}`)
-      .setColor('#00FF86')
-      .setDescription(`Warns: ${modPing.warns}`)
-      msg.channel.send(exampleEmbed);
-    }
-  }
-
-  if (msg.content.startsWith(`!warn`)) {
-    const ping = msg.mentions.members.first();
-
-    if (!ping) {
-      msg.channel.send(`**Error:** Ping the person you want to warn!`);
-    } else {
-      let modPing;
-      modPing = client.getWarns.get(ping.id);
-      msg.channel.send(`${ping} has been warned! :eyes:`);
-      modPing.warns++;
-      client.setWarns.run(modPing);
-    }
-  }
-
-  if (msg.content.startsWith(`!clearwarns`)) {
-    let mod;
-    const ping = msg.mentions.members.first();
-
-    if (!ping) {
-      msg.channel.send(`**Error:** Ping the person you want to clear!`);
-    } else {
-      mod = client.getWarns.get(ping.id);
-      msg.channel.send(`${ping} warns have been cleared! <a:nezukovibin:745998060731105291>`);
-      mod.warns = 0;
-      client.setWarns.run(mod);
-    }
-  }
-  
   }//if for the #rules channel
 
 /*
@@ -362,6 +306,8 @@ client.on('message', msg => {
     } else if(msg.content.startsWith(`${prefix}teens`)) {
       command.execute(msg, args);
     } else if(msg.content.startsWith(`${prefix}ticket`)) {
+      command.execute(msg, args);
+    } else if(msg.content.startsWith(`${prefix}eval`)) {
       command.execute(msg, args);
     } else {
       setTimeout(() => {
