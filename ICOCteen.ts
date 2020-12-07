@@ -11,7 +11,7 @@
 const fs = require('fs');
 const Discord = require('discord.js')
 const config = require('./config.json');
-const { prefix, token } = require('./config.json');
+const { prefix, token, webhookURL } = require('./config.json');
 const SQLite = require('better-sqlite3');
 
 // Create SQLite database
@@ -921,8 +921,23 @@ for (let i = 0; i < arr.length; i++) {
 
 */
 
+client.on(`message`, message => {
 
+  const webhook = require("webhook-discord")
+ 
+  const Hook = new webhook.Webhook(webhookURL)
 
+  //Hook.warn("test", "Warning message")
+  if (message.content == `!webhoook`) {
+    const msg = new webhook.MessageBuilder()
+    .setName('Update-sama')
+    .setColor("#301934")
+    .setTitle('Feature Update!')
+    .setDescription(`Bot can now use webhooks!`);
+    Hook.send(msg).catch(err => {console.log(err)});
+  }
+
+});
 
 client.login(token)
 
