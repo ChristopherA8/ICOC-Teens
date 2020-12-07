@@ -338,7 +338,7 @@ const { YTSearcher } = require('ytsearcher');
 const searcher = new YTSearcher('AIzaSyALqowrUUelRZOyrjC_NzdLUTnsW9PNj5k');
 var usrInput = voice.content.substr(5).trim();
 var fxInput = voice.content.substr(3).trim();
-/*
+
 //!play <search>
 if (voice.content.startsWith(`${prefix}play`)) {
   if (voice.channel.type === 'dm') return;
@@ -364,11 +364,11 @@ if (voice.content.startsWith(`${prefix}play`)) {
   });
 }
 }
-*/
 
-if (voice.content.startsWith(`${prefix}play`)) {
+
+/* if (voice.content.startsWith(`${prefix}play`)) {
   voice.channel.send(`**Error:** Play has been temporarily/not so temporarily disabled while I squash some bugs :smile:`);
-}
+} */
 
 //!stop
 if (voice.content.startsWith(`${prefix}stop`)) {

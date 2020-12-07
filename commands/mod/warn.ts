@@ -29,6 +29,8 @@ module.exports = {
                     ping.roles.remove(role, `Temporary mute expired.`);
                     msg.channel.send(`Temporary mute expired for ${ping}`);
                 }, 300000); // time in ms
+            } else if (check.warns == 10) {
+              ping.kick();
             }
         }
       }
