@@ -148,17 +148,17 @@ if (enabled) {
     client.setScore.run(score);
 
     
-    // const top = sql.prepare("SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 1").get(msg.guild.id);
-    // const topMem = msg.guild.members.cache.get(top.id.substr(19));
-    // if (!topMem.roles.cache.has(`786101864357167104`)) {
-    //   var oldMem = msg.guild.members.cache.filter(mem => mem.roles.cache.has(`786101864357167104`));
-    //   var oldMem = oldMem.array();
-    //   for(const topMembers of oldMem) {
-    //     topMembers.roles.remove(`786101864357167104`);
-    //     //console.log(topMembers);
-    //   }
-    //   topMem.roles.add(`786101864357167104`);
-    // }
+/*     const top = sql.prepare("SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 1").get(msg.guild.id);
+    const topMem = msg.guild.members.cache.get(top.id.substr(19));
+    if (!topMem.roles.cache.has(`786101864357167104`)) {
+      var oldMem = msg.guild.members.cache.filter(mem => mem.roles.cache.has(`786101864357167104`));
+      var oldMem = oldMem.array();
+      for(const topMembers of oldMem) {
+        topMembers.roles.remove(`786101864357167104`);
+        //console.log(topMembers);
+      }
+      topMem.roles.add(`786101864357167104`);
+    } */
 
 
   }//end of rules channel check

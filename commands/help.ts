@@ -84,7 +84,10 @@ module.exports = {
                 { name: '\`!tempmute <@user> <time (don\'t make this rly big or it breaks)>\`', value: `tempmute user`, inline: true},
                 { name: '\`!ticket <message>\`', value: `send message to staff only channel`, inline: true},
                 { name: '\`!bans\`', value: `lists all banned users`, inline: true},
-                { name: `\`!checklist\``, value: `do "!checklist help"`, inline: true}
+                { name: `\`!checklist\``, value: `do "!checklist help"`, inline: true},
+                { name: '\`!warn <@user>\`', value: `warns user, 3 warns = 5 minute mute`, inline: true},
+                { name: '\`!clearwarns\`', value: `clears warns for user`, inline: true},
+                { name: '\`!warns <@user>\`', value: `list warn count for user`, inline: true}
                 
             )
             msg.channel.send(exampleEmbed);
