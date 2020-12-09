@@ -114,7 +114,7 @@ client.on('message', msg => {
     msg.channel.send(`airhorn airhorn airhorn`);
   }
 
-  var enabled = true;
+  var enabled = false;
   if (msg.content.startsWith('!freezexp') && (msg.author.id == '279032930926592000')) {
     enabled = false;
   }
