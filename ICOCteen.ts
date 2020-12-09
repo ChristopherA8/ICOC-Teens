@@ -101,8 +101,8 @@ client.on('message', msg => {
 
   if (msg.channel.type === 'dm') return;
 
-  if (msg.content.includes(`simp`)) {
-    msg.channel.send(`Therefore, my dear friends, flee from idolatry. - 1 Corinthians 10:14`);
+  if ((msg.content.match(/\bsimp\b/ig))) {
+      msg.channel.send(`Therefore, my dear friends, flee from idolatry. - 1 Corinthians 10:14`);
   }
 
   if (msg.content.includes(`ur mom`) || (msg.content.includes(`your mom`))) {
@@ -920,24 +920,6 @@ for (let i = 0; i < arr.length; i++) {
 })
 
 */
-
-client.on(`message`, message => {
-
-  const webhook = require("webhook-discord")
- 
-  const Hook = new webhook.Webhook(webhookURL)
-
-  //Hook.warn("test", "Warning message")
-  if (message.content == `!webhoook`) {
-    const msg = new webhook.MessageBuilder()
-    .setName('Update-sama')
-    .setColor("#301934")
-    .setTitle('Feature Update!')
-    .setDescription(`Bot can now use webhooks!`);
-    Hook.send(msg).catch(err => {console.log(err)});
-  }
-
-});
 
 client.login(token)
 
