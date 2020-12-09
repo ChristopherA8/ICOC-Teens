@@ -59,9 +59,7 @@ for (const file of xpCommandFiles) {
 	client.commands.set(command.name, command);
 }
 
-///////////////////////////
-// END OF COMMAND HANDLER
-///////////////////////////
+
 
 
 // Runs on ready
@@ -69,7 +67,7 @@ client.on('ready', () => {
 
   console.log("Connected as " + client.user.tag + ", Icoc Teens Bot is online")
   //Set Bot Status
-  client.user.setActivity("songs", {type: "STREAMING", url: "https://www.youtube.com/watch?v=oHg5SJYRHA0"})
+  client.user.setActivity("to spam in #chat", {type: "LISTENING"})
 
   // Check if the table "points" exists.
   const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'scores';").get();
@@ -114,12 +112,14 @@ client.on('message', msg => {
     msg.channel.send(`airhorn airhorn airhorn`);
   }
 
-  var enabled = false;
-  if (msg.content.startsWith('!freezexp') && (msg.author.id == '279032930926592000')) {
+  var enabled = true;
+  if (msg.content.startsWith('!stopxp') && (msg.author.id == '279032930926592000')) {
     enabled = false;
   }
 
-
+  if (msg.content.startsWith('!startxp') && (msg.author.id == '279032930926592000')) {
+    enabled = true;
+  }
 
 if (enabled) {
 
@@ -146,7 +146,22 @@ if (enabled) {
       msg.reply(`You've leveled up to level **${curLevel}**!`);
     }
     client.setScore.run(score);
-  }//end of enabled
+
+    
+    // const top = sql.prepare("SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 1").get(msg.guild.id);
+    // const topMem = msg.guild.members.cache.get(top.id.substr(19));
+    // if (!topMem.roles.cache.has(`786101864357167104`)) {
+    //   var oldMem = msg.guild.members.cache.filter(mem => mem.roles.cache.has(`786101864357167104`));
+    //   var oldMem = oldMem.array();
+    //   for(const topMembers of oldMem) {
+    //     topMembers.roles.remove(`786101864357167104`);
+    //     //console.log(topMembers);
+    //   }
+    //   topMem.roles.add(`786101864357167104`);
+    // }
+
+
+  }//end of rules channel check
 
     // if (msg.content.startsWith(`!xp`) || msg.content.startsWith(`!rank`)) {
     //   //msg.channel.send(`**REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT**`);
@@ -209,7 +224,7 @@ if (enabled) {
 //620438897217896459
 */
 
-  }//if for the #rules channel
+  }//end of enabled chech
 
   // KEEP SPAM OUT OF #RULES
   if (msg.channel.id == `770730379077353494`) {
