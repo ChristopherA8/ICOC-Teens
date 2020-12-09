@@ -31,6 +31,7 @@ const otherCommandFiles = fs.readdirSync('./commands/fun').filter(file => file.e
 const infoCommandFiles = fs.readdirSync('./commands/info').filter(file => file.endsWith('.ts'));
 const miscCommandFiles = fs.readdirSync('./commands/misc').filter(file => file.endsWith('.ts'));
 const modCommandFiles = fs.readdirSync('./commands/mod').filter(file => file.endsWith('.ts'));
+const xpCommandFiles = fs.readdirSync('./commands/xp').filter(file => file.endsWith('.ts'));
 
 // Add file names to command collection
 for (const file of commandFiles) {
@@ -51,6 +52,10 @@ for (const file of miscCommandFiles) {
 }
 for (const file of modCommandFiles) {
 	const command = require(`./commands/mod/${file}`);
+	client.commands.set(command.name, command);
+}
+for (const file of xpCommandFiles) {
+	const command = require(`./commands/xp/${file}`);
 	client.commands.set(command.name, command);
 }
 
@@ -138,39 +143,39 @@ client.on('message', msg => {
     client.setScore.run(score);
 
 
-    if (msg.content.startsWith(`!xp`) || msg.content.startsWith(`!rank`)) {
-      //msg.channel.send(`**REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT**`);
+    // if (msg.content.startsWith(`!xp`) || msg.content.startsWith(`!rank`)) {
+    //   //msg.channel.send(`**REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT**`);
       
-      const ping = msg.mentions.members.first();
+    //   const ping = msg.mentions.members.first();
 
-      if (!ping) {
-        let score;
-        score = client.getScore.get(msg.author.id, msg.guild.id);
-        const exampleEmbed = new Discord.MessageEmbed()
-        .setAuthor(`${msg.author.tag}`, `${msg.author.displayAvatarURL(({dynamic : true}))}`)
-        .setColor('#00FF86')
-        //.setFooter(`ID: ${msg.author.id}`)
-        .addFields(
-          { name: '**XP:**', value: `${score.points}`, inline: true},
-          { name: '**Level:**', value: `${score.level}`, inline: true}
-        )
-        msg.channel.send(exampleEmbed);
-      } else {
-        let scorePing;
-        scorePing = client.getScore.get(ping.id, msg.guild.id);
-        const exampleEmbed = new Discord.MessageEmbed()
-        .setAuthor(`${ping.displayName}`, `${ping.user.displayAvatarURL(({dynamic : true}))}`)
-        .setColor('#00FF86')
-        //.setFooter(`ID: ${msg.author.id}`)
-        .addFields(
-          { name: '**XP:**', value: `${scorePing.points}`, inline: true},
-          { name: '**Level:**', value: `${scorePing.level}`, inline: true}
-        )
-        msg.channel.send(exampleEmbed);
-      }
+    //   if (!ping) {
+    //     let score;
+    //     score = client.getScore.get(msg.author.id, msg.guild.id);
+    //     const exampleEmbed = new Discord.MessageEmbed()
+    //     .setAuthor(`${msg.author.tag}`, `${msg.author.displayAvatarURL(({dynamic : true}))}`)
+    //     .setColor('#00FF86')
+    //     //.setFooter(`ID: ${msg.author.id}`)
+    //     .addFields(
+    //       { name: '**XP:**', value: `${score.points}`, inline: true},
+    //       { name: '**Level:**', value: `${score.level}`, inline: true}
+    //     )
+    //     msg.channel.send(exampleEmbed);
+    //   } else {
+    //     let scorePing;
+    //     scorePing = client.getScore.get(ping.id, msg.guild.id);
+    //     const exampleEmbed = new Discord.MessageEmbed()
+    //     .setAuthor(`${ping.displayName}`, `${ping.user.displayAvatarURL(({dynamic : true}))}`)
+    //     .setColor('#00FF86')
+    //     //.setFooter(`ID: ${msg.author.id}`)
+    //     .addFields(
+    //       { name: '**XP:**', value: `${scorePing.points}`, inline: true},
+    //       { name: '**Level:**', value: `${scorePing.level}`, inline: true}
+    //     )
+    //     msg.channel.send(exampleEmbed);
+    //   }
 
-    }
-
+    // }
+/*
   if (msg.content.startsWith(`!lvlup`) && (msg.author.id == `279032930926592000` || msg.author.id == `329039487474860032`  || msg.author.id == `707844228977524757`)) {
     score.level++;
     msg.channel.send(`Leveled up!`);
@@ -240,7 +245,7 @@ client.on('message', msg => {
       msg.channel.send(`**XP Removed:** ${input}`);
     }
   }*/
-
+/*
   if (msg.content == `!resetxp`) {
     let score;
     score = client.getScore.get(msg.author.id, msg.guild.id);
@@ -262,7 +267,7 @@ client.on('message', msg => {
     .setColor('#00FF86')
     .setDescription(`\`\`\`md\n1. ${top10[0].name} | XP: ${top10[0].points}\n2. ${top10[1].name} | XP: ${top10[1].points}\n3. ${top10[2].name} | XP: ${top10[2].points}\n4. ${top10[3].name} | XP: ${top10[3].points}\n5. ${top10[4].name} | XP: ${top10[4].points}\n6. ${top10[5].name} | XP: ${top10[5].points}\n7. ${top10[6].name} | XP: ${top10[6].points}\n8. ${top10[7].name} | XP: ${top10[7].points}\n9. ${top10[8].name} | XP: ${top10[8].points}\n10. ${top10[9].name} | XP: ${top10[9].points}\n\`\`\``)
     msg.channel.send(exampleEmbed);
-  }
+  }*/
 
   }//if for the #rules channel
 
