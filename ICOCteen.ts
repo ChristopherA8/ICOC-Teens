@@ -114,9 +114,14 @@ client.on('message', msg => {
     msg.channel.send(`airhorn airhorn airhorn`);
   }
 
-  //////////////////////
-  // XP
-  //////////////////////
+  var enabled = true;
+  if (msg.content.startsWith('!freezexp') && (msg.author.id == '279032930926592000')) {
+    enabled = false;
+  }
+
+
+
+if (enabled) {
 
   //disable xp in #rules
     if (msg.channel.id !== `770730379077353494`) {
@@ -141,7 +146,7 @@ client.on('message', msg => {
       msg.reply(`You've leveled up to level **${curLevel}**!`);
     }
     client.setScore.run(score);
-
+  }//end of enabled
 
     // if (msg.content.startsWith(`!xp`) || msg.content.startsWith(`!rank`)) {
     //   //msg.channel.send(`**REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT**`);
@@ -202,86 +207,9 @@ client.on('message', msg => {
     }
   }
 //620438897217896459
-/*
-  if (msg.content.startsWith(`!setxp`) && (msg.author.id == `620438897217896459`)) {
-    var input = msg.content.split(' ');
-    if (input[1] == null) {
-      msg.channel.send(`**Error:** Format \`!setxp @user amount\``);
-    } else {
-      const ping = msg.mentions.members.first();
-      let scorePing;
-      if (ping) {
-        input[2] = Number(input[2]);
-        scorePing = client.getScore.get(ping.id, msg.guild.id);
-        scorePing.points = input[2];
-        const newLevel = Math.floor(0.3 * Math.sqrt(input[2]));
-        scorePing.level = newLevel;
-        client.setScore.run(scorePing);
-        msg.channel.send(`**XP Set To:** ${input[2]}`);
-      }
-    }
-  }
-
-  if (msg.content.startsWith(`!givexp`) && (msg.author.id == `620438897217896459`)) {
-    var input = msg.content.substr(7).trim();
-    if (input === '') {
-      msg.channel.send(`**Error:** Enter Amount!`);
-    } else {
-      input = Number(input);
-      score.points = score.points + input;
-      client.setScore.run(score);
-      msg.channel.send(`**XP Given:** ${input}`);
-    }
-  }
-
-  if (msg.content.startsWith(`!removexp`) && (msg.author.id == `620438897217896459`)) {
-    var input = msg.content.substr(9).trim();
-    if (input === '') {
-      msg.channel.send(`**Error:** Enter Amount!`);
-    } else {
-      input = Number(input);
-      score.points = score.points - input;
-      client.setScore.run(score);
-      msg.channel.send(`**XP Removed:** ${input}`);
-    }
-  }*/
-/*
-  if (msg.content == `!resetxp`) {
-    let score;
-    score = client.getScore.get(msg.author.id, msg.guild.id);
-    score.points = 0;
-    client.setScore.run(score);
-  }
-
-  if (msg.content == `!resetlvl`) {
-    let score;
-    score = client.getScore.get(msg.author.id, msg.guild.id);
-    score.level = 0;
-    client.setScore.run(score);
-  }
-
-  if ((msg.content == `!top`) || (msg.content == `!lead`)) {
-    const top10 = sql.prepare("SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 10").all(msg.guild.id);
-    const exampleEmbed = new Discord.MessageEmbed()
-    .setAuthor(`${msg.author.tag}`, `${msg.author.displayAvatarURL(({dynamic : true}))}`)
-    .setColor('#00FF86')
-    .setDescription(`\`\`\`md\n1. ${top10[0].name} | XP: ${top10[0].points}\n2. ${top10[1].name} | XP: ${top10[1].points}\n3. ${top10[2].name} | XP: ${top10[2].points}\n4. ${top10[3].name} | XP: ${top10[3].points}\n5. ${top10[4].name} | XP: ${top10[4].points}\n6. ${top10[5].name} | XP: ${top10[5].points}\n7. ${top10[6].name} | XP: ${top10[6].points}\n8. ${top10[7].name} | XP: ${top10[7].points}\n9. ${top10[8].name} | XP: ${top10[8].points}\n10. ${top10[9].name} | XP: ${top10[9].points}\n\`\`\``)
-    msg.channel.send(exampleEmbed);
-  }*/
+*/
 
   }//if for the #rules channel
-
-/*
-  if (msg.content == `!purge`) {
-    sql.close();
-    fs.unlinkSync(`./scores.sqlite`);
-    fs.unlinkSync(`./scores.sqlite-shm`);
-    fs.unlinkSync(`./scores.sqlite-wal`);
-    
-   msg.channel.send(`***XP RESET!!***`);
-}*/
-
-
 
   // KEEP SPAM OUT OF #RULES
   if (msg.channel.id == `770730379077353494`) {
