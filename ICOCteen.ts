@@ -734,28 +734,35 @@ client.on(`roleUpdate`, (oldRole, newRole) => {
 // MESSAGE LOGGING
 /////////////////////
 
-client.on(`messageDelete`, del => {
+client.on(`messageDelete`, async del => {
 
   var deletedMessage = del.content;
   const channel = del.client.channels.cache.find(channel => channel.id === `768882922379280464`);
+  var executor;
+  await Discord.Util.delayFor(900);
 
-  if (del.author.id !== `234395307759108106` && del.author.id !== `765662774445080616`) {
-    delMsg(del, channel);
-  }
-
-    
+  del.guild.fetchAuditLogs()
+  .then(log => {
+    executor = log.entries.first().executor;
+    if (del.author.id !== `234395307759108106` && del.author.id !== `765662774445080616`) {
+      delMsg(del, channel, executor);
+    }
+  })
   
 //////////////////
 // EMBED
 //////////////////
 
-function delMsg(del, channel) {
+function delMsg(del, channel, executor) {
+  if (del.author.username == executor.username) {
+    executor = undefined;
+  }
   
   const exampleEmbed = new Discord.MessageEmbed()
   .setAuthor(`Message Updated -`)
   .setColor('#00FF86')
   .setFooter(`Message Author: ${del.author.tag} | In Channel: ${del.channel.name}`)
-  .setDescription(`Message Deleted: \n\`\`\`${del}\`\`\``)
+  .setDescription(`**Message Deleted:** \n\`\`\`${del}\`\`\`\n${executor ? `**By:** ${executor}` : "Deleted by Author"}`) // \n**By:** ${executor ? executor : `?`}
   channel.send(exampleEmbed);
 
 }
