@@ -67,7 +67,7 @@ client.on('ready', () => {
 
   console.log("Connected as " + client.user.tag + ", Icoc Teens Bot is online")
   //Set Bot Status
-  client.user.setActivity("to spam in #chat", {type: "LISTENING"})
+  client.user.setActivity("please don't spam", {type: "PLAYING"})
 
   // Check if the table "points" exists.
   const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'scores';").get();
@@ -505,7 +505,7 @@ client.on('guildMemberRemove', async member => {
       type: 'MEMBER_KICK',
   });
   const kickLog = fetchedLogs.entries.first();
-  if (!kickLog) return channel.send(`> ${member.user.tag} left the guild <:dead:765721212033695784>`);
+  if (!kickLog) return embed(channel, `${member.user.tag} left the guild <:dead:765721212033695784>`, member) //channel.send(`> ${member.user.tag} left the guild <:dead:765721212033695784>`);
 
   // We now grab the user object of the person who kicked our member
   // Let us also grab the target of this action to double check things
@@ -514,11 +514,22 @@ client.on('guildMemberRemove', async member => {
   // And now we can update our output with a bit more information
   // We will also run a check to make sure the log we got was for the same kicked member
   if (target.id === member.id) {
-    channel.send(`> ${member.user.tag} left the guild; kicked by ${executor.tag}? <:dead:765721212033695784>`);
+    embed(channel, `${member.user.tag} left the guild; kicked by ${executor.tag}? <:dead:765721212033695784>`, member) //channel.send(`> ${member.user.tag} left the guild; kicked by ${executor.tag}? <:dead:765721212033695784>`);
   } else {
-    channel.send(`> ${member.user.tag} left the guild, audit log fetch was inconclusive. <:dead:765721212033695784><:dead:765721212033695784><:dead:765721212033695784>`);
+    embed(channel, `${member.user.tag} left the guild, audit log fetch was inconclusive. <:dead:765721212033695784><:dead:765721212033695784><:dead:765721212033695784>`, member) //channel.send(`> ${member.user.tag} left the guild, audit log fetch was inconclusive. <:dead:765721212033695784><:dead:765721212033695784><:dead:765721212033695784>`);
   }
 });
+
+//embed
+function embed(channel, info, member) {
+  const embed = new Discord.MessageEmbed()
+  .setAuthor(`${member.displayName}`, `${member.user.displayAvatarURL({ dynamic: true })}`)
+  .setColor(`#FF0000`)
+  .setFooter(`ID: ${member.id}`)
+  .setDescription(`${info}`);
+  channel.send(embed);
+}
+///
 
 //////////////////////////////////
 // USER LOGGING
@@ -798,7 +809,7 @@ client.on(`messageUpdate`, (oldMsg, newMsg) => {
     .setFooter(`Message ID: ${newMsg.id}`)
     //.setDescription(`Message Edited:\nIn Channel ${newMsg.channel.toString()}\nOld: \`\`\`${oldMsg.content}\`\`\` \nNew: \`\`\`${newMsg.content}\`\`\``)
     .addFields(
-      { name:`In Channel:`, value:`"${newMsg.channel.toString()}"`, inline: true },
+      { name:`In Channel:`, value:`${newMsg.channel.toString()}`, inline: true },
       { name:`Message Contents:`, value:`Old: \`\`\`${oldMsg.content.replace("`", `\``).replace("`", `\``).replace("`", `\``).replace("`", `\``).replace("`", `\``).replace("`", `\``).replace("`", `\``).replace("`", `\``)}\`\`\` \nNew: \`\`\`${newMsg.content.replace("`", `\``)}\`\`\``, inline: false },
     )
     channel.send(exampleEmbed);
@@ -868,6 +879,22 @@ for (let i = 0; i < arr.length; i++) {
 })
 
 */
+
+client.on(`guildMemberWarned`, (warnedMember, reason, warner) => {
+  const channel = client.channels.cache.find(channel => channel.id === `759967435309842494`); // #audit-log
+  warnEmbed(channel, warnedMember, reason, warner);
+
+});
+
+function warnEmbed(channel, member, reason, warner) {
+  const embed = new Discord.MessageEmbed()
+  .setAuthor(`${member.displayName}`, `${member.user.displayAvatarURL({ dynamic: true })}`)
+  .setColor('#F3D40C')
+  .setTitle(`Member Warned!`)
+  .setDescription(`**Reason: ${reason}\nBy:** ${warner}`)
+  .setFooter(`ID: ${member.id}`);
+  channel.send(embed);
+}
 
 client.login(token)
 
