@@ -865,41 +865,48 @@ function createInv(inv, channel) {
 //////////////////////////////////
 
 client.on(`message`, nono => {
+  if (nono.channel.id == `770730379077353494`) return;
+  if (nono.author.bot) return;
+  if (nono.channel.type === 'dm') return;
 
-  if (nono.channel.id !== `768882922379280464`) {
+  const words = require(`./bannedWords.json`);
+  const channel = nono.client.channels.cache.find(channel => channel.id === `768882922379280464`);
+  const bannedWords = words.words;
+  // Shifting to lowercase here allows case iNsEnSiTiViTy.
+  const str = nono.content.toLowerCase().trim();
+  const strArr = nono.content.toLowerCase().trim().split(" ");
 
-    const words = require(`./bannedWords.json`);
-    const channel = nono.client.channels.cache.find(channel => channel.id === `768882922379280464`);
-    const arr = words.words;
-    const str = nono.content.toLowerCase();
-
-    for (let i = 0; i < arr.length; i++) {
-
-      const elem = arr[i];
-      // var regex = new RegExp(`\\b${elem}\\b`, "g");
-
-      // Shifting to lowercase here allows case iNsEnSiTiViTy.
-      if (str.includes(elem)) {
-        nono.delete();
-        filterEmbed(nono, channel)
+  for (let index = 0; index < bannedWords.length; index++) {
+    const ban = bannedWords[index];
+    if (str.includes(ban)) {
+      for (let index = 0; index < strArr.length; index++) {
+        const element = strArr[index];
+        if (element == ban) {
+          nono.delete();
+          filterEmbed(nono, channel);
+          const notifier = require(`node-notifier`);
+          notifier.notify({
+              title: `${nono.member.displayName}`,
+              message: `${nono.content}`,
+              icon: 'C:\\Users\\chris\\Pictures\\Chr1sDev\\chr1s.png',
+              sound: false
+          }); 
+        }
       }
-
     }
-
   }
 
-function filterEmbed(nono, channel) {
-  const embed = new Discord.MessageEmbed()
-  .setAuthor(`${nono.member.displayName}`, `${nono.author.displayAvatarURL({ dynamic: true })}`)
-  .setColor('#FF0000')
-  .setTitle(`Filtered!!`)
-  .setDescription(`**Word:** ${nono.content}`)
-  .setFooter(`ID: ${nono.id}`);
-  channel.send(embed);
-}
+  function filterEmbed(nono, channel) {
+    const embed = new Discord.MessageEmbed()
+    .setAuthor(`${nono.member.displayName}`, `${nono.author.displayAvatarURL({ dynamic: true })}`)
+    .setColor('#FF0000')
+    .setTitle(`Filtered!!`)
+    .setDescription(`**Word:** ${nono.content}`)
+    .setFooter(`ID: ${nono.id}`);
+    channel.send(embed);
+  }
 
-
-})
+});
 
 
 client.on(`guildMemberWarned`, (warnedMember, reason, warner) => {

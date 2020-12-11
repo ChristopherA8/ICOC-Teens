@@ -13,7 +13,7 @@ module.exports = {
             msg.channel.send(`**Error:** Missing input!`);
         } else {
             const Webhook = new webhook.MessageBuilder()
-            .setName('Update-chan')
+            .setName('Update')
             .setColor("#301934")
             .setTitle('Update!')
             .setDescription(input);

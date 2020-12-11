@@ -12,6 +12,7 @@
     "ffmpeg-static": "^4.2.7",
     "node-fetch": "^2.6.1",
     "node-gyp": "^7.1.2",
+    "node-notifier": "^8.0.0",
     "shoukaku": "^1.5.2",
     "ts-node": "^9.1.1",
     "webhook-discord": "^3.7.7",
