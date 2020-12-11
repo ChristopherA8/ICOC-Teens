@@ -861,31 +861,46 @@ function createInv(inv, channel) {
 
 
 //////////////////////////////////
-// BAD BAD NONO WORD HEHEHEHEHEHE
+// Word Filter
 //////////////////////////////////
-/*
+
 client.on(`message`, nono => {
 
-  const words = require(`./bannedWords.json`);
+  if (nono.channel.id !== `768882922379280464`) {
 
-  const channel = nono.client.channels.cache.find(channel => channel.id === `698594785803501629`);
+    const words = require(`./bannedWords.json`);
+    const channel = nono.client.channels.cache.find(channel => channel.id === `768882922379280464`);
+    const arr = words.words;
+    const str = nono.content.toLowerCase();
 
-const arr = words.words;
-const str = nono.content;
+    for (let i = 0; i < arr.length; i++) {
 
-for (let i = 0; i < arr.length; i++) {
-  const elem = arr[i];
-  
-  // Shifting to lowercase here allows case iNsEnSiTiViTy.
-  if (str.toLowerCase().includes(elem)) {
-    nono.delete();
-    nono.channel.send(`Get Rekt <:PikaKek:761290239046058016> <:PikaKek:761290239046058016>`);
+      const elem = arr[i];
+      // var regex = new RegExp(`\\b${elem}\\b`, "g");
+
+      // Shifting to lowercase here allows case iNsEnSiTiViTy.
+      if (str.includes(elem)) {
+        nono.delete();
+        filterEmbed(nono, channel)
+      }
+
+    }
+
   }
+
+function filterEmbed(nono, channel) {
+  const embed = new Discord.MessageEmbed()
+  .setAuthor(`${nono.member.displayName}`, `${nono.author.displayAvatarURL({ dynamic: true })}`)
+  .setColor('#FF0000')
+  .setTitle(`Filtered!!`)
+  .setDescription(`**Word:** ${nono.content}`)
+  .setFooter(`ID: ${nono.id}`);
+  channel.send(embed);
 }
+
 
 })
 
-*/
 
 client.on(`guildMemberWarned`, (warnedMember, reason, warner) => {
   const channel = client.channels.cache.find(channel => channel.id === `759967435309842494`); // #audit-log
