@@ -135,11 +135,19 @@ if (enabled) {
       score.name = msg.author.tag;
     }
     function getXP() {
+      // var words = msg.content.split(" ");
+      // var wordCount = words.length;
+      // if (wordCount <= 25) {
+      //   score.points += wordCount;
+      // } else {
+      //   score.points += 25;
+      // }
       score.points++;
       client.setScore.run(score);
     }
     setTimeout(getXP, 6000);
-    //score.points++;
+    //getXP();
+
     const curLevel = Math.floor(0.3 * Math.sqrt(score.points));
     if(score.level < curLevel) {
       score.level++;
@@ -288,7 +296,7 @@ var usrInput = voice.content.substr(5).trim();
 var fxInput = voice.content.substr(3).trim();
 
 //!play <search>
-if (voice.content.startsWith(`${prefix}play`)) {
+/* if (voice.content.startsWith(`${prefix}play`)) {
   if (voice.channel.type === 'dm') return;
 
   const voiceChannel = voice.member.voice.channel;
@@ -301,18 +309,26 @@ if (voice.content.startsWith(`${prefix}play`)) {
   if (usrInput === "") {
     voice.channel.send(`**Error:** Song name empty!`); 
   } else {
-  voiceChannel.join().then(async connection => {
-    let result = await searcher.search(usrInput).catch(error => console.log(error));
+    voiceChannel.join().then(async connection => {
 
-    const dispatcher = connection.play(await ytdl(result.first.url), { type: 'opus' }, {quality: 'highest' }, {highWaterMark: 1024 * 1024 * 10});
-    voice.channel.send(`> **Now Playing:** ${result.first.url}`);
+      // try {
+      //   let result = await searcher.search(usrInput).catch(error => console.log(error));
+      //   const dispatcher = connection.play(await ytdl(result.first.url), { type: 'opus' }, {quality: 'highest' }, {highWaterMark: 1024 * 1024 * 10});
+      //   voice.channel.send(`> **Now Playing:** ${result.first.url}`);
+      //   dispatcher.on('finish', () => voiceChannel.leave());
+      // } catch {
+      //   voice.channel.send(`**Error:** An error occured, pls try again!`);
+      // }
 
-    dispatcher.on('finish', () => voiceChannel.leave());
+      let result = await searcher.search(usrInput).catch(error => console.log(error));
+      const dispatcher = connection.play(await ytdl(result.first.url), { type: 'opus' }, {quality: 'highest' }, {highWaterMark: 1024 * 1024 * 10});
+      voice.channel.send(`> **Now Playing:** ${result.first.url}`);
+      dispatcher.on('finish', () => voiceChannel.leave());
 
-  });
+    });
+  }
 }
-}
-
+ */
 
 /* if (voice.content.startsWith(`${prefix}play`)) {
   voice.channel.send(`**Error:** Play has been temporarily/not so temporarily disabled while I squash some bugs :smile:`);
@@ -735,6 +751,8 @@ client.on(`roleUpdate`, (oldRole, newRole) => {
 /////////////////////
 
 client.on(`messageDelete`, async del => {
+  if (del.author.bot) return;
+  if (del.channel.type === 'dm') return;
 
   var deletedMessage = del.content;
   const channel = del.client.channels.cache.find(channel => channel.id === `768882922379280464`);
@@ -886,7 +904,7 @@ client.on(`message`, nono => {
           filterEmbed(nono, channel);
           const notifier = require(`node-notifier`);
           notifier.notify({
-              title: `${nono.member.displayName}`,
+              title: `${nono.member.displayName} in ${nono.channel.name}`,
               message: `${nono.content}`,
               icon: 'C:\\Users\\chris\\Pictures\\Chr1sDev\\chr1s.png',
               sound: false
