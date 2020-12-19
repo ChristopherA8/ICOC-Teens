@@ -27,7 +27,7 @@ module.exports = {
                 { name: '**❯ XP:**', value: `${score.points}`, inline: true},
                 { name: '**❯ Level:**', value: `${score.level}`, inline: true}
                 )
-                msg.channel.send(exampleEmbed);
+                msg.reply(exampleEmbed);
             }
         } else {
             let scorePing;
@@ -42,7 +42,7 @@ module.exports = {
                 { name: '**❯ XP:**', value: `${scorePing.points}`, inline: true},
                 { name: '**❯ Level:**', value: `${scorePing.level}`, inline: true}
                 )
-                msg.channel.send(exampleEmbed);
+                msg.reply(exampleEmbed);
             }
         }
 
