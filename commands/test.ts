@@ -6,6 +6,7 @@ module.exports = {
         //msg.client.emit('guildMemberRemove', msg.author);
         //msg.client.emit(`typingStart`, );
         // msg.client.emit(`guildMemberWarned`);
+        msg.client.emit(`ready`);
 
     },
 };

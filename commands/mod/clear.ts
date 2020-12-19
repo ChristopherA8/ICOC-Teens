@@ -5,6 +5,8 @@ module.exports = {
 	description: '',
 	execute(msg, args) {
 
+        if (msg.author.id !== '689910756711727193') {
+
         var input = msg.content;
         var usrInput = input.substr(6);
         var amount = usrInput;
@@ -40,6 +42,8 @@ module.exports = {
         } else {
             msg.channel.send(`\**Error:\** You are missing "Manage Messages" perms`);
         }
+
+    }//
         
 	},
 };
