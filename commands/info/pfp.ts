@@ -7,9 +7,9 @@ module.exports = {
 
 		if (ping !== undefined) {
 			// Send the user's avatar URL
-			msg.channel.send(ping.user.displayAvatarURL({ dynamic: true }));
+			msg.reply(ping.user.displayAvatarURL({ dynamic: true }));
 		} else {
-			msg.channel.send(msg.author.displayAvatarURL({ dynamic: true }));
+			msg.reply(msg.author.displayAvatarURL({ dynamic: true }));
 		}
 
 	},

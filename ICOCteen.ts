@@ -232,7 +232,7 @@ if (enabled) {
 //620438897217896459
 */
 
-  }//end of enabled chech
+  }//end of enabled check
 
   // KEEP SPAM OUT OF #RULES
   if (msg.channel.id == `770730379077353494`) {
@@ -266,9 +266,9 @@ if (enabled) {
     } else if(msg.content.startsWith(`${prefix}eval`)) {
       command.execute(msg, args);
     } else {
-      setTimeout(() => {
-        msg.delete();
-      }, 3000);
+      // setTimeout(() => {
+      //   msg.delete();
+      // }, 3000);
       command.execute(msg, args);
     }
   } catch (error) {

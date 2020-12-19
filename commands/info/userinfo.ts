@@ -46,7 +46,7 @@ module.exports = {
 				{ name: `**Nickname**`, value: `${ping.displayName}`, inline: true}
 			)
 			.addField('Roles', xroles ? xroles : 'No roles.')
-			msg.channel.send(exampleEmbed);
+			msg.reply(exampleEmbed);
 		} else {
 			const exampleEmbed = new Discord20.MessageEmbed()
 			.setAuthor(`${msg.author.tag}`, `${msg.author.displayAvatarURL(({dynamic : true}))}`)
@@ -60,7 +60,7 @@ module.exports = {
 				{ name: `**Nickname**`, value: `${msg.member.displayName}`, inline: true}
 			)
 			.addField('Roles', roles ? roles : 'No roles.')
-			msg.channel.send(exampleEmbed);
+			msg.reply(exampleEmbed);
 		}
 
 

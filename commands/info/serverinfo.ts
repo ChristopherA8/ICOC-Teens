@@ -22,7 +22,7 @@ module.exports = {
 			{ name: `Number of Boosts:`, value: `${msg.guild.premiumSubscriptionCount}`, inline: true }
 		)
 		.setThumbnail(`${msg.guild.iconURL({ dynamic: true })}`)
-		msg.channel.send(exampleEmbed);
+		msg.reply(exampleEmbed);
 
 	},
 };
