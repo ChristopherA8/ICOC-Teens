@@ -32,6 +32,7 @@ const infoCommandFiles = fs.readdirSync('./commands/info').filter(file => file.e
 const miscCommandFiles = fs.readdirSync('./commands/misc').filter(file => file.endsWith('.ts'));
 const modCommandFiles = fs.readdirSync('./commands/mod').filter(file => file.endsWith('.ts'));
 const xpCommandFiles = fs.readdirSync('./commands/xp').filter(file => file.endsWith('.ts'));
+const shopCommandFiles = fs.readdirSync('./commands/commerce').filter(file => file.endsWith('.ts'));
 
 // Add file names to command collection
 for (const file of commandFiles) {
@@ -58,9 +59,10 @@ for (const file of xpCommandFiles) {
 	const command = require(`./commands/xp/${file}`);
 	client.commands.set(command.name, command);
 }
-
-
-
+for (const file of shopCommandFiles) {
+	const command = require(`./commands/commerce/${file}`);
+	client.commands.set(command.name, command);
+}
 
 // Runs on ready
 client.on('ready', () => {
