@@ -69,7 +69,7 @@ client.on('ready', () => {
 
   console.log("Connected as " + client.user.tag + ", Icoc Teens Bot is online")
   //Set Bot Status
-  client.user.setActivity("please don't spam", {type: "LISTENING"})
+  client.user.setActivity("Tom Hanks, featuring Tom Hanks : )", {type: "WATCHING"})
 
   // Check if the table "points" exists.
   const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'scores';").get();
@@ -96,6 +96,7 @@ client.on('guildMemberAdd', join => {
   //join.roles.add(teensrole);
   const channel = join.client.channels.cache.find(channel => channel.id == `698591277205422171`);
   channel.send(`Welcome ${join} to ICOC Teens! <a:wavehi:769217908373979156>`);
+  join.send(`Welcome ${join} to ICOC Teens! <a:wavehi:769217908373979156>\n\nThanks for checking out the server. To join the server please fill out this form!\n\n<https://docs.google.com/forms/d/e/1FAIpQLSfatFjGGgYmdMjsPFZKM-KX8zEuWvlKi76KX8XNceGTbEiMlw/viewform>\nIf you have any issues/questions filling out the form, feel free to dm a staff member <:smileanime:790423498370580480>`);
   //<a:wave:780628982268690454>
   //<a:wavehi:769217908373979156>
 
@@ -105,6 +106,19 @@ client.on('guildMemberAdd', join => {
 client.on('message', msg => {
 
   if (msg.channel.type === 'dm') return;
+  if (msg.author.bot) return;
+
+  // Create Shop Members
+  const shop = new SQLite('./databases/shop.sqlite');
+  client.getMember = shop.prepare('SELECT * FROM members WHERE id = ?');
+  client.addMember = shop.prepare('INSERT INTO members (id, name, balance, owned, items) VALUES (@id, @name, @balance, @owned, @items);');
+  if (client.getMember.get(msg.author.id) == undefined) {
+    let member = {
+      id: msg.author.id, name: msg.author.tag, balance: 0, owned: 2, items: "4,3"
+    }
+    client.addMember.run(member);
+  }
+  // console.log(JSON.stringify(client.getMember.get(msg.author.id)))
 
   if ((msg.content.match(/\bsimp\b/ig))) {
       msg.channel.send(`Therefore, my dear friends, flee from idolatry. - 1 Corinthians 10:14`);
