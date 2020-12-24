@@ -24,7 +24,7 @@ module.exports = {
             ],
             fields: [
                 [
-                    { name: '\`!help [page]\`', value: `lists all commands`, inline: true},
+                    { name: '\`!help\`', value: `lists all commands`, inline: true},
                     { name: `\`!about\``, value: `About the bot ._.`, inline: true},
                     { name: '\`!bible <book> <chapter> <verse> [through verse2]\`', value: `fetch verse`, inline: true},
                     { name: '\`!icon\`', value: `get server icon`, inline: true},
