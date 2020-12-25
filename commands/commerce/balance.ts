@@ -4,21 +4,17 @@ module.exports = {
 
         // Discord Embeds
         const discord323 = require('discord.js');
+        const fs = require('fs');
 
-        // SQLite database
-        const SQLite = require('better-sqlite3');
-        const sql = new SQLite('./databases/shop.sqlite');
-
-        // Fetch items
-        msg.client.getMemberItems = sql.prepare('SELECT * FROM members WHERE id = ?');
-        const shopper = msg.client.getMemberItems.get(Number(msg.author.id));
-        var balance = shopper.balance;
+        let jsonData = fs.readFileSync('./commands/commerce/members.json');
+        let membersObject = JSON.parse(jsonData);
+        var member = membersObject.members.filter(member => member.id == msg.author.id);
 
         // Member Embed
         const embed = new discord323.MessageEmbed()
         .setAuthor('Balance:', msg.author.displayAvatarURL(({dynamic : true})))
         .setColor('#00FF86')
-        .setDescription(`₪${balance}`);
+        .setDescription(`₪${member[0].balance}`);
 
 
         msg.reply(embed);

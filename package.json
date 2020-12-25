@@ -19,7 +19,7 @@
     "ws": "^7.4.1",
     "xmlhttprequest": "1.8.0",
     "youtube-search": "^1.1.4",
-    "ytdl-core-discord": "^1.2.4",
+    "ytdl-core-discord": "^1.2.5",
     "ytsearcher": "^1.2.2"
   },
   "devDependencies": {

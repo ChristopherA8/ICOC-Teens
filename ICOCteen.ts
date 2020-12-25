@@ -105,39 +105,37 @@ client.on('guildMemberAdd', join => {
 
 client.on('message', msg => {
 
+  // Keep bot from responding in DM's and to other bots
   if (msg.channel.type === 'dm') return;
   if (msg.author.bot) return;
 
-  // Create Shop Members
-  const shop = new SQLite('./databases/shop.sqlite');
-  client.getMember = shop.prepare('SELECT * FROM members WHERE id = ?');
-  client.addMember = shop.prepare('INSERT INTO members (id, name, balance, owned, items) VALUES (@id, @name, @balance, @owned, @items);');
-  if (client.getMember.get(msg.author.id) == undefined) {
-    let member = {
-      id: msg.author.id, name: msg.author.tag, balance: 0, owned: 2, items: "4,3"
+  /* =-=-=-=-=-=-=-= Create New Shop Members =-=-=-=-=-=-=-= */
+  const fs = require('fs');
+  let jsonData = fs.readFileSync('./commands/commerce/members.json');
+  let membersObject = JSON.parse(jsonData);
+  if (membersObject.members.filter(mem => mem.id == msg.author.id) == "") {
+    console.log(`=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n| ${msg.author.tag} added to Shop Members! |\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=`);
+    var newMember = 
+    {
+      name: msg.author.tag,
+      id: msg.author.id,
+      balance: "500",
+      items: [
+      ]
     }
-    client.addMember.run(member);
+    membersObject.members.push(newMember);
+    let data = JSON.stringify(membersObject, null, 4); // Write to file
+    fs.writeFileSync('./commands/commerce/members.json', data);
   }
-  // console.log(JSON.stringify(client.getMember.get(msg.author.id)))
+  /* =-=-=-=-=-=-=-= End of Create New Shop Members =-=-=-=-=-=-=-= */
 
+  // ......self explanatory
   if ((msg.content.match(/\bsimp\b/ig))) {
       msg.channel.send(`Therefore, my dear friends, flee from idolatry. - 1 Corinthians 10:14`);
   }
-
   if (msg.content.includes(`ur mom`) || (msg.content.includes(`your mom`))) {
     msg.channel.send(`airhorn airhorn airhorn`);
   }
-
-  var enabled = true;
-  if (msg.content.startsWith('!stopxp') && (msg.author.id == '279032930926592000')) {
-    enabled = false;
-  }
-
-  if (msg.content.startsWith('!startxp') && (msg.author.id == '279032930926592000')) {
-    enabled = true;
-  }
-
-if (enabled) {
 
   //disable xp in #rules
     if (msg.channel.id !== `770730379077353494`) {
@@ -247,8 +245,6 @@ if (enabled) {
   }
 //620438897217896459
 */
-
-  }//end of enabled check
 
   // KEEP SPAM OUT OF #RULES
   if (msg.channel.id == `770730379077353494`) {

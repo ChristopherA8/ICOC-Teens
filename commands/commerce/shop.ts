@@ -4,20 +4,16 @@ module.exports = {
 
         // Discord Embeds
         const discord322 = require('discord.js');
+        const fs = require('fs');
 
-        // SQLite database
-        const SQLite = require('better-sqlite3');
-        const sql = new SQLite('./databases/shop.sqlite');
-
-        // Fetch items
-        msg.client.getShopItems = sql.prepare('SELECT * FROM items DESC');
-        const itemsList = msg.client.getShopItems.all();
+        let jsonData = fs.readFileSync('./commands/commerce/shop.json');
+        let shop = JSON.parse(jsonData);
 
         // Shop Embed
         const embed = new discord322.MessageEmbed()
         .setAuthor('Shop:')
         .setColor('#00FF86');
-        for (const item of itemsList) {
+        for (const item of shop.items) {
             embed.addFields({ name:`Name: ${item.name}`, value: `Price: ₪${item.price}  |  ID: ${item.id}` })
         }
 

@@ -5,7 +5,7 @@ module.exports = {
         const { tenor } = require(`../../config.json`);
         const fetch = require(`node-fetch`);
 
-        fetch(`https://api.tenor.com/v1/search?key=${tenor}&q=cute%20bears&locale=en_US&contentfilter=medium&limit=1`)
+        fetch(`https://api.tenor.com/v1/random?key=${tenor}&q=cute%20bears&locale=en_US&contentfilter=medium&limit=1`)
         .then(res => res.json())
         .then(api => {
 

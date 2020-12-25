@@ -1,0 +1,14 @@
+{
+    "items": [
+        {
+            "name": "Frogge",
+            "price": "70",
+            "id": "1"
+        },
+        {
+            "name": "Moses' Staff",
+            "price": "100",
+            "id": "2"
+        }
+    ]
+}

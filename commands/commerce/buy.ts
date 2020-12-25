@@ -4,8 +4,58 @@ module.exports = {
 
         // Discord Embeds
         const discord323 = require('discord.js');
+        const fs = require('fs');
 
-        // SQLite database
+        // Create objects "member" and "shop" from the json files
+        let jsonMembersData = fs.readFileSync('./commands/commerce/members.json');
+        let membersObject = JSON.parse(jsonMembersData);
+        var member = membersObject.members.filter(member => member.id == msg.author.id);
+        member = member[0]; // Get first member from array
+        let jsonShopData = fs.readFileSync('./commands/commerce/shop.json');
+        let shop = JSON.parse(jsonShopData);
+
+        var itemID = msg.content.substr(4).trim();
+
+        if (itemID !== '') {
+            if (!isNaN(itemID)) {
+                for (const shopItems of shop.items) {
+                    if (shopItems.id == itemID) {
+                        if (Number(shopItems.price) <= Number(member.balance)) {
+                            var itemToBuy = {
+                                name: shopItems.name,
+                                id: shopItems.id
+                            }
+                            msg.channel.send(`${msg.author} purchased **${shopItems.name}**`);
+                            member.items.push(itemToBuy); // Add purchased item to member's items
+                            member.balance -= shopItems.price;
+                            let data = JSON.stringify(membersObject, null, 4); // Write to file
+                            fs.writeFileSync('./commands/commerce/members.json', data);
+                            return;
+                        } else {
+                            msg.reply(`Insufficient funds! <:danii:755949806702166108>`);
+                            return;
+                        }
+                    } else {
+                        // msg.reply(`**Error:** Item not available!`);
+                        continue;
+                    }
+                }
+            } else {
+                msg.reply(`**Error:** Item ID must be whole number!`);
+            }
+        } else {
+            msg.reply(`**Error:** Missing ItemID!`);
+        }
+
+    },
+};
+
+
+
+
+
+
+/*         // SQLite database
         const SQLite = require('better-sqlite3');
         const sql = new SQLite('./databases/shop.sqlite');
 
@@ -42,7 +92,4 @@ module.exports = {
             } else {
                 msg.reply(`You don't have enough :/`);
             }
-        }
-
-    },
-};
+        } */
