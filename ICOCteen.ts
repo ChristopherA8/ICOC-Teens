@@ -67,6 +67,47 @@ for (const file of shopCommandFiles) {
 // Runs on ready
 client.on('ready', () => {
 
+  /* =-=-=-=-=-=-=-=-=-= Slash Commands!! =-=-=-=-=-=-=-=-=-= */
+
+  const discordJsHandlers = require('./node_modules/discord.js/src/client/websocket/handlers/index');
+  var commandName;
+  var channelID;
+  var guildID;
+  discordJsHandlers.INTERACTION_CREATE = (_client, { d: packetData }) => {
+    commandName = packetData.data.name;
+    channelID = packetData.channel_id;
+    guildID = packetData.guild_id;
+    if (commandName == 'frogge') {
+      frogge(guildID, channelID);
+    } else if (commandName == 'bear') {
+      bear(guildID, channelID);
+    }
+  };
+
+  function frogge(guildID, channelID) {
+    var guild = client.guilds.cache.find(guild => guild.id == guildID)
+    var channel = guild.channels.cache.get(channelID)
+    let { giphy } = require(`./config.json`);
+    let fetch = require(`node-fetch`);
+    fetch(`https://api.giphy.com/v1/gifs/random?api_key=${giphy}&tag=frog&rating=g`)
+    .then(res => res.json())
+    .then(api => {
+        channel.send(api.data.url)
+    })
+  }
+
+  function bear(guildID, channelID) {
+    var guild = client.guilds.cache.find(guild => guild.id == guildID)
+    var channel = guild.channels.cache.get(channelID)
+    var { tenor } = require(`./config.json`);
+    var fetch = require(`node-fetch`);
+    fetch(`https://api.tenor.com/v1/random?key=${tenor}&q=cute%20bears&locale=en_US&contentfilter=medium&limit=1`)
+    .then(res => res.json())
+    .then(api => {
+        channel.send(api.results[0].url)
+    })
+  }
+
   console.log("Connected as " + client.user.tag + ", Icoc Teens Bot is online")
   //Set Bot Status
   client.user.setActivity("Tom Hanks, featuring Tom Hanks : )", {type: "WATCHING"})
