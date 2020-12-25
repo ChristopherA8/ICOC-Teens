@@ -2,13 +2,15 @@
     "items": [
         {
             "name": "Frogge",
-            "price": "70",
-            "id": "1"
+            "price": "130",
+            "id": "1",
+            "quantity": "10"
         },
         {
             "name": "Moses' Staff",
-            "price": "100",
-            "id": "2"
+            "price": "900",
+            "id": "2",
+            "quantity": "2"
         }
     ]
 }

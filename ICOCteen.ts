@@ -114,7 +114,7 @@ client.on('message', msg => {
   let jsonData = fs.readFileSync('./commands/commerce/members.json');
   let membersObject = JSON.parse(jsonData);
   if (membersObject.members.filter(mem => mem.id == msg.author.id) == "") {
-    console.log(`=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n| ${msg.author.tag} added to Shop Members! |\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=`);
+    console.log(`=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=\n| ${msg.author.tag} added to Shop Members! |\n=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=`);
     var newMember = 
     {
       name: msg.author.tag,
