@@ -119,7 +119,7 @@ client.on('message', msg => {
     {
       name: msg.author.tag,
       id: msg.author.id,
-      balance: "500",
+      balance: "10",
       items: [
       ]
     }
