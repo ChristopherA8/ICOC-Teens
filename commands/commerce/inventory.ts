@@ -16,7 +16,7 @@ module.exports = {
         .setColor('#00FF86')
         .setFooter(`Total Items: ${member[0].items.length}`);
         for (const item of member[0].items) {
-            embed.addFields({ name:`Name: ${item.name}`, value: `ID: ${item.id}` })
+            embed.addFields({ name:`Name: ${item.name}`, value: `Quantity: ${item.quantity}  |  ID: ${item.id}` })
         }
 
         msg.reply(embed);

@@ -4,13 +4,13 @@
             "name": "Frogge",
             "price": "130",
             "id": "1",
-            "quantity": "10"
+            "quantity": 0
         },
         {
             "name": "Moses' Staff",
             "price": "900",
             "id": "2",
-            "quantity": "2"
+            "quantity": 0
         }
     ]
 }

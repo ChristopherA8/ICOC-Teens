@@ -14,7 +14,7 @@ module.exports = {
         .setAuthor('Shop:')
         .setColor('#00FF86');
         for (const item of shop.items) {
-            embed.addFields({ name:`Name: ${item.name}`, value: `Price: ₪${item.price}  |  ID: ${item.id}` })
+            embed.addFields({ name:`Name: ${item.name} x${item.quantity}`, value: `Price: ₪${item.price}  |  ID: ${item.id}` })
         }
 
         msg.reply(embed);

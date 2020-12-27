@@ -15,37 +15,80 @@ module.exports = {
         let shop = JSON.parse(jsonShopData);
 
         var itemID = msg.content.substr(4).trim();
+        var item;
+        var itemFound = false;
 
         if (itemID !== '') {
             if (!isNaN(itemID)) {
+                for (let index = 0; index < shop.items.length; index++) {
+                    const itemElement = shop.items[index];
+                    if (itemID == itemElement.id) {
+                        itemFound = true;
+                        item = itemElement;
+                        break;
+                    }
+                }
+            } else {
+                msg.reply(`**Error:** Item ID must be whole number!`);
+                return;
+            }
+        } else {
+            msg.reply(`**Error:** Missing ItemID!`);
+            return;
+        }
+
+        var memberItem;
+        var memberAlreadyHasItem = false;
+        for (const aMemberItem of member.items) {
+            if (item.id == aMemberItem.id) {
+                memberAlreadyHasItem = true;
+                memberItem = aMemberItem;
+                // console.log('you already own this item');
+            }
+        }
+
+        if (itemFound) {
+            if (item.quantity !== 0) {
                 for (const shopItems of shop.items) {
                     if (shopItems.id == itemID) {
                         if (Number(shopItems.price) <= Number(member.balance)) {
-                            var itemToBuy = {
+                            var itemToBuy = { // Create Item element to add to member.items
                                 name: shopItems.name,
-                                id: shopItems.id
+                                id: shopItems.id,
+                                quantity: 1
                             }
+                            /* =-=-=-=-=-=-= Add Item to memeber.items =-=-=-=-=-=-= */
                             msg.channel.send(`${msg.author} purchased **${shopItems.name}**`);
-                            member.items.push(itemToBuy); // Add purchased item to member's items
+                            if (memberAlreadyHasItem) {
+                                memberItem.quantity++; // Update old item
+                            } else {
+                                member.items.push(itemToBuy); // Add new item to member's items
+                            }
                             member.balance -= shopItems.price;
                             let data = JSON.stringify(membersObject, null, 4); // Write to file
                             fs.writeFileSync('./commands/commerce/members.json', data);
+
+                            /* =-=-=-=-=-=-= Remove quantity from shopItem =-=-=-=-=-=-= */
+                            shopItems.quantity--;
+                            let shopData = JSON.stringify(shop, null, 4); // Write to file
+                            fs.writeFileSync(`./commands/commerce/shop.json`, shopData);
                             return;
                         } else {
                             msg.reply(`Insufficient funds! <:danii:755949806702166108>`);
                             return;
                         }
                     } else {
-                        // msg.reply(`**Error:** Item not available!`);
+                        // msg.reply(`**Error:** Item not found!`);
                         continue;
                     }
-                }
+                } 
             } else {
-                msg.reply(`**Error:** Item ID must be whole number!`);
-            }
+                msg.reply(`**Error:** **${item.name}** is out of stock!`);
+            }          
         } else {
-            msg.reply(`**Error:** Missing ItemID!`);
+            msg.reply(`**Error:** Item not found!`);
         }
+
 
     },
 };

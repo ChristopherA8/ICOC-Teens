@@ -69,7 +69,7 @@ client.on('ready', () => {
 
   console.log("Connected as " + client.user.tag + ", Icoc Teens Bot is online")
   //Set Bot Status
-  client.user.setActivity("Tom Hanks, featuring Tom Hanks : )", {type: "WATCHING"})
+  client.user.setActivity("!help  : )", {type: "WATCHING"})
 
   // Check if the table "points" exists.
   const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'scores';").get();
@@ -308,7 +308,7 @@ var usrInput = voice.content.substr(5).trim();
 var fxInput = voice.content.substr(3).trim();
 
 //!play <search>
-/* if (voice.content.startsWith(`${prefix}play`)) {
+if (voice.content.startsWith(`${prefix}play`)) {
   if (voice.channel.type === 'dm') return;
 
   const voiceChannel = voice.member.voice.channel;
@@ -340,7 +340,7 @@ var fxInput = voice.content.substr(3).trim();
     });
   }
 }
- */
+
 
 /* if (voice.content.startsWith(`${prefix}play`)) {
   voice.channel.send(`**Error:** Play has been temporarily/not so temporarily disabled while I squash some bugs :smile:`);
@@ -417,6 +417,21 @@ if (voice.content.startsWith(`${prefix}fx`)) {
     });
   });
 }
+}
+
+//!bitrate
+if (voice.content.startsWith(`${prefix}record`)) {
+  if (voice.channel.type === 'dm') return;
+
+  const voiceChannel = voice.member.voice.channel;
+  voiceChannel.join().then(async connection => {
+    const fs = require('fs');
+        // Create a ReadableStream of s16le PCM audio
+    // const audio = connection.receiver.createStream(user, { mode: 'pcm', end: 'manual' });
+    // const audio = connection.receiver.createStream(connection, { mode: 'pcm', end: 'manual' });
+    // audio.pipe(fs.createWriteStream('./audio'));
+  });
+
 }
 
 });
@@ -945,10 +960,6 @@ function warnEmbed(channel, member, reason, warner) {
 
 
 
-
-
-
-
   /* =-=-=-=-=-=-=-=-=-= Slash Commands!! =-=-=-=-=-=-=-=-=-= */
 
   const discordJsHandlers = require('./node_modules/discord.js/src/client/websocket/handlers/index');
@@ -990,7 +1001,7 @@ function warnEmbed(channel, member, reason, warner) {
     })
   }
 
-
+  /* =-=-=-=-=-=-=-=-=-= END OF Slash Commands!! =-=-=-=-=-=-=-=-=-= */
 
 
 
