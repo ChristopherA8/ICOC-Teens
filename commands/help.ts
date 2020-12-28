@@ -8,7 +8,7 @@ module.exports = {
             var minutes = Math.floor(millis / 60000);
             let seconds = ((millis % 60000) / 1000).toFixed(0);
             return minutes + ":" + (Number(seconds) < 10 ? '0' : '') + seconds;
-            }
+        }
             
         var uptime = millisToMinutesAndSeconds(msg.client.uptime);
 
@@ -20,7 +20,7 @@ module.exports = {
                 { name: `Music:` },
                 { name: `Misc:` },
                 { name: `XP/Leveling:` },
-                { name: `=-=-=-= Portal Activated =-=-=-=` }
+                { name: `Shop/Currency` }
             ],
             fields: [
                 [
@@ -76,6 +76,12 @@ module.exports = {
                     { name: `\`!resetxp\``, value: `resets xp`, inline: true},
                     { name: `\`!resetlvl\``, value: `resets lvl`, inline: true},
                     { name: `\`!top or !lead\``, value: `Shows Leaderboard (top 10)`, inline: true}
+                ],
+                [
+                    { name: `\`!shop\``, value: `Shows all current shop items`, inline: true},
+                    { name: `\`!balance\``, value: `See how broke you are : )`, inline: true},
+                    { name: `\`!buy <itemID>\``, value: `Buy and item from the shop`, inline: true},
+                    { name: `\`!inventory\``, value: `See your items`, inline: true}
                 ]
             ]
         };
@@ -135,7 +141,7 @@ module.exports = {
                     page -= 1;
                     fieldPage = embedArr.fields[page - 1];
                     embed.setTitle(`${embedArr.titles[page - 1].name}`);
-                    embed.setFooter(`Page: ${page}/5  |  Uptime: ${uptime}`);
+                    embed.setFooter(`Page: ${page}/6  |  Uptime: ${uptime}`);
                     embed.fields = [];
                     for (const field of fieldPage) {
                         embed.addFields({ name: field.name, value: field.value, inline: field.inline })
@@ -148,7 +154,7 @@ module.exports = {
             }); // END OF left reaction collector
             const rightCollector = msg.createReactionCollector(right, { time: 100000 });
             rightCollector.on('collect', async (reaction, user) => {
-                if (page == 5) {
+                if (page == 6) {
 
                     const userReactions = msg.reactions.cache.filter(reaction => reaction.users.cache.has(user.id));
                     try {
@@ -173,7 +179,7 @@ module.exports = {
                     page += 1;
                     fieldPage = embedArr.fields[page - 1];
                     embed.setTitle(`${embedArr.titles[page - 1].name}`);
-                    embed.setFooter(`Page: ${page}/5  |  Uptime: ${uptime}`);
+                    embed.setFooter(`Page: ${page}/6  |  Uptime: ${uptime}`);
                     embed.fields = [];
                     for (const field of fieldPage) {
                         embed.addFields({ name: field.name, value: field.value, inline: field.inline })
@@ -211,7 +217,7 @@ module.exports = {
                     page = 1;
                     fieldPage = embedArr.fields[page - 1];
                     embed.setTitle(`${embedArr.titles[page - 1].name}`);
-                    embed.setFooter(`Page: ${page}/5  |  Uptime: ${uptime}`);
+                    embed.setFooter(`Page: ${page}/6  |  Uptime: ${uptime}`);
                     embed.fields = [];
                     for (const field of fieldPage) {
                         embed.addFields({ name: field.name, value: field.value, inline: field.inline })
@@ -224,7 +230,7 @@ module.exports = {
             }); // END OF first reaction collector
             const lastCollector = msg.createReactionCollector(last, { time: 100000 });
             lastCollector.on('collect', async (reaction, user) => {
-                if (page == 5) {
+                if (page == 6) {
 
                     const userReactions = msg.reactions.cache.filter(reaction => reaction.users.cache.has(user.id));
                     try {
@@ -246,10 +252,10 @@ module.exports = {
                         console.error('Failed to remove reactions.');
                     }
 
-                    page = 5;
+                    page = 6;
                     fieldPage = embedArr.fields[page - 1];
                     embed.setTitle(`${embedArr.titles[page - 1].name}`);
-                    embed.setFooter(`Page: ${page}/5  |  Uptime: ${uptime}`);
+                    embed.setFooter(`Page: ${page}/6  |  Uptime: ${uptime}`);
                     embed.fields = [];
                     for (const field of fieldPage) {
                         embed.addFields({ name: field.name, value: field.value, inline: field.inline })

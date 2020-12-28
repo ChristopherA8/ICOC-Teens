@@ -3,7 +3,7 @@
         {
             "name": "christopher#8888",
             "id": "279032930926592000",
-            "balance": 200,
+            "balance": 660,
             "items": [
                 {
                     "name": "Frogge",
@@ -31,7 +31,7 @@
         {
             "name": "Skkirmish#7743",
             "id": "493159317630091285",
-            "balance": 418923,
+            "balance": 200,
             "items": [
                 {
                     "name": "Scroll of Isaiah",
@@ -277,6 +277,24 @@
         {
             "name": "! !Waitwut#1984",
             "id": "588460149631352852",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "Sola FN#9419",
+            "id": "544383653849989132",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "Radical-JD#2968",
+            "id": "658005703696580654",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "mattman32133#6699",
+            "id": "226177978369966080",
             "balance": 300,
             "items": []
         }
