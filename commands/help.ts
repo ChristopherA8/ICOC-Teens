@@ -93,7 +93,7 @@ module.exports = {
         .setAuthor(`!help`, ``)
         .setColor('#00FF86')
         .setTitle(`${embedArr.titles[page - 1].name}`)
-        .setFooter(`Page: ${page}/5  |  Uptime: ${uptime}`);
+        .setFooter(`Page: ${page}/6  |  Uptime: ${uptime}`);
         for (const field of fieldPage) {
             embed.addFields({ name: field.name, value: field.value, inline: field.inline })
         }
