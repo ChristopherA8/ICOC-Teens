@@ -57,7 +57,7 @@ module.exports = {
             let membersObject = JSON.parse(jsonData);
             var member = membersObject.members.filter(member => member.id == msg.author.id);
             member = member[0];
-            member.balance += 20;
+            member.balance += 50;
             let memberData = JSON.stringify(membersObject, null, 4);
             fs.writeFileSync('./commands/commerce/members.json', memberData);
             /* =-=-=-=--=-=-=-=-=-=-=-=-=-=-= */
