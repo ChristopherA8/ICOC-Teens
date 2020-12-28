@@ -1,6 +1,6 @@
 module.exports = {
     name: "daily",
-    execute(msg) {
+    async execute(msg) {
 
         let date = new Date();
         const fs = require('fs');
@@ -34,16 +34,34 @@ module.exports = {
 
 
         } else {
-            msg.channel.send(`\`Member Not Found\``)
-            .then(msg => {
-                setTimeout(() => {msg.edit(`\`Creating New Member\``)}, 1000);
-                setTimeout(() => {msg.edit(`\`New Member created!\``)}, 2500);
-            })
+            // msg.channel.send(`\`Member Not Found\``)
+            // .then(msg => {
+            //     setTimeout(() => {msg.edit(`\`Creating New Member\``)}, 1000);
+            //     setTimeout(() => {msg.edit(`\`New Member created!\``)}, 2500);
+            // })
             var newLimit = {
                 id: msg.author.id,
                 timeLastRun: date.getTime()
             }
-            limitObject.members.push(newLimit)
+            await limitObject.members.push(newLimit)
+
+            var limitMember = limitObject.members.filter(mem => mem.id == msg.author.id);
+            limitMember = limitMember[0];
+            msg.channel.send(`Daily Prize claimed!`);
+            /* =-=-=-= Update Time Last Run =-=-=-= */
+            limitMember.timeLastRun = date.getTime();
+            /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=- */
+
+            /* =-=-=-= Change Balance =-=-=-= */
+            let jsonData = fs.readFileSync('./commands/commerce/members.json');
+            let membersObject = JSON.parse(jsonData);
+            var member = membersObject.members.filter(member => member.id == msg.author.id);
+            member = member[0];
+            member.balance += 20;
+            let memberData = JSON.stringify(membersObject, null, 4);
+            fs.writeFileSync('./commands/commerce/members.json', memberData);
+            /* =-=-=-=--=-=-=-=-=-=-=-=-=-=-= */
+
         }
 
         let limitData = JSON.stringify(limitObject, null, 4);

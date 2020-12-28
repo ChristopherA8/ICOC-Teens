@@ -81,7 +81,8 @@ module.exports = {
                     { name: `\`!shop\``, value: `Shows all current shop items`, inline: true},
                     { name: `\`!balance\``, value: `See how broke you are : )`, inline: true},
                     { name: `\`!buy <itemID>\``, value: `Buy and item from the shop`, inline: true},
-                    { name: `\`!inventory\``, value: `See your items`, inline: true}
+                    { name: `\`!inventory\``, value: `See your items`, inline: true},
+                    { name: `\`!daily\``, value: `Redeem your daily prize`, inline: true}
                 ]
             ]
         };
