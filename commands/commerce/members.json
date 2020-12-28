@@ -31,8 +31,14 @@
         {
             "name": "Skkirmish#7743",
             "id": "493159317630091285",
-            "balance": 420123,
-            "items": []
+            "balance": 418923,
+            "items": [
+                {
+                    "name": "Scroll of Isaiah",
+                    "id": "3",
+                    "quantity": 1
+                }
+            ]
         },
         {
             "name": "sushii#6985",
