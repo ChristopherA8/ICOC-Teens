@@ -3,7 +3,7 @@
         {
             "name": "christopher#8888",
             "id": "279032930926592000",
-            "balance": 18450,
+            "balance": 200,
             "items": [
                 {
                     "name": "Frogge",
@@ -14,6 +14,11 @@
                     "name": "Moses' Staff",
                     "id": "2",
                     "quantity": 2
+                },
+                {
+                    "name": "Scroll of Isaiah",
+                    "id": "3",
+                    "quantity": 1
                 }
             ]
         },

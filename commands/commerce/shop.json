@@ -4,13 +4,19 @@
             "name": "Frogge",
             "price": "130",
             "id": "1",
-            "quantity": 0
+            "quantity": 20
         },
         {
             "name": "Moses' Staff",
             "price": "900",
             "id": "2",
-            "quantity": 0
+            "quantity": 6
+        },
+        {
+            "name": "Scroll of Isaiah",
+            "price": "1200",
+            "id": "3",
+            "quantity": 1
         }
     ]
 }
