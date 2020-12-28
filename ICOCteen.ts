@@ -119,9 +119,8 @@ client.on('message', msg => {
     {
       name: msg.author.tag,
       id: msg.author.id,
-      balance: "10",
-      items: [
-      ]
+      balance: 300,
+      items: []
     }
     membersObject.members.push(newMember);
     let data = JSON.stringify(membersObject, null, 4); // Write to file

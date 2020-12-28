@@ -17,6 +17,12 @@
             "price": "1200",
             "id": "3",
             "quantity": 1
+        },
+        {
+            "name": "Ten Commandments",
+            "price": "450",
+            "id": "3",
+            "quantity": 2
         }
     ]
 }
