@@ -23,12 +23,6 @@
             "price": "450",
             "id": "4",
             "quantity": 2
-        },
-        {
-            "name": "test",
-            "price": "2000",
-            "id": 5,
-            "quantity": "1"
         }
     ]
 }
