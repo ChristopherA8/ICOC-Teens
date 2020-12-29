@@ -41,7 +41,8 @@ module.exports = {
             // })
             var newLimit = {
                 id: msg.author.id,
-                timeLastRun: date.getTime()
+                timeLastRun: date.getTime(),
+                name: msg.author.tag
             }
             await limitObject.members.push(newLimit)
 

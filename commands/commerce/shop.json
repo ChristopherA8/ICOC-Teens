@@ -4,7 +4,7 @@
             "name": "Frogge",
             "price": "130",
             "id": "1",
-            "quantity": 20
+            "quantity": 19
         },
         {
             "name": "Moses' Staff",
@@ -21,8 +21,14 @@
         {
             "name": "Ten Commandments",
             "price": "450",
-            "id": "3",
+            "id": "4",
             "quantity": 2
+        },
+        {
+            "name": "test",
+            "price": "2000",
+            "id": 5,
+            "quantity": "1"
         }
     ]
 }

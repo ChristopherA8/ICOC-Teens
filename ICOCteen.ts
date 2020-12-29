@@ -798,12 +798,13 @@ client.on(`messageDelete`, async del => {
 //////////////////
 
 function delMsg(del, channel) {
-  
+  var delStr = del.content;
+  var delFormat = delStr.replace(/\`/g, "");
   const exampleEmbed = new Discord.MessageEmbed()
   .setAuthor(`Message Updated -`)
   .setColor('#00FF86')
   .setFooter(`Message Author: ${del.author.tag} | In Channel: ${del.channel.name}`)
-  .setDescription(`**Message Deleted:** \n\`\`\`${del}\`\`\``);
+  .setDescription(`**Message Deleted:** \n\`\`\`${delFormat}\`\`\``);
   channel.send(exampleEmbed);
 
 };
@@ -822,7 +823,6 @@ client.on(`messageDeleteBulk`, bulk => {
   ///////////////
 
   function bulkDelEmbed(bulk, channel, array) {
-    
     const exampleEmbed = new Discord.MessageEmbed()
     .setAuthor(`Message Updated -`)
     .setColor('#00FF86')

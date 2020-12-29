@@ -3,7 +3,7 @@
         {
             "name": "christopher#8888",
             "id": "279032930926592000",
-            "balance": 700,
+            "balance": 750,
             "items": [
                 {
                     "name": "Frogge",
@@ -31,11 +31,16 @@
         {
             "name": "Skkirmish#7743",
             "id": "493159317630091285",
-            "balance": 200,
+            "balance": 70,
             "items": [
                 {
                     "name": "Scroll of Isaiah",
                     "id": "3",
+                    "quantity": 1
+                },
+                {
+                    "name": "Frogge",
+                    "id": "1",
                     "quantity": 1
                 }
             ]
@@ -211,7 +216,7 @@
         {
             "name": "emmers#7090",
             "id": "707844228977524757",
-            "balance": 300,
+            "balance": 350,
             "items": []
         },
         {
@@ -235,13 +240,13 @@
         {
             "name": "Chase Ammons (Attack/Helicopter)#3874",
             "id": "688184498856525918",
-            "balance": 300,
+            "balance": 350,
             "items": []
         },
         {
             "name": "BigJustyBoi#2058",
             "id": "430213324286722048",
-            "balance": 300,
+            "balance": 350,
             "items": []
         },
         {
@@ -253,7 +258,7 @@
         {
             "name": "michael rocco (il)#8019",
             "id": "276382853342822411",
-            "balance": 300,
+            "balance": 350,
             "items": []
         },
         {
