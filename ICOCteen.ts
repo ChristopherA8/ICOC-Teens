@@ -34,6 +34,8 @@ const modCommandFiles = fs.readdirSync('./commands/mod').filter(file => file.end
 const xpCommandFiles = fs.readdirSync('./commands/xp').filter(file => file.endsWith('.ts'));
 const shopCommandFiles = fs.readdirSync('./commands/commerce').filter(file => file.endsWith('.ts'));
 const combatCommandFiles = fs.readdirSync('./commands/combat').filter(file => file.endsWith('.ts'));
+const gachaCommandFiles = fs.readdirSync('./commands/gacha').filter(file => file.endsWith('.ts'));
+
 
 // Add file names to command collection
 for (const file of commandFiles) {
@@ -66,6 +68,10 @@ for (const file of shopCommandFiles) {
 }
 for (const file of combatCommandFiles) {
 	const command = require(`./commands/combat/${file}`);
+	client.commands.set(command.name, command);
+}
+for (const file of gachaCommandFiles) {
+	const command = require(`./commands/gacha/${file}`);
 	client.commands.set(command.name, command);
 }
 
@@ -145,7 +151,9 @@ client.on('message', msg => {
     if (msg.channel.id !== `770730379077353494`) {
     if (msg.author.bot) return;
     let score;
-    score = client.getScore.get(msg.author.id, msg.guild.id);
+    // score = client.getScore.get(msg.author.id, msg.guild.id);
+    score = client.getScore.get(msg.author.id, "698590629344575500");
+
     if (!score) {
       score = { id: `${msg.guild.id}-${msg.author.id}`, user: msg.author.id, guild: msg.guild.id, points: 0, level: 1, name: msg.author.tag}
     }
@@ -161,10 +169,11 @@ client.on('message', msg => {
     //     score.points += 5;
     //   }
       score.points++;
+      // score.points++;score.points++;score.points++;score.points++;score.points++;score.points++;
       client.setScore.run(score);
     }
     setTimeout(getXP, 6000);
-    //getXP();
+    // getXP();
 
     const curLevel = Math.floor(0.3 * Math.sqrt(score.points));
     if(score.level < curLevel) {
