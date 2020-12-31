@@ -29,7 +29,8 @@ module.exports = {
                 fs.writeFileSync('./commands/commerce/members.json', memberData);
                 /* =-=-=-=--=-=-=-=-=-=-=-=-=-=-= */
             } else {
-                msg.channel.send(`Please wait 24 hours!`);
+                var seconds = (new Date(limitMember.timeLastRun).getTime() - oneDay) / 1000;
+                msg.channel.send(`Please wait ${new Date(seconds * 1000).toISOString().substr(11, 8)}(hh:mm:ss)`);
             }
 
 

@@ -33,6 +33,7 @@ const miscCommandFiles = fs.readdirSync('./commands/misc').filter(file => file.e
 const modCommandFiles = fs.readdirSync('./commands/mod').filter(file => file.endsWith('.ts'));
 const xpCommandFiles = fs.readdirSync('./commands/xp').filter(file => file.endsWith('.ts'));
 const shopCommandFiles = fs.readdirSync('./commands/commerce').filter(file => file.endsWith('.ts'));
+const combatCommandFiles = fs.readdirSync('./commands/combat').filter(file => file.endsWith('.ts'));
 
 // Add file names to command collection
 for (const file of commandFiles) {
@@ -61,6 +62,10 @@ for (const file of xpCommandFiles) {
 }
 for (const file of shopCommandFiles) {
 	const command = require(`./commands/commerce/${file}`);
+	client.commands.set(command.name, command);
+}
+for (const file of combatCommandFiles) {
+	const command = require(`./commands/combat/${file}`);
 	client.commands.set(command.name, command);
 }
 
@@ -148,13 +153,13 @@ client.on('message', msg => {
       score.name = msg.author.tag;
     }
     function getXP() {
-      // var words = msg.content.split(" ");
-      // var wordCount = words.length;
-      // if (wordCount <= 25) {
-      //   score.points += wordCount;
-      // } else {
-      //   score.points += 25;
-      // }
+    //   var words = msg.content.split(" ");
+    //   var wordCount = words.length;
+    //   if (wordCount <= 5) {
+    //     score.points += wordCount;
+    //   } else {
+    //     score.points += 5;
+    //   }
       score.points++;
       client.setScore.run(score);
     }

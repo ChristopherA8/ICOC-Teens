@@ -3,7 +3,7 @@
         {
             "name": "christopher#8888",
             "id": "279032930926592000",
-            "balance": 750,
+            "balance": 770,
             "items": [
                 {
                     "name": "Frogge",
@@ -25,7 +25,7 @@
         {
             "name": "SirDC#1158",
             "id": "689910756711727193",
-            "balance": 300,
+            "balance": 370,
             "items": []
         },
         {
@@ -54,8 +54,14 @@
         {
             "name": "GhostDragon#0420",
             "id": "620438897217896459",
-            "balance": 300,
-            "items": []
+            "balance": 360,
+            "items": [
+                {
+                    "name": "gabby doesnt know what shes doing",
+                    "id": 5,
+                    "quantity": 1
+                }
+            ]
         },
         {
             "name": "JT Schmidt (AR)#4770",
@@ -102,8 +108,14 @@
         {
             "name": "gabrielle høecke#1566",
             "id": "690725850693369926",
-            "balance": 300,
-            "items": []
+            "balance": 240,
+            "items": [
+                {
+                    "name": "Frogge",
+                    "id": "1",
+                    "quantity": 1
+                }
+            ]
         },
         {
             "name": "Cultivated David#6761",
@@ -234,8 +246,14 @@
         {
             "name": "izzy#5292",
             "id": "625152148262617139",
-            "balance": 300,
-            "items": []
+            "balance": 220,
+            "items": [
+                {
+                    "name": "Frogge",
+                    "id": "1",
+                    "quantity": 1
+                }
+            ]
         },
         {
             "name": "Chase Ammons (Attack/Helicopter)#3874",
@@ -300,6 +318,72 @@
         {
             "name": "mattman32133#6699",
             "id": "226177978369966080",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "~Sam~#4022",
+            "id": "692008497784684616",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "The_Willow_Creek_Hippie#9625",
+            "id": "651892090426359808",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "Gumss#1675",
+            "id": "416726765218693141",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "Rachel.Ryter#1437",
+            "id": "445315870399660044",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "alex_ryter#6199",
+            "id": "692808158770495549",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "Thomas Harbor#7893",
+            "id": "779213164683853824",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "Lancelot2019#1741",
+            "id": "403727154531008512",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "BengeeefromWI#8018",
+            "id": "691359551366234152",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "Chr1s#6691",
+            "id": "616631977189179433",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "ladybalzer#0860",
+            "id": "688446004286062731",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "TheRightLane#6261",
+            "id": "765938182407585833",
             "balance": 300,
             "items": []
         }

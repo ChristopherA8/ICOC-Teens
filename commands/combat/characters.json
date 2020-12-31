@@ -1,0 +1,32 @@
+{
+    "characters": [
+        {
+            "id": "279032930926592000",
+            "name": "Christopher",
+            "health": 38,
+            "age": "16",
+            "style": "Rogue"
+        },
+        {
+            "id": "329039487474860032",
+            "name": "Justin",
+            "health": 100,
+            "age": "17",
+            "style": "Assassin"
+        },
+        {
+            "id": "690725850693369926",
+            "name": "Gabby",
+            "health": 84,
+            "age": "16",
+            "style": "girl..."
+        },
+        {
+            "id": "689910756711727193",
+            "name": "David",
+            "health": 0,
+            "age": "25",
+            "style": "Rogue"
+        }
+    ]
+}

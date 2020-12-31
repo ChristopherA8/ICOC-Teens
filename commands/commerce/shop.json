@@ -4,7 +4,7 @@
             "name": "Frogge",
             "price": "130",
             "id": "1",
-            "quantity": 19
+            "quantity": 17
         },
         {
             "name": "Moses' Staff",
@@ -23,6 +23,12 @@
             "price": "450",
             "id": "4",
             "quantity": 2
+        },
+        {
+            "name": "gabby doesnt know what shes doing",
+            "price": "5",
+            "id": 5,
+            "quantity": 4
         }
     ]
 }
