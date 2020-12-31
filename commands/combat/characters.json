@@ -3,7 +3,7 @@
         {
             "id": "279032930926592000",
             "name": "Christopher",
-            "health": 38,
+            "health": 32,
             "age": "16",
             "style": "Rogue"
         },
@@ -27,6 +27,13 @@
             "health": 0,
             "age": "25",
             "style": "Rogue"
+        },
+        {
+            "id": "620438897217896459",
+            "name": "Chris",
+            "health": 37,
+            "age": "210",
+            "style": "Assassin"
         }
     ]
 }
