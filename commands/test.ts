@@ -12,11 +12,16 @@ module.exports = {
         // var channel = msg.guild.channels.cache.get('698590629344575503');
         // msg.client.emit(`channelDelete`, channel)
 
+        const Discord = require('discord.js');
+        // var newMember = new Discord.GuildMember(msg.client, msg.member, msg.guild);
+
+        msg.channel.send(JSON.stringify(msg.member, null, 4), { code: "json", split: true });
+
         // msg.content = "ur mom";
         // msg.client.emit("message", msg)
         // msg.guild.channels.create("this's", { type: 'text' });
         // msg.guild.features;
-        var position = 0;
+/*         var position = 0;
         const Discord542 = require('discord.js');
         var block = [
             ":left_right_arrow::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign::heavy_minus_sign:",
@@ -104,7 +109,7 @@ module.exports = {
                 msg.reactions.removeAll();
             }); // END OF right reaction collector
 
-        });
+        }); */
 
     },
 };
