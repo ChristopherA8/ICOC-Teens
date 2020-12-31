@@ -16,7 +16,7 @@ module.exports = {
         //dont mind this mess of if elses.............. I don't care enough to fix it
         if (!ping) {
             let score;
-            score = sql.prepare("SELECT * FROM scores WHERE user = ? AND guild = ?").get(msg.author.id, msg.guild.id);
+            score = sql.prepare("SELECT * FROM scores WHERE user = ? AND guild = ?").get(msg.author.id, "698590629344575500");
             if (score == undefined) {
                 msg.channel.send(`Talk first to get xp!`);
             } else {
