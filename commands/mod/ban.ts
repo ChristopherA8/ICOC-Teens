@@ -24,11 +24,11 @@ module.exports = {
             } else if (ping.hasPermission('ADMINISTRATOR')) {
                 msg.channel.send(`\**Error:\** You can not ban an Admin!`);
             } else if (inputArr[2] == undefined) {
-                msg.channel.send(`${ping} has been baned`);
+                msg.channel.send(`${ping} has been banned`);
                 ping.ban();
             } else if (inputArr[2] !== undefined) {
                 var reason = input.replace(inputArr[0], '').replace(inputArr[1], '').trim();
-                msg.channel.send(`${ping} has been baned for \`${reason}\``);
+                msg.channel.send(`${ping} has been banned for \`${reason}\``);
                 ping.ban(reason);
             }
 

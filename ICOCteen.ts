@@ -76,7 +76,38 @@ for (const file of gachaCommandFiles) {
 }
 
 // Runs on ready
-client.on('ready', () => {
+client.on('ready', async () => {
+
+  /* =-=-=-=-=-=-=-= Reaction Roles =-=-=-=-=-=-=-= */
+  // const guild = client.guilds.cache.get(`698590629344575500`); // ICOC Teens
+  // const channel = guild.channels.cache.get(`768931736414584902`); // Chris' Dungeon
+  // const message = await channel.messages.fetch(`795193130663542795`); // ID of message to create reactions for
+
+  // await message.react(`🐸`);
+
+  // // const filter = (reaction, user) => user.id == msg.author.id;
+  // const filter = (reaction, user) => user.id !== `761792910088994816`;
+  // const collector = message.createReactionCollector(filter);
+  // collector.on('collect', async (r, user) => {
+  //     r.users.remove(user.id);
+
+  //     var roleGang;
+  //     switch (r.emoji.name) {
+  //         case `🐸`:
+  //             roleGang = `frogge gang`;
+  //             break;
+  //         default:
+  //             roleGang = `bruh`;
+  //             break;
+  //     }
+
+  //     var reactionMember = message.guild.members.cache.get(user.id);
+  //     reactionMember.roles.add(`776275846406340631`);
+  //     message.reply(`${reactionMember} is now ${roleGang}`);
+
+  // });
+/* =-=-=-=-=-=-=-= End Of Reaction Roles =-=-=-=-=-=-=-= */
+
 
   console.log("Connected as " + client.user.tag + ", Icoc Teens Bot is online")
   //Set Bot Status

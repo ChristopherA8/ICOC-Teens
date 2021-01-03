@@ -1,6 +1,6 @@
 module.exports = {
     name:"test",
-    execute(msg) {
+    async execute(msg) {
 
         // msg.channel.send(`\`\`\`json\n${JSON.stringify(msg.client.commands)}\`\`\``)
         // msg.client.emit('guildMemberRemove', msg.author);
@@ -12,10 +12,31 @@ module.exports = {
         // var channel = msg.guild.channels.cache.get('698590629344575503');
         // msg.client.emit(`channelDelete`, channel)
 
-        const Discord = require('discord.js');
+        // const Discord = require('discord.js');
         // var newMember = new Discord.GuildMember(msg.client, msg.member, msg.guild);
 
-        msg.channel.send(JSON.stringify(msg.member, null, 4), { code: "json", split: true });
+        // msg.channel.send(JSON.stringify(msg.member, null, 4), { code: "json", split: true });
+
+        // const filter = (reaction, user) => user.id == msg.author.id;
+        // msg.awaitReactions(filter, { time: 15000 })
+        // .then(collected => console.log(`Collected ${collected.size} reactions`))
+        // .catch(console.error);
+
+        await msg.react(`👀`);
+
+        const filter = (reaction, user) => user.id == msg.author.id;
+        const collector = msg.createReactionCollector(filter);
+        collector.on('collect', async (r, user) => {
+            msg.channel.send(`Collected ${r.emoji.name}`);
+            msg.channel.send(JSON.stringify(r, null, 2), { code: "json" });
+
+            // const message = await msg.channel.messages.fetch(msg.id);
+            r.users.remove(user.id);
+            // msg.reactions.resolve(r).users.remove(r.users[0]);
+            // msg.react(`👀`);
+            // msg.reactions.resolve("REACTION EMOJI, REACTION OBJECT OR REACTION ID").users.remove("ID OR OBJECT OF USER TO REMOVE");
+
+        });
 
         // msg.content = "ur mom";
         // msg.client.emit("message", msg)
