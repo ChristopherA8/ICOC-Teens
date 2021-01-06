@@ -147,6 +147,22 @@ client.on('guildMemberAdd', join => {
 
 client.on('message', msg => {
 
+  if (msg.content.toLowerCase() == `f`) {
+    msg.react(`🇫`);
+  }
+
+  if ((((msg.channel.id !== `776264945800052746`)) && (msg.content.includes(`!xp`)))) {
+    var botCommandsChannel = msg.guild.channels.cache.get(`776264945800052746`);
+    msg.reply(`Use that in ${botCommandsChannel}`);
+    return;
+  }
+
+  if (((msg.channel.id !== `776264945800052746`)) && (msg.content.includes(`!top`))) {
+    var botCommandsChannel = msg.guild.channels.cache.get(`776264945800052746`);
+    msg.reply(`Use that in ${botCommandsChannel}`);
+    return;
+  }
+
   // Keep bot from responding in DM's and to other bots
   if (msg.channel.type === 'dm') return;
   if (msg.author.bot) return;
@@ -192,17 +208,18 @@ client.on('message', msg => {
       score.name = msg.author.tag;
     }
     function getXP() {
-    //   var words = msg.content.split(" ");
-    //   var wordCount = words.length;
-    //   if (wordCount <= 5) {
-    //     score.points += wordCount;
-    //   } else {
-    //     score.points += 5;
-    //   }
-      score.points++;
+      var words = msg.content.split(" ");
+      var wordCount = words.length;
+      if (wordCount <= 25) {
+        score.points += wordCount;
+      } else {
+        score.points += 25;
+      }
+      // score.points++;
       // score.points++;score.points++;score.points++;score.points++;score.points++;score.points++;
       client.setScore.run(score);
     }
+    // setTimeout(getXP, 6000);
     setTimeout(getXP, 6000);
     // getXP();
 
@@ -213,82 +230,9 @@ client.on('message', msg => {
     }
     client.setScore.run(score);
 
-    
-/*     const top = sql.prepare("SELECT * FROM scores WHERE guild = ? ORDER BY points DESC LIMIT 1").get(msg.guild.id);
-    const topMem = msg.guild.members.cache.get(top.id.substr(19));
-    if (!topMem.roles.cache.has(`786101864357167104`)) {
-      var oldMem = msg.guild.members.cache.filter(mem => mem.roles.cache.has(`786101864357167104`));
-      var oldMem = oldMem.array();
-      for(const topMembers of oldMem) {
-        topMembers.roles.remove(`786101864357167104`);
-        //console.log(topMembers);
-      }
-      topMem.roles.add(`786101864357167104`);
-    } */
 
 
   }//end of rules channel check
-
-    // if (msg.content.startsWith(`!xp`) || msg.content.startsWith(`!rank`)) {
-    //   //msg.channel.send(`**REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT REPENT**`);
-      
-    //   const ping = msg.mentions.members.first();
-
-    //   if (!ping) {
-    //     let score;
-    //     score = client.getScore.get(msg.author.id, msg.guild.id);
-    //     const exampleEmbed = new Discord.MessageEmbed()
-    //     .setAuthor(`${msg.author.tag}`, `${msg.author.displayAvatarURL(({dynamic : true}))}`)
-    //     .setColor('#00FF86')
-    //     //.setFooter(`ID: ${msg.author.id}`)
-    //     .addFields(
-    //       { name: '**XP:**', value: `${score.points}`, inline: true},
-    //       { name: '**Level:**', value: `${score.level}`, inline: true}
-    //     )
-    //     msg.channel.send(exampleEmbed);
-    //   } else {
-    //     let scorePing;
-    //     scorePing = client.getScore.get(ping.id, msg.guild.id);
-    //     const exampleEmbed = new Discord.MessageEmbed()
-    //     .setAuthor(`${ping.displayName}`, `${ping.user.displayAvatarURL(({dynamic : true}))}`)
-    //     .setColor('#00FF86')
-    //     //.setFooter(`ID: ${msg.author.id}`)
-    //     .addFields(
-    //       { name: '**XP:**', value: `${scorePing.points}`, inline: true},
-    //       { name: '**Level:**', value: `${scorePing.level}`, inline: true}
-    //     )
-    //     msg.channel.send(exampleEmbed);
-    //   }
-
-    // }
-/*
-  if (msg.content.startsWith(`!lvlup`) && (msg.author.id == `279032930926592000` || msg.author.id == `329039487474860032`  || msg.author.id == `707844228977524757`)) {
-    score.level++;
-    msg.channel.send(`Leveled up!`);
-    client.setScore.run(score);
-  }
-
-  if (msg.content.startsWith(`!lvldown`) && (msg.author.id == `279032930926592000` || msg.author.id == `329039487474860032`  || msg.author.id == `707844228977524757`)) {
-    score.level--;
-    msg.channel.send(`Leveled down!`);
-    client.setScore.run(score);
-  }
-
-  if (msg.content.startsWith(`!setxp`) && (msg.author.id == `620438897217896459`)) {
-    var input = msg.content.substr(6).trim();
-    if (input === '') {
-      msg.channel.send(`**Error:** Enter Amount!`);
-    } else {
-      input = Number(input);
-      score.points = input;
-      const newLevel = Math.floor(0.3 * Math.sqrt(input));
-      score.level = newLevel;
-      client.setScore.run(score);
-      msg.channel.send(`**XP Set To:** ${input}`);
-    }
-  }
-//620438897217896459
-*/
 
   // KEEP SPAM OUT OF #RULES
   if (msg.channel.id == `770730379077353494`) {
@@ -503,14 +447,56 @@ const channel = oldMember.client.channels.cache.find(channel => channel.id === `
   var addedRole;
 
   //Removed role
+  var staffRoleCountTwo = 0;
   oldMember.roles.cache.forEach((value) => {
     if (!newMember.roles.cache.find((role) => role.id === value.id)) {
      change = Changes.removedRole;
      removedRole = value.name;
     }
+
+    var bugHunter = `775448648229453865`;
+    var cheff = `783864152606638130`;
+    var david = `774117150859329586`;
+    var song = `776222027723178004`;
+    var gamer = `759909786472415273`;
+    var frogEw = `776275846406340631`;
+    var boiz = `776221452868648980`;
+    newMember.roles.cache.forEach((role) => {
+      switch (role.id) {
+        case bugHunter:
+          staffRoleCountTwo++;
+          break;
+        case cheff:
+          staffRoleCountTwo++;
+          break;
+        case david:
+          staffRoleCountTwo++;
+          break;
+        case song:
+          staffRoleCountTwo++;
+          break;
+        case gamer:
+          staffRoleCountTwo++;
+          break;
+        case frogEw:
+          staffRoleCountTwo++;
+          break;
+        case boiz:
+          staffRoleCountTwo++;
+          break;
+        default:
+          break;
+      }
+    });
+    if (Number(staffRoleCountTwo < 6)) {
+      newMember.roles.remove("698643225443041311")
+    }
+    console.log(staffRoleCountTwo);
+
   });
 
   //Added role
+  var staffRoleCount = 0;
   newMember.roles.cache.forEach((value) => {
     if (!oldMember.roles.cache.find((role) => role.id === value.id)) {
       change = Changes.addedRole;
@@ -519,6 +505,46 @@ const channel = oldMember.client.channels.cache.find(channel => channel.id === `
       if ((value.id == `698650459187183672`)) {
         teenLeaderWelcome(newMember);
       }
+
+      /* =-=-=-= Automatically assign ICOC Goat =-=-=-= */
+      var bugHunter = `775448648229453865`;
+      var cheff = `783864152606638130`;
+      var david = `774117150859329586`;
+      var song = `776222027723178004`;
+      var gamer = `759909786472415273`;
+      var frogEw = `776275846406340631`;
+      var boiz = `776221452868648980`;
+      newMember.roles.cache.forEach((role) => {
+        switch (role.id) {
+          case bugHunter:
+            staffRoleCount++;
+            break;
+          case cheff:
+            staffRoleCount++;
+            break;
+          case david:
+            staffRoleCount++;
+            break;
+          case song:
+            staffRoleCount++;
+            break;
+          case gamer:
+            staffRoleCount++;
+            break;
+          case frogEw:
+            staffRoleCount++;
+            break;
+          case boiz:
+            staffRoleCount++;
+            break;
+          default:
+            break;
+        }
+      });
+      if (Number(staffRoleCount >= 6)) {
+        newMember.roles.add("698643225443041311")
+      }
+      console.log(staffRoleCount);
 
     }
   });
