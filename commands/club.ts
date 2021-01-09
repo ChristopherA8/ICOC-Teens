@@ -6,7 +6,7 @@ module.exports = {
 
         const guild = msg.client.guilds.cache.get(`698590629344575500`);
         const channel = guild.channels.cache.get('768931736414584902');
-        const message = await channel.messages.fetch(`795437323219107861`);
+        const message = await channel.messages.fetch(`797266443229724733`);
 
         await message.react(`👍`);
 
@@ -17,7 +17,16 @@ module.exports = {
             r.users.remove(user.id);
 
             var reactionMember = message.guild.members.cache.get(user.id);
-            message.reply(`${reactionMember} joined #imaginary-club`);
+
+            var clubOne = msg.guild.channels.cache.get('797266087213269034');
+
+            if (!clubOne.permissionOverwrites.find(mem => mem.id == reactionMember.id)) {
+                clubOne.updateOverwrite(reactionMember, {
+                    VIEW_CHANNEL: true
+                }).catch(console.error);
+            } else {
+                clubOne.permissionOverwrites.get(reactionMember.id).delete();
+            }
 
         });
 

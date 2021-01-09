@@ -8,6 +8,7 @@
     "autoprefixer": "^10.1.0",
     "better-sqlite3": "^7.1.2",
     "cloudconvert": "^2.1.6",
+    "colors": "^1.4.0",
     "discord.js": "github:discordjs/discord.js#master",
     "discord.js-poll-embed": "^1.0.2",
     "express": "^4.17.1",

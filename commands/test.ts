@@ -3,7 +3,8 @@ module.exports = {
     async execute(msg) {
 
         // msg.channel.send(`\`\`\`json\n${JSON.stringify(msg.client.commands)}\`\`\``)
-        // msg.client.emit('guildMemberRemove', msg.author);
+        var member = msg.guild.members.cache.get('577169178327253035');
+        msg.client.emit('guildMemberRemove', member);
         // msg.client.emit(`typingStart`, );
         // msg.client.emit(`guildMemberWarned`);
         // msg.client.emit(`ready`);
@@ -22,7 +23,7 @@ module.exports = {
         // .then(collected => console.log(`Collected ${collected.size} reactions`))
         // .catch(console.error);
 
-        await msg.react(`👀`);
+/*         await msg.react(`👀`);
 
         const filter = (reaction, user) => user.id == msg.author.id;
         const collector = msg.createReactionCollector(filter);
@@ -36,7 +37,7 @@ module.exports = {
             // msg.react(`👀`);
             // msg.reactions.resolve("REACTION EMOJI, REACTION OBJECT OR REACTION ID").users.remove("ID OR OBJECT OF USER TO REMOVE");
 
-        });
+        }); */
 
         // msg.content = "ur mom";
         // msg.client.emit("message", msg)
