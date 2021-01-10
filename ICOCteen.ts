@@ -30,7 +30,7 @@ welcome(client); // Welcome new members
 // Runs on ready
 client.on('ready', async () => {
 
-  console.log('Connected as ' + `${client.user.tag}`.rainbow);
+  console.log(`Connected as ${client.user.tag}`.red);
   let guild = await client.guilds.cache.get('698590629344575500');
   client.user.setActivity(`${guild.members.cache.size} members`, {type: "WATCHING"})
 
@@ -83,14 +83,6 @@ client.on('message', msg => {
     return;
   }
 
-  // ......self explanatory
-  if ((msg.content.match(/\bsimp\b/ig))) {
-      msg.channel.send(`Therefore, my dear friends, flee from idolatry. - 1 Corinthians 10:14`);
-  }
-  if (msg.content.includes(`ur mom`) || (msg.content.includes(`your mom`))) {
-    msg.channel.send(`airhorn airhorn airhorn`);
-  }
-
   ///////////////////////////////////
   // Command Handler
   ///////////////////////////////////
@@ -132,6 +124,8 @@ client.on('message', msg => {
 
 client.on('message', async voice => {
 
+if (voice.channel.type === 'dm') return;
+
 //////////////////////////////////////////////////
 //Voice commands
 //////////////////////////////////////////////////
@@ -170,7 +164,13 @@ if (voice.content.startsWith(`${prefix}play`)) {
 
       let result = await searcher.search(usrInput).catch(error => console.log(error));
       const dispatcher = connection.play(await ytdl(result.first.url), { type: 'opus' }, {quality: 'highest' }, {highWaterMark: 1024 * 1024 * 10});
-      voice.channel.send(`> **Now Playing:** ${result.first.url}`);
+
+      // const embed = new Discord.MessageEmbed()
+      // .setAuthor(`Now Playing:`)
+      // .setDescription(`${result.first.url}`);
+      // voice.channel.send(embed);
+      voice.channel.send(result.first.url);
+
       dispatcher.on('finish', () => voiceChannel.leave());
 
     });
