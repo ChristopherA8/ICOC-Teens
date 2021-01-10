@@ -66,10 +66,12 @@ client.on('message', msg => {
   const { shopMemberWatcher } = require('./modules/shopMemberWatcher.ts');
   const { xpListener } = require('./modules/score.ts');
   const { filter } = require('./modules/wordfilter.ts');
+  const { stats } = require('./modules/stats.ts');
   listen(msg);
   shopMemberWatcher(msg);
   xpListener(msg, client);
   filter(msg, fs, Discord);
+  stats(msg, Discord, fs, prefix);
 
   if ((((msg.channel.id !== `776264945800052746`)) && (msg.content.includes(`!xp`)))) {
     var botCommandsChannel = msg.guild.channels.cache.get(`776264945800052746`);
