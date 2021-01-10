@@ -20,8 +20,10 @@ const sql = new SQLite('./databases/scores.sqlite');
 // Custom Modules
 const { logging } = require('./modules/logging.ts');
 const { commands } = require('./modules/commandHandler.ts');
+const { webserver } = require('./modules/webserver.ts');
 logging(client); // Start logging
 commands(client); // Add command files to collection
+webserver(client); // Web Server for literally no reason
 
 // Runs on ready
 client.on('ready', async () => {
@@ -183,11 +185,6 @@ if (voice.content.startsWith(`${prefix}play`)) {
   }
 }
 
-
-/* if (voice.content.startsWith(`${prefix}play`)) {
-  voice.channel.send(`**Error:** Play has been temporarily/not so temporarily disabled while I squash some bugs :smile:`);
-} */
-
 //!stop
 if (voice.content.startsWith(`${prefix}stop`)) {
   if (voice.channel.type === 'dm') return;
@@ -261,7 +258,7 @@ if (voice.content.startsWith(`${prefix}fx`)) {
 }
 }
 
-//!bitrate
+/* //!bitrate
 if (voice.content.startsWith(`${prefix}record`)) {
   if (voice.channel.type === 'dm') return;
 
@@ -274,76 +271,9 @@ if (voice.content.startsWith(`${prefix}record`)) {
     // audio.pipe(fs.createWriteStream('./audio'));
   });
 
-}
+} */
 
 });
-
-
-
-//////////////////////////////////
-// Word Filter
-//////////////////////////////////
-
-client.on(`message`, nono => {
-  if (nono.channel.id == `770730379077353494`) return;
-  if (nono.author.bot) return;
-  if (nono.channel.type === 'dm') return;
-
-  const words = require(`./bannedWords.json`);
-  const channel = nono.client.channels.cache.find(channel => channel.id === `768882922379280464`);
-  const bannedWords = words.words;
-  // Shifting to lowercase here allows case iNsEnSiTiViTy.
-  const str = nono.content.toLowerCase().trim();
-  const strArr = nono.content.toLowerCase().trim().split(" ");
-
-  for (let index = 0; index < bannedWords.length; index++) {
-    const ban = bannedWords[index];
-    if (str.includes(ban)) {
-      for (let index = 0; index < strArr.length; index++) {
-        const element = strArr[index];
-        if (element == ban) {
-          nono.delete();
-          filterEmbed(nono, channel);
-          const notifier = require(`node-notifier`);
-          notifier.notify({
-              title: `${nono.member.displayName} in ${nono.channel.name}`,
-              message: `${nono.content}`,
-              icon: 'C:\\Users\\chris\\Pictures\\Chr1sDev\\chr1s.png',
-              sound: false
-          }); 
-        }
-      }
-    }
-  }
-
-  function filterEmbed(nono, channel) {
-    const embed = new Discord.MessageEmbed()
-    .setAuthor(`${nono.member.displayName}`, `${nono.author.displayAvatarURL({ dynamic: true })}`)
-    .setColor('#FF0000')
-    .setTitle(`Filtered!!`)
-    .setDescription(`**Word:** ${nono.content}`)
-    .setFooter(`ID: ${nono.id}`);
-    channel.send(embed);
-  }
-
-});
-
-
-client.on(`guildMemberWarned`, (warnedMember, reason, warner) => {
-  const channel = client.channels.cache.find(channel => channel.id === `759967435309842494`); // #audit-log
-  warnEmbed(channel, warnedMember, reason, warner);
-
-});
-
-function warnEmbed(channel, member, reason, warner) {
-  const embed = new Discord.MessageEmbed()
-  .setAuthor(`${member.displayName}`, `${member.user.displayAvatarURL({ dynamic: true })}`)
-  .setColor('#F3D40C')
-  .setTitle(`Member Warned!`)
-  .setDescription(`**Reason: ${reason}\nBy:** ${warner}`)
-  .setFooter(`ID: ${member.id}`);
-  channel.send(embed);
-}
 
 
 
@@ -391,40 +321,6 @@ function warnEmbed(channel, member, reason, warner) {
   /* =-=-=-=-=-=-=-=-=-= END OF Slash Commands!! =-=-=-=-=-=-=-=-=-= */
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//   /* =-=-=-=-=-=-=-= Leaderboard Server =-=-=-=-=-=-=-= */
-//   const express = require('express');
-//   const app = express();
-
-//   app.get("/", function (req, res) {
-//       res.sendFile(__dirname + "/index.html");
-//   });
-//   app.listen(420, function () {
-//       console.log("Server is running on localhost:420");
-//   });
-// /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=--=-=-=-=-=-=-=-=-= */
 
 client.login(token)
 

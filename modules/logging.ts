@@ -563,6 +563,22 @@ module.exports = {
         
         });
 
+        client.on(`guildMemberWarned`, (warnedMember, reason, warner) => {
+            const channel = client.channels.cache.find(channel => channel.id === `759967435309842494`); // #audit-log
+            warnEmbed(channel, warnedMember, reason, warner);
+          
+          });
+          
+          function warnEmbed(channel, member, reason, warner) {
+            const embed = new Discord.MessageEmbed()
+            .setAuthor(`${member.displayName}`, `${member.user.displayAvatarURL({ dynamic: true })}`)
+            .setColor('#F3D40C')
+            .setTitle(`Member Warned!`)
+            .setDescription(`**Reason: ${reason}\nBy:** ${warner}`)
+            .setFooter(`ID: ${member.id}`);
+            channel.send(embed);
+          }
+
 
     },
 };

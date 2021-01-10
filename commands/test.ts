@@ -3,8 +3,8 @@ module.exports = {
     async execute(msg) {
 
         // msg.channel.send(`\`\`\`json\n${JSON.stringify(msg.client.commands)}\`\`\``)
-        var member = msg.guild.members.cache.get('577169178327253035');
-        msg.client.emit('guildMemberRemove', member);
+        // var member = msg.guild.members.cache.get('0');
+        // msg.client.emit('guildMemberRemove', member);
         // msg.client.emit(`typingStart`, );
         // msg.client.emit(`guildMemberWarned`);
         // msg.client.emit(`ready`);
