@@ -11,7 +11,7 @@ module.exports = {
         const embed = new Discord.MessageEmbed()
         .setAuthor(`Channel Stats`);
         object.stats.forEach(channel => {
-            embed.addField(channel.name, `Messages: ${channel.messages}`);
+            embed.addField(channel.name, `Messages: ${channel.messages}`, true);
         });
 
         msg.channel.send(embed);
