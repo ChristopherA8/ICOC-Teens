@@ -30,7 +30,7 @@ welcome(client); // Welcome new members
 // Runs on ready
 client.on('ready', async () => {
 
-  console.log('Connected as '.rainbow + `${client.user.tag}`.rainbow);
+  console.log('Connected as ' + `${client.user.tag}`.rainbow);
   let guild = await client.guilds.cache.get('698590629344575500');
   client.user.setActivity(`${guild.members.cache.size} members`, {type: "WATCHING"})
 
