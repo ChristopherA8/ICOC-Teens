@@ -1,0 +1,39 @@
+module.exports = {
+    xpListener(msg, client) {
+
+        //disable xp in #rules
+        if (msg.channel.id == `770730379077353494`) return;
+        if (msg.author.bot) return;
+
+        let score;
+        score = client.getScore.get(msg.author.id, "698590629344575500");
+    
+        if (!score) {
+            score = { id: `${msg.guild.id}-${msg.author.id}`, user: msg.author.id, guild: msg.guild.id, points: 0, level: 1, name: msg.author.tag}
+        }
+        if (!score.name) {
+            score.name = msg.author.tag;
+        }
+        function getXP() {
+        var words = msg.content.split(" ");
+        var wordCount = words.length;
+        if (wordCount <= 25) {
+            score.points += wordCount;
+        } else {
+            score.points += 25;
+        }
+        // score.points++;
+        client.setScore.run(score);
+        }
+        setTimeout(getXP, 6000);
+        // getXP();
+    
+        const curLevel = Math.floor(0.3 * Math.sqrt(score.points));
+        if(score.level < curLevel) {
+        score.level++;
+        msg.reply(`You've leveled up to level **${curLevel}**!`);
+        }
+        client.setScore.run(score);
+
+    },
+};

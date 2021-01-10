@@ -15,12 +15,6 @@ const { prefix, token, webhookURL } = require('./config.json');
 const SQLite = require('better-sqlite3');
 const client = new Discord.Client()
 var colors = require('colors');
-
-// Exports
-// I just passed the client as an argument when executing the module functions
-// module.exports.client = client; // Used for custom modules
-
-// Create SQLite database
 const sql = new SQLite('./databases/scores.sqlite');
 
 // Custom Modules
@@ -65,14 +59,15 @@ client.on('guildMemberAdd', join => {
 
 client.on('message', msg => {
 
-  // Keep bot from responding in DM's and to other bots
   if (msg.channel.type === 'dm') return;
   if (msg.author.bot) return;
 
   const { listen } = require('./modules/messageListener.ts');
   const { shopMemberWatcher } = require('./modules/shopMemberWatcher.ts');
+  const { xpListener } = require('./modules/score.ts');
   listen(msg);
   shopMemberWatcher(msg);
+  xpListener(msg, client);
 
   if ((((msg.channel.id !== `776264945800052746`)) && (msg.content.includes(`!xp`)))) {
     var botCommandsChannel = msg.guild.channels.cache.get(`776264945800052746`);
@@ -94,44 +89,7 @@ client.on('message', msg => {
     msg.channel.send(`airhorn airhorn airhorn`);
   }
 
-  //disable xp in #rules
-    if (msg.channel.id !== `770730379077353494`) {
-    if (msg.author.bot) return;
-    let score;
-    // score = client.getScore.get(msg.author.id, msg.guild.id);
-    score = client.getScore.get(msg.author.id, "698590629344575500");
 
-    if (!score) {
-      score = { id: `${msg.guild.id}-${msg.author.id}`, user: msg.author.id, guild: msg.guild.id, points: 0, level: 1, name: msg.author.tag}
-    }
-    if (!score.name) {
-      score.name = msg.author.tag;
-    }
-    function getXP() {
-      var words = msg.content.split(" ");
-      var wordCount = words.length;
-      if (wordCount <= 25) {
-        score.points += wordCount;
-      } else {
-        score.points += 25;
-      }
-      // score.points++;
-      client.setScore.run(score);
-    }
-    // setTimeout(getXP, 6000);
-    setTimeout(getXP, 6000);
-    // getXP();
-
-    const curLevel = Math.floor(0.3 * Math.sqrt(score.points));
-    if(score.level < curLevel) {
-      score.level++;
-      msg.reply(`You've leveled up to level **${curLevel}**!`);
-    }
-    client.setScore.run(score);
-
-
-
-  }//end of rules channel check
 
   // KEEP SPAM OUT OF #RULES
   if (msg.channel.id == `770730379077353494`) {
@@ -171,14 +129,11 @@ client.on('message', msg => {
       command.execute(msg, args);
     }
   } catch (error) {
-
     console.error(error);
     msg.reply(`\**Crashlog:\** ${error}`);
-    
   }
 
 });
-
 
 
 client.on('message', async voice => {
