@@ -59,15 +59,23 @@ client.on('guildMemberAdd', join => {
 
 client.on('message', msg => {
 
+  // KEEP SPAM OUT OF #RULES
+  if (msg.channel.id == `770730379077353494`) {
+    msg.delete();
+    return;
+  }
+
   if (msg.channel.type === 'dm') return;
   if (msg.author.bot) return;
 
   const { listen } = require('./modules/messageListener.ts');
   const { shopMemberWatcher } = require('./modules/shopMemberWatcher.ts');
   const { xpListener } = require('./modules/score.ts');
+  const { filter } = require('./modules/wordfilter.ts');
   listen(msg);
   shopMemberWatcher(msg);
   xpListener(msg, client);
+  filter(msg, fs, Discord);
 
   if ((((msg.channel.id !== `776264945800052746`)) && (msg.content.includes(`!xp`)))) {
     var botCommandsChannel = msg.guild.channels.cache.get(`776264945800052746`);
@@ -88,14 +96,6 @@ client.on('message', msg => {
   if (msg.content.includes(`ur mom`) || (msg.content.includes(`your mom`))) {
     msg.channel.send(`airhorn airhorn airhorn`);
   }
-
-
-
-  // KEEP SPAM OUT OF #RULES
-  if (msg.channel.id == `770730379077353494`) {
-    msg.delete();
-  }
-
 
   ///////////////////////////////////
   // Command Handler

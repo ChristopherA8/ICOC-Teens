@@ -72,7 +72,7 @@ module.exports = {
                 if (Number(staffRoleCountTwo < 6)) {
                 newMember.roles.remove("698643225443041311")
                 }
-                console.log(staffRoleCountTwo);
+                // console.log(staffRoleCountTwo);
         
             });
         
@@ -125,7 +125,7 @@ module.exports = {
                 if (Number(staffRoleCount >= 6)) {
                     newMember.roles.add("698643225443041311")
                 }
-                console.log(staffRoleCount);
+                // console.log(staffRoleCount);
             
                 }
             });
