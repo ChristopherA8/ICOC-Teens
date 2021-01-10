@@ -266,7 +266,8 @@ module.exports = {
         //////////////////////////////////
         
         client.on('channelCreate', newChannel => {
-
+            
+            if (newChannel.type == 'dm') return;
             if (newChannel.guild.id !== `698590629344575500`) return; // Ignore emoji servers
             
             const channel = newChannel.client.channels.cache.find(channel => channel.id === `759967435309842494`);

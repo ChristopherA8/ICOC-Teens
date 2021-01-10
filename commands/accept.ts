@@ -7,6 +7,7 @@ module.exports = {
         } else {
             if (msg.author.id !== '778847115002642442') {
                 msg.member.roles.add(icoc, `Member joined with !accept`);
+                msg.delete();
             }
 
         }
