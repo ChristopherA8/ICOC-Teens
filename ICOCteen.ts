@@ -27,8 +27,12 @@ commands(client); // Add command files to collection
 webserver(client); // Web Server for literally no reason
 welcome(client); // Welcome new members
 
+
 // Runs on ready
 client.on('ready', async () => {
+  
+  const { clubReactions } = require('./modules/clubs.ts');
+  clubReactions(client, Discord); // Club Reactions
 
   console.log(`Connected as ${client.user.tag}`.red);
   let guild = await client.guilds.cache.get('698590629344575500');

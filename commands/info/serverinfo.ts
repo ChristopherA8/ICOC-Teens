@@ -4,6 +4,8 @@ module.exports = {
 	description: '',
 	execute(msg, args) {
 
+		var members = msg.guild.members.cache.filter(mem => mem.user.bot == false);
+
 		let str = `${msg.guild.createdAt}`;
 		var created = /\([^)]*\)/g;
 		var result = str.match(created).toString();
@@ -15,7 +17,7 @@ module.exports = {
         .setColor('#00FF86')
 		.setFooter(`Guild ID: ${msg.guild.id}`)
 		.addFields(
-			{ name: 'Member Count:', value: `${msg.guild.memberCount}`, inline: true},
+			{ name: 'Member Count:', value: `${members.size}`, inline: true},
 			{ name: `Created At:`, value: `${s}`, inline: true},
 			{ name: `Owner:`, value: `${msg.guild.owner}` },
 			{ name: `Boost Lvl:`, value: `${msg.guild.premiumTier}`, inline: true },

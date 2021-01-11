@@ -3,12 +3,12 @@
         {
             "name": "《chat",
             "id": "698590629344575503",
-            "messages": 152003
+            "messages": 154176
         },
         {
             "name": "《advice",
             "id": "761585883877998653",
-            "messages": 257
+            "messages": 258
         },
         {
             "name": "《new-years-2021",
@@ -18,7 +18,7 @@
         {
             "name": "《dnd-club",
             "id": "785613556724531201",
-            "messages": 1418
+            "messages": 1434
         },
         {
             "name": "🚨rules",
@@ -38,12 +38,12 @@
         {
             "name": "chat-plus",
             "id": "774807231484526672",
-            "messages": 1426
+            "messages": 1428
         },
         {
             "name": "《join-form",
             "id": "779051355465711656",
-            "messages": 347
+            "messages": 348
         },
         {
             "name": "《teen-leader-chat",
@@ -83,12 +83,12 @@
         {
             "name": "《prayer-requests",
             "id": "698592596515225662",
-            "messages": 1104
+            "messages": 1108
         },
         {
             "name": "《anime-club",
             "id": "762728186714128474",
-            "messages": 10543
+            "messages": 10577
         },
         {
             "name": "《christmas",
@@ -98,17 +98,17 @@
         {
             "name": "《stem-club",
             "id": "776921664948273192",
-            "messages": 1284
+            "messages": 1300
         },
         {
             "name": "《bot-commands",
             "id": "776264945800052746",
-            "messages": 4425
+            "messages": 4466
         },
         {
             "name": "《music-club",
             "id": "768939597568147496",
-            "messages": 1292
+            "messages": 1311
         },
         {
             "name": "👾staff",
@@ -118,32 +118,32 @@
         {
             "name": "audit-log",
             "id": "759967435309842494",
-            "messages": 5186
+            "messages": 5187
         },
         {
             "name": "《art-club",
             "id": "768879621927600189",
-            "messages": 3366
+            "messages": 3430
         },
         {
             "name": "《gaming-club",
             "id": "768634091507286046",
-            "messages": 4096
+            "messages": 4104
         },
         {
             "name": "《christian-memes",
             "id": "789315997362290730",
-            "messages": 692
+            "messages": 694
         },
         {
             "name": "《staff-chat",
             "id": "698594785803501629",
-            "messages": 22860
+            "messages": 22975
         },
         {
             "name": "《sermons-quiet-times",
             "id": "761585771404591154",
-            "messages": 145
+            "messages": 146
         },
         {
             "name": "《teen-leaders",
@@ -153,7 +153,7 @@
         {
             "name": "🤐chriss🔨dungeon",
             "id": "768931736414584902",
-            "messages": 10362
+            "messages": 10403
         },
         {
             "name": "《movie-tv-club",
@@ -163,7 +163,7 @@
         {
             "name": "《good-news",
             "id": "768843277406568499",
-            "messages": 10009
+            "messages": 10018
         },
         {
             "name": "《thanksgiving",
@@ -178,12 +178,12 @@
         {
             "name": "《documents",
             "id": "783008155352563773",
-            "messages": 6
+            "messages": 7
         },
         {
             "name": "message-log",
             "id": "768882922379280464",
-            "messages": 10337
+            "messages": 10338
         },
         {
             "name": "📝channel-list",
@@ -198,7 +198,7 @@
         {
             "name": "📣announcements",
             "id": "698590945993555998",
-            "messages": 380
+            "messages": 381
         }
     ]
 }

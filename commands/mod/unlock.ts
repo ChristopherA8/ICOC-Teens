@@ -2,6 +2,8 @@ module.exports = {
     name: "unlock",
     execute(msg) {
 
+        if (msg.author.id !== `279032930926592000`) return; // Don't run unless it's chris
+
         if (msg.member.hasPermission("MANAGE_MESSAGES")) {
 
         var input = msg.content.substr(7).trim();

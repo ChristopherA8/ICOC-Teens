@@ -23,15 +23,6 @@
             "price": "450",
             "id": "4",
             "quantity": 1
-        },
-        {
-            "name": "gabby doesnt know what shes doing",
-            "price": "5",
-            "id": 5,
-            "quantity": 3
-        },
-        {
-            "id": 6
         }
     ]
 }
