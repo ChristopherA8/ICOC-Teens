@@ -4,6 +4,7 @@ module.exports = {
         //disable xp in #rules
         if (msg.channel.id == `770730379077353494`) return;
         if (msg.author.bot) return;
+        // if (msg.channel.id == `776264945800052746`) return;
 
         let score;
         score = client.getScore.get(msg.author.id, "698590629344575500");

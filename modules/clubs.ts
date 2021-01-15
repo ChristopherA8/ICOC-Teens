@@ -3,7 +3,7 @@ module.exports = {
 
         const guild = client.guilds.cache.get(`698590629344575500`);
         const channel = guild.channels.cache.get('798032803928342549');
-        const message = await channel.messages.fetch(`798062033903681536`);
+        const message = await channel.messages.fetch(`799722690297593946`);
 
         // await message.react('⛩️');
         // await message.react('🎨');
@@ -26,6 +26,7 @@ module.exports = {
         const tvfilter = (reaction, user) => user.id !== `761792910088994816` && reaction.emoji.name == `📺`;
         const musicfilter = (reaction, user) => user.id !== `761792910088994816` && reaction.emoji.name == `🎼`;
         const stemfilter = (reaction, user) => user.id !== `761792910088994816` && reaction.emoji.name == `🔨`;
+        const travelfilter = (reaction, user) => user.id !== `761792910088994816` && reaction.emoji.name == `🧳`;
 
         const animecollector = message.createReactionCollector(animefilter);
         const artcollector = message.createReactionCollector(artfilter);
@@ -37,6 +38,7 @@ module.exports = {
         const tvcollector = message.createReactionCollector(tvfilter);
         const musiccollector = message.createReactionCollector(musicfilter);
         const stemcollector = message.createReactionCollector(stemfilter);
+        const travelcollector = message.createReactionCollector(travelfilter);
 
         animecollector.on('collect', async (r, user) => {
             r.users.remove(user.id);
@@ -150,6 +152,18 @@ module.exports = {
             r.users.remove(user.id);
             var reactionMember = message.guild.members.cache.get(user.id);
             var stemClub = guild.channels.cache.get('776921664948273192');
+            if (!stemClub.permissionOverwrites.find(mem => mem.id == reactionMember.id)) {
+                stemClub.updateOverwrite(reactionMember, {
+                    VIEW_CHANNEL: true
+                }).catch(console.error);
+            } else {
+                stemClub.permissionOverwrites.get(reactionMember.id).delete();
+            }
+        });
+        travelcollector.on('collect', async (r, user) => {
+            r.users.remove(user.id);
+            var reactionMember = message.guild.members.cache.get(user.id);
+            var stemClub = guild.channels.cache.get('799714906353303662');
             if (!stemClub.permissionOverwrites.find(mem => mem.id == reactionMember.id)) {
                 stemClub.updateOverwrite(reactionMember, {
                     VIEW_CHANNEL: true

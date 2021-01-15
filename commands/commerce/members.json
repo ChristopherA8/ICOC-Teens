@@ -3,7 +3,7 @@
         {
             "name": "christopher#8888",
             "id": "279032930926592000",
-            "balance": 310,
+            "balance": 330,
             "items": [
                 {
                     "name": "Frogge",
@@ -30,7 +30,7 @@
         {
             "name": "SirDC#1158",
             "id": "689910756711727193",
-            "balance": 450,
+            "balance": 470,
             "items": []
         },
         {
@@ -59,7 +59,7 @@
         {
             "name": "GhostDragon#0420",
             "id": "620438897217896459",
-            "balance": 460,
+            "balance": 480,
             "items": [
                 {
                     "name": "gabby doesnt know what shes doing",
@@ -484,6 +484,30 @@
         {
             "name": "ayexelly#9645",
             "id": "769329060828282890",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "jade.schmade#3093",
+            "id": "693138994787123311",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "jessie bukowski#9016",
+            "id": "688190960022454281",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "Blue#0296",
+            "id": "529076273008345129",
+            "balance": 300,
+            "items": []
+        },
+        {
+            "name": "Vulcan#3659",
+            "id": "640728466693554177",
             "balance": 300,
             "items": []
         }
