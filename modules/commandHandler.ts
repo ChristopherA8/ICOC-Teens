@@ -22,7 +22,8 @@ module.exports = {
         const shopCommandFiles = fs.readdirSync(`${commandDir}/commerce`).filter(file => file.endsWith('.ts'));
         const combatCommandFiles = fs.readdirSync(`${commandDir}/combat`).filter(file => file.endsWith('.ts'));
         const gachaCommandFiles = fs.readdirSync(`${commandDir}/gacha`).filter(file => file.endsWith('.ts'));
-
+        const testCommandFiles = fs.readdirSync(`${commandDir}/test`).filter(file => file.endsWith('.ts'));
+        
         // Add file names to command collection
         for (const file of commandFiles) {
             const command = require(`.${commandDir}/${file}`);
@@ -58,6 +59,10 @@ module.exports = {
         }
         for (const file of gachaCommandFiles) {
             const command = require(`.${commandDir}/gacha/${file}`);
+            client.commands.set(command.name, command);
+        }
+        for (const file of testCommandFiles) {
+            const command = require(`.${commandDir}/test/${file}`);
             client.commands.set(command.name, command);
         }
 

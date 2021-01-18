@@ -2,7 +2,7 @@
     name:"slash",
     execute(msg) {
 
-        const { token } = require('../config.json');
+        const { token } = require('../../config.json');
 
         // https://discord.com/oauth2/authorize?client_id=761792910088994816&scope=applications.commands
 
