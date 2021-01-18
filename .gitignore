@@ -15,3 +15,4 @@ members.sqlite-shm
 members.sqlite-wal
 members.sqlite
 /databases/
+commands/commerce/limit.json
