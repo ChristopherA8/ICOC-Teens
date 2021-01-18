@@ -17,3 +17,4 @@ members.sqlite
 /databases/
 commands/commerce/limit.json
 commands/commerce/members.json
+commands/commerce/shop.json
