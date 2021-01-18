@@ -16,3 +16,4 @@ members.sqlite-wal
 members.sqlite
 /databases/
 commands/commerce/limit.json
+commands/commerce/members.json
