@@ -14,7 +14,7 @@ const config = require('./config.json');
 const { prefix, token, webhookURL } = require('./config.json');
 const SQLite = require('better-sqlite3');
 const client = new Discord.Client()
-var colors = require('colors');
+var colors = require('colors/safe');
 const sql = new SQLite('./databases/scores.sqlite');
 
 // Custom Modules
@@ -34,7 +34,7 @@ client.on('ready', async () => {
   const { clubReactions } = require('./modules/clubs.ts');
   clubReactions(client, Discord); // Club Reactions
 
-  console.log(`Connected as ${client.user.tag}`.red);
+  console.log(colors.red(`Connected as ${client.user.tag}`));
   let guild = await client.guilds.cache.get('698590629344575500');
   client.user.setActivity(`${guild.members.cache.size} members`, {type: "WATCHING"})
 
