@@ -20,3 +20,4 @@ commands/commerce/members.json
 commands/commerce/shop.json
 commands/commerce/membersbackup.json
 sounds
+stats.json
