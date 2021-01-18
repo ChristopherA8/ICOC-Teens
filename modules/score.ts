@@ -5,6 +5,7 @@ module.exports = {
         if (msg.channel.id == `770730379077353494`) return;
         if (msg.author.bot) return;
         // if (msg.channel.id == `776264945800052746`) return;
+        if (msg.channel.id == `768931736414584902`) return;
 
         let score;
         score = client.getScore.get(msg.author.id, "698590629344575500");
