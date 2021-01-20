@@ -16,16 +16,22 @@ const SQLite = require('better-sqlite3');
 const client = new Discord.Client()
 var colors = require('colors/safe');
 const sql = new SQLite('./databases/scores.sqlite');
+const DisTube = require('distube')
+
+// New DisTube instance
+client.distube = new DisTube(client, { searchSongs: false, emitNewSongOnly: true });
 
 // Custom Modules
 const { logging } = require('./modules/logging.ts');
 const { commands } = require('./modules/commandHandler.ts');
 const { webserver } = require('./modules/webserver.ts');
 const { welcome } = require('./modules/welcome.ts');
+const { voiceEvents } = require('./modules/voiceEvents.ts');
 logging(client); // Start logging
 commands(client); // Add command files to collection
 webserver(client); // Web Server for literally no reason
 welcome(client); // Welcome new members
+voiceEvents(client);
 
 
 // Runs on ready

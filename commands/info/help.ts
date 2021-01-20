@@ -52,8 +52,17 @@ module.exports = {
                     { name: '\`!warns <@user>\`', value: `list warn count for user`, inline: true}    
                 ],
                 [
-                    { name: '\`!play <song name>\`', value: `plays song from youtube`, inline: true},
+                    { name: '\`!play <song name>\`', value: `plays song`, inline: true},
                     { name: `\`!stop\``, value: `stops song`, inline: true},
+                    { name: `\`!pause\``, value: `pause song`, inline: true},
+                    { name: `\`!resume\``, value: `resumes song`, inline: true},
+                    { name: `\`!shuffle\``, value: `shuffles songs in queue`, inline: true},
+                    { name: `\`!volume\``, value: `enter volume from 0-100`, inline: true},
+                    { name: `\`!skip\``, value: `skip song`, inline: true},
+                    { name: `\`!queue\``, value: `show list of songs in queue`, inline: true},
+                    { name: `\`!np or !nowplaying\``, value: `show current song playing`, inline: true},
+                    { name: `\`!loop\``, value: `loops song (0: disabled, 1: Repeat a song, 2: Repeat all the queue)`, inline: true},
+                    { name: `\`!3d, !bassboost, !echo, !karaoke, !nightcore, !vaporwave\``, value: `add filters to songs, reuse command to disable filter`, inline: true},
                     { name: '\`!bitrate\`', value: `fetches bitrate of channel`, inline: true},
                     { name: '\`!fx <name>\`', value: `available fx: airhorn, ayesir, chottomate, easy, heyaha, hourslater, illuminati, johncena, ohh, oof, replay, ricknmorty, rickroll, wow, yeet, longoof, megaoof, zawarudo, nice, gucci, letsgo, ~~ussr~~`, inline: true}
                 ],

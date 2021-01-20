@@ -2,11 +2,104 @@ module.exports = {
     async voice(msg, prefix) {
 
         if (msg.channel.type === 'dm') return;
+        const Discord = require('discord.js');
+        let command = msg.content.substr(prefix.length);
+        const status = (queue) => `Volume: \`${queue.volume}%\` | Filter: \`${queue.filter || "Off"}\` | Loop: \`${queue.repeatMode ? queue.repeatMode == 2 ? "All Queue" : "This Song" : "Off"}\` | Autoplay: \`${queue.autoplay ? "On" : "Off"}\``;
 
-/*         //////////////////////////////////////////////////
-        //Voice commands
+
+        //////////////////////////////////////////////////
+        // Voice commands
         //////////////////////////////////////////////////
 
+        if (msg.content.startsWith(`${prefix}play`)) {
+            msg.client.distube.play(msg, msg.content.substr(prefix.length + 4))
+        };
+
+        if (msg.content.startsWith(`${prefix}pause`)) {
+            msg.client.distube.pause(msg)
+        };
+
+        if (msg.content.startsWith(`${prefix}resume`)) {
+            msg.client.distube.resume(msg)
+        };
+
+        if (msg.content.startsWith(`${prefix}shuffle`)) {
+            msg.client.distube.shuffle(msg)
+            msg.channel.send(`Shuffled queue!`);
+        };
+
+        if (msg.content.startsWith(`${prefix}volume`)) {
+            if (Number.isNaN(Number(msg.content.substr(prefix.length + 6)))) {
+                msg.channel.send(`**Error:** Invalid volume!`);
+                return;
+            }
+            msg.client.distube.setVolume(msg, Number(msg.content.substr(prefix.length + 6)));
+            msg.channel.send(`Volume: ${Number(msg.content.substr(prefix.length + 6))}%`);
+        };
+
+        if (msg.content.startsWith(`${prefix}stop`)) {
+            msg.client.distube.stop(msg);
+            msg.channel.send("Stopped the music!");
+        };
+
+        if (msg.content.startsWith(`${prefix}skip`)) {
+            msg.client.distube.skip(msg);
+            msg.channel.send("Song skipped!");
+        };
+
+        if (msg.content.startsWith(`${prefix}queue`)) {
+            let queue = msg.client.distube.getQueue(msg);
+            msg.channel.send('Current queue:\n' + queue.songs.map((song, id) =>
+                `${id + 1}. ${song.name} - ${song.formattedDuration}`
+            ).slice(0, 10).join("\n"), { code: "json" });
+        };
+
+        if (msg.content.startsWith(`${prefix}np`) || msg.content.startsWith(`${prefix}nowplaying`)) {
+            let song = msg.client.nowPlaying;
+            const embed = new Discord.MessageEmbed()
+            .setAuthor(`Now Playing:`)
+            .setColor('#00FF86')
+            .setThumbnail(`${song.thumbnail ? song.thumbnail : ''}`)
+            .setDescription(`\n**${song.name}**\nDuration: ${song.formattedDuration}\nRequested by: ${song.user}\n${status(msg.client.distube.getQueue(msg))}`);
+            if (msg.client.nowPlaying == undefined) {
+                msg.channel.send(`No song found!`);
+                return;
+            }
+            msg.channel.send(embed);
+        };
+
+        if (msg.content.startsWith(`${prefix}loop`)) {
+            msg.client.distube.setRepeatMode(msg, parseInt(msg.content.substr(prefix.length + 4)));
+            switch (parseInt(msg.content.substr(prefix.length + 4))) {
+                case 0:
+                    msg.channel.send(`Looping: off`);
+                    break;
+                case 1:
+                    msg.channel.send(`Looping: this song`);
+                    break;
+                case 2:
+                    msg.channel.send(`Looping: entire queue`);
+                    break;
+                default:
+                    msg.channel.send(`**Error:** Missing Parameter \`(0: disabled, 1: Repeat a song, 2: Repeat all the queue)\``);
+                    break;
+            }
+        }
+
+        if ([`3d`, `bassboost`, `echo`, `karaoke`, `nightcore`, `vaporwave`].includes(command)) {
+            let filter = msg.client.distube.setFilter(msg, command);
+            msg.channel.send("Current queue filter: " + (filter || "Off"));
+        }
+
+
+
+
+
+        //////////////////////////////////////
+        // OLD VOICE COMMAND SUCKED LOLOL
+        //////////////////////////////////////
+
+        /*
         const ytdl = require('ytdl-core-discord');
         const { YTSearcher } = require('ytsearcher');
         const searcher = new YTSearcher('AIzaSyALqowrUUelRZOyrjC_NzdLUTnsW9PNj5k');
@@ -64,7 +157,10 @@ module.exports = {
         }
 
         voiceChannel.leave();
-        }
+        } */
+
+        var usrInput = msg.content.substr(5).trim();
+        var fxInput = msg.content.substr(3).trim();
 
         //!bitrate
         if (msg.content.startsWith(`${prefix}bitrate`)) {
