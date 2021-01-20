@@ -57,15 +57,10 @@ client.on('ready', async () => {
 
 client.on('message', msg => {
 
-  let icoc = msg.guild.roles.cache.find(role => role.id == `698634625077215372`);
-
-  if (msg.member.roles.cache.has(icoc.id)) {
-  } else {
-      if (msg.author.id !== '778847115002642442') {
-          msg.member.roles.add(icoc, `Member joined with !accept`);
-          msg.delete();
-      }
-
+  let name = msg.content.slice(prefix.length).split(/ +/).shift().toLowerCase();
+  const accept = require('./commands/other/accept.ts');
+  if (name == `accept`) {
+    accept.execute(msg);
   }
 
   // KEEP SPAM OUT OF #RULES

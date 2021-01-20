@@ -1,118 +1,53 @@
+const Discord67 = require('discord.js');
 module.exports = {
-    name:"poll",
-    async execute(msg) {
+    name: "poll",
+    execute(msg) {
 
-        // Constants
-        const Discord = require('discord.js');
-        const filter = m => m.author.id == msg.author.id;
+        /*
+        const pollEmbed = require('discord.js-poll-embed');
 
-        // Vars
-        var name = '';
-        var nameSuccess = false;
-        var itemCount = 0;
-        var countSuccess = false;
-        var items = [];
-        var itemsSuccess = false;
+        var input = msg.content.substr(5);
+        if (input == "") {
+            msg.channel.send(`**Error:** Missing input!`);
+        } else {
+            var inputTrim = input.trim(); // removes space at beginning and end of string
+            var inputs = inputTrim.split('-');
+            var name = inputs[0];
+            var option1 = inputs[1];
+            var option2 = inputs[2];
+            var time = inputs[3];
 
-        askName();
-
-        /* =-=-=-=-=-= Collectors =-=-=-=-=-= */
-
-        // NAME
-        async function askName() {
-            await msg.channel.send(`Please enter poll title:`)
-            .then(message => {
-                const nameCollector = msg.channel.createMessageCollector(filter, { time: 15000 });
-                nameCollector.on('collect', m => {
-                    console.log(`Collected "${m.content}"`);
-                    name = m.content.trim();
-                    nameSuccess = true;
-                    nameCollector.stop();
-                });
-                nameCollector.on('end', collected => {
-                    message.delete();
-                    if (nameSuccess) {
-                        askItemCount();
-                    }
-                    console.log(`nameCollector timer done`);
-                    if (nameSuccess) return;
-                    msg.reply(`Time ran out, please try again.`);
-                });
-            });
+            var options = [`${option1}`, `${option2}`];
+            var timeout = `${time}`;
+            var emojiList = ['1️⃣', '2️⃣'];
+            var forceEndPollEmoji = '🛑';
+            var title = `${name}`;
+            pollEmbed(msg, title, options, timeout, emojiList, forceEndPollEmoji);
         }
+        */
+       const pollEmbed = require('discord.js-poll-embed');
 
-        // ITEMS
-        async function askItemCount() {
-            await msg.channel.send(`How many poll items:`)
-            .then(message => {
-                const countCollector = msg.channel.createMessageCollector(filter, { time: 15000 });
-                countCollector.on('collect', m => {
-                    console.log(`Collected "${m.content}"`);
-                    itemCount = Number(m.content.trim());
-                    countSuccess = true;
-                    countCollector.stop();
-                });
-                countCollector.on('end', collected => {
-                    message.delete();
-                    if (countSuccess) {
-                        if (!Number.isInteger(itemCount)) {
-                            msg.reply(`**Error:** Invalid number!`);
-                            return;
-                        }
-                        askItems();
-                    }
-                    console.log(`countCollector timer done`);
-                    if (countSuccess) return;
-                    msg.reply(`Time ran out, please try again.`);
-                });
-            });
-        }
+       var input = msg.content.substr(5);
+       if (input == "") {
+           msg.channel.send(`**Error:** Missing input!`);
+       } else {
+           var inputTrim = input.trim(); // removes space at beginning and end of string
+           var inputs = inputTrim.split('-');
+           var name = inputs[0];
+           var option1 = inputs[1];
+           var option2 = inputs[2];
+           var time = inputs[3];
 
-        // ASK ITEMS
-        var itemCountMessage = 0;
-        async function askItems() {
-            await msg.channel.send(`Item ${itemCountMessage} name:`)
-            .then(async message => {
-                const itemCollector = msg.channel.createMessageCollector(filter, { time: 30000 });
-                for (let index = 0; index < itemCount; index++) {
+           var options = [`${option1}`, `${option2}`];
+           var timeout = `${time}`;
+           var emojiList = ['1️⃣', '2️⃣'];
+           var forceEndPollEmoji = '🛑';
+           var title = `${name}`;
+           pollEmbed(msg, title, options, timeout, emojiList, forceEndPollEmoji);
+       }
 
-                    if (index = itemCount) {
-                        itemsSuccess = true;
-                        message.delete()
-                        itemCollector.stop();
-                        console.log(`Item Count: ${itemCount}\nindex: ${index}`)
-                    }
 
-                    const hm = msg.channel.createMessageCollector(filter, { time: 30000 });
-                    function waitForNextItem () {
-                        return new Promise((resolve, reject) => {
-                            hm.once('collect', resolve);
-                        })
-                    }
 
-                    const data = await waitForNextItem()
-                    console.log(`Collected "${data}"`);
-                    items.push(data);
-                    // console.log(`Collected "${m.content}"`);
-                    // items.push(m.content.trim());
-
-                    console.log(`Item Count: ${itemCount}\nindex: ${index}`)
-                    await message.edit(`Item ${itemCountMessage} name:`)
-
-                    itemCountMessage++;
-                }
-                itemCollector.on('end', collected => {
-                    if (itemsSuccess) {
-                        msg.reply(items);
-                    }
-                    console.log(`itemCollector timer done`);
-                    if (itemsSuccess) return;
-                    msg.reply(`Time ran out, please try again.`);
-                });
-            });
-        }
-
-        /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 
     },
 };

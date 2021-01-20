@@ -1,0 +1,118 @@
+module.exports = {
+    name:"poll",
+    async execute(msg) {
+
+        // Constants
+        const Discord = require('discord.js');
+        const filter = m => m.author.id == msg.author.id;
+
+        // Vars
+        var name = '';
+        var nameSuccess = false;
+        var itemCount = 0;
+        var countSuccess = false;
+        var items = [];
+        var itemsSuccess = false;
+
+        askName();
+
+        /* =-=-=-=-=-= Collectors =-=-=-=-=-= */
+
+        // NAME
+        async function askName() {
+            await msg.channel.send(`Please enter poll title:`)
+            .then(message => {
+                const nameCollector = msg.channel.createMessageCollector(filter, { time: 15000 });
+                nameCollector.on('collect', m => {
+                    console.log(`Collected "${m.content}"`);
+                    name = m.content.trim();
+                    nameSuccess = true;
+                    nameCollector.stop();
+                });
+                nameCollector.on('end', collected => {
+                    message.delete();
+                    if (nameSuccess) {
+                        askItemCount();
+                    }
+                    console.log(`nameCollector timer done`);
+                    if (nameSuccess) return;
+                    msg.reply(`Time ran out, please try again.`);
+                });
+            });
+        }
+
+        // ITEMS
+        async function askItemCount() {
+            await msg.channel.send(`How many poll items:`)
+            .then(message => {
+                const countCollector = msg.channel.createMessageCollector(filter, { time: 15000 });
+                countCollector.on('collect', m => {
+                    console.log(`Collected "${m.content}"`);
+                    itemCount = Number(m.content.trim());
+                    countSuccess = true;
+                    countCollector.stop();
+                });
+                countCollector.on('end', collected => {
+                    message.delete();
+                    if (countSuccess) {
+                        if (!Number.isInteger(itemCount)) {
+                            msg.reply(`**Error:** Invalid number!`);
+                            return;
+                        }
+                        askItems();
+                    }
+                    console.log(`countCollector timer done`);
+                    if (countSuccess) return;
+                    msg.reply(`Time ran out, please try again.`);
+                });
+            });
+        }
+
+        // ASK ITEMS
+        var itemCountMessage = 0;
+        async function askItems() {
+            await msg.channel.send(`Item ${itemCountMessage} name:`)
+            .then(async message => {
+                const itemCollector = msg.channel.createMessageCollector(filter, { time: 30000 });
+                for (let index = 0; index < itemCount; index++) {
+
+                    if (index = itemCount) {
+                        itemsSuccess = true;
+                        message.delete()
+                        itemCollector.stop();
+                        console.log(`Item Count: ${itemCount}\nindex: ${index}`)
+                    }
+
+                    const hm = msg.channel.createMessageCollector(filter, { time: 30000 });
+                    function waitForNextItem () {
+                        return new Promise((resolve, reject) => {
+                            hm.on('collect', resolve);
+                        })
+                    }
+
+                    const data = await waitForNextItem()
+                    console.log(`Collected "${data}"`);
+                    items.push(data);
+                    // console.log(`Collected "${m.content}"`);
+                    // items.push(m.content.trim());
+
+                    console.log(`Item Count: ${itemCount}\nindex: ${index}`)
+                    await message.edit(`Item ${itemCountMessage} name:`)
+
+                    itemCountMessage++;
+                }
+                itemCollector.on('end', collected => {
+                    if (itemsSuccess) {
+                        msg.reply(items);
+                    }
+                    console.log(`itemCollector timer done`);
+                    if (itemsSuccess) return;
+                    msg.reply(`Time ran out, please try again.`);
+                });
+            });
+        }
+
+        /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+
+    },
+};
