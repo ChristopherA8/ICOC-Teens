@@ -55,7 +55,7 @@ client.on('ready', async () => {
 });
 
 
-client.on('message', msg => {
+client.on('message', async msg => {
 
   let name = msg.content.slice(prefix.length).split(/ +/).shift().toLowerCase();
   const accept = require('./commands/other/accept.ts');
@@ -77,11 +77,13 @@ client.on('message', msg => {
   const { xpListener } = require('./modules/score.ts');
   const { filter } = require('./modules/wordfilter.ts');
   const { stats } = require('./modules/stats.ts');
+  const { voice } = require('./modules/voicecommands.ts');
   listen(msg);
   shopMemberWatcher(msg);
   xpListener(msg, client);
   filter(msg, fs, Discord);
   stats(msg, Discord, fs, prefix);
+  voice(msg, prefix);
 
   if ((((msg.channel.id !== `776264945800052746`)) && (msg.content.includes(`!xp`)))) {
     var botCommandsChannel = msg.guild.channels.cache.get(`776264945800052746`);
@@ -134,152 +136,6 @@ client.on('message', msg => {
 });
 
 
-client.on('message', async voice => {
-
-if (voice.channel.type === 'dm') return;
-
-//////////////////////////////////////////////////
-//Voice commands
-//////////////////////////////////////////////////
-
-const fs = require('fs');
-const ytdl = require('ytdl-core-discord');
-const { YTSearcher } = require('ytsearcher');
-const searcher = new YTSearcher('AIzaSyALqowrUUelRZOyrjC_NzdLUTnsW9PNj5k');
-var usrInput = voice.content.substr(5).trim();
-var fxInput = voice.content.substr(3).trim();
-
-//!play <search>
-if (voice.content.startsWith(`${prefix}play`)) {
-  if (voice.channel.type === 'dm') return;
-
-  const voiceChannel = voice.member.voice.channel;
-
-  if (!voiceChannel) {
-    return voice.reply(`**Error:** Please join a voice channel first!`);
-  }
-
-
-  if (usrInput === "") {
-    voice.channel.send(`**Error:** Song name empty!`); 
-  } else {
-    voiceChannel.join().then(async connection => {
-
-      // try {
-      //   let result = await searcher.search(usrInput).catch(error => console.log(error));
-      //   const dispatcher = connection.play(await ytdl(result.first.url), { type: 'opus' }, {quality: 'highest' }, {highWaterMark: 1024 * 1024 * 10});
-      //   voice.channel.send(`> **Now Playing:** ${result.first.url}`);
-      //   dispatcher.on('finish', () => voiceChannel.leave());
-      // } catch {
-      //   voice.channel.send(`**Error:** An error occured, pls try again!`);
-      // }
-
-      let result = await searcher.search(usrInput).catch(error => console.log(error));
-      const dispatcher = connection.play(await ytdl(result.first.url), { type: 'opus' }, {quality: 'highest' }, {highWaterMark: 1024 * 1024 * 10});
-
-      // const embed = new Discord.MessageEmbed()
-      // .setAuthor(`Now Playing:`)
-      // .setDescription(`${result.first.url}`);
-      // voice.channel.send(embed);
-      voice.channel.send(result.first.url);
-
-      dispatcher.on('finish', () => voiceChannel.leave());
-
-    });
-  }
-}
-
-//!stop
-if (voice.content.startsWith(`${prefix}stop`)) {
-  if (voice.channel.type === 'dm') return;
-
-  const voiceChannel = voice.member.voice.channel;
-
-  if (!voiceChannel) {
-    return voice.reply(`**Error:** Please join a voice channel first!`);
-  }
-
-  voiceChannel.leave();
-}
-
-//!bitrate
-if (voice.content.startsWith(`${prefix}bitrate`)) {
-  if (voice.channel.type === 'dm') return;
-
-  const voiceChannel = voice.member.voice.channel;
-
-  if (!voiceChannel) {
-    return voice.reply(`**Error:** Please join a voice channel first!`);
-  }
-
-  voice.channel.send(`**Channel Bitrate: **${voiceChannel.bitrate}bps`);
-}
-
-
-//!fx
-if (voice.content.startsWith(`${prefix}fx`)) {
-  if (voice.channel.type === 'dm') return;
-
-  const voiceChannel = voice.member.voice.channel;
-
-  if (!voiceChannel) {
-    return voice.reply(`**Error:** Please join a voice channel first!`);
-  }
-
-
-  if (fxInput === "") {
-    voice.channel.send(`**Error:** missing fx name!\nCheck #chat pins for list of fx`); 
-  } else if(fxInput == `rickroll`) {
-    voice.channel.send(`https://tenor.com/view/rickroll-dance-funny-you-music-gif-7755460`);
-    voiceChannel.join().then(async connection => {
-      const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
-      dispatcher.on('finish', () => voiceChannel.leave());
-    });
-  } else if(fxInput == `ayesir`) {
-    voice.channel.send(`https://tenor.com/view/fairytail-cat-aye-yes-excited-gif-4531180`);
-    voiceChannel.join().then(async connection => {
-      const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
-      dispatcher.on('finish', () => voiceChannel.leave());
-    });
-  } else if(fxInput == `johncena`) {
-    voiceChannel.join().then(async connection => {
-      const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
-      dispatcher.setVolume(20);
-      dispatcher.on('finish', () => { 
-        dispatcher.setVolume(1);
-        voiceChannel.leave();
-      });
-    });
-  } else {
-  voiceChannel.join().then(async connection => {
-    const dispatcher = connection.play(`./sounds/${fxInput}.mp3`);
-    dispatcher.setVolume(3);
-    dispatcher.on('finish', () => {
-      dispatcher.setVolume(1);
-      voiceChannel.leave()
-    });
-  });
-}
-}
-
-/* //!bitrate
-if (voice.content.startsWith(`${prefix}record`)) {
-  if (voice.channel.type === 'dm') return;
-
-  const voiceChannel = voice.member.voice.channel;
-  voiceChannel.join().then(async connection => {
-    const fs = require('fs');
-        // Create a ReadableStream of s16le PCM audio
-    // const audio = connection.receiver.createStream(user, { mode: 'pcm', end: 'manual' });
-    // const audio = connection.receiver.createStream(connection, { mode: 'pcm', end: 'manual' });
-    // audio.pipe(fs.createWriteStream('./audio'));
-  });
-
-} */
-
-});
-
-
 
   /* =-=-=-=-=-=-=-=-=-= Slash Commands!! =-=-=-=-=-=-=-=-=-= */
 
@@ -323,6 +179,91 @@ if (voice.content.startsWith(`${prefix}record`)) {
   }
 
   /* =-=-=-=-=-=-=-=-=-= END OF Slash Commands!! =-=-=-=-=-=-=-=-=-= */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // const { Client } = require('discord.js');
+  // const { Shoukaku } = require('shoukaku');
+  
+  // const LavalinkServer = [{ name: 'Localhost', host: 'localhost', port: 6049, auth: 'hi' }];
+  // const ShoukakuOptions = { moveOnDisconnect: false, resumable: false, resumableTimeout: 30, reconnectTries: 2, restTimeout: 10000 };
+  
+  // class musicClient extends Client {
+  //     constructor(opts) {
+  //         super(opts);
+  //         this.shoukaku = new Shoukaku(this, LavalinkServer, ShoukakuOptions);
+  //     }
+  
+  //     login(token) {
+  //         this._setupShoukakuEvents();
+  //         this._setupClientEvents();
+  //         return super.login(token);
+  //     }
+  
+  //     _setupShoukakuEvents() {
+  //         this.shoukaku.on('ready', (name) => console.log(`Lavalink ${name}: Ready!`));
+  //         this.shoukaku.on('error', (name, error) => console.error(`Lavalink ${name}: Error Caught,`, error));
+  //         this.shoukaku.on('close', (name, code, reason) => console.warn(`Lavalink ${name}: Closed, Code ${code}, Reason ${reason || 'No reason'}`));
+  //         this.shoukaku.on('disconnected', (name, reason) => console.warn(`Lavalink ${name}: Disconnected, Reason ${reason || 'No reason'}`));
+  //     }
+  
+  //     _setupClientEvents() {
+  //         this.on('message', async (msg) => {
+  //             if (msg.author.bot || !msg.guild) return;
+  //             if (!msg.content.startsWith('$play')) return;
+  //             if (this.shoukaku.getPlayer(msg.guild.id)) return;
+  //             const args = msg.content.split(' ');
+  //             if (!args[1]) return;
+  //             const node = this.shoukaku.getNode();
+  //             let data = await node.rest.resolve(args[1]);
+  //             if (!data) return;
+  //             const player = await node.joinVoiceChannel({
+  //                 guildID: msg.guild.id,
+  //                 voiceChannelID: msg.member.voice.channelID
+  //             }); 
+  //             player.on('error', (error) => {
+  //                 console.error(error);
+  //                 player.disconnect();
+  //             });
+  //             for (const event of ['end', 'closed', 'nodeDisconnect']) player.on(event, () => player.disconnect());
+  //             data = data.tracks.shift();
+  //             await player.playTrack(data); 
+  //             await msg.channel.send("Now Playing: " + data.info.title);
+  //         });
+  //         this.on('ready', () => console.log('Bot is now ready'));
+  //     }
+  // }
+
+  // new musicClient({ resumable: true }).login('NzYxNzkyOTEwMDg4OTk0ODE2.X3fw7w.JnqvV9hSQ_377D168-4DxvXm2bI').catch(console.error);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
