@@ -49,6 +49,10 @@ module.exports = {
 
         if (msg.content.startsWith(`${prefix}queue`)) {
             let queue = msg.client.distube.getQueue(msg);
+            if (queue == undefined) {
+                msg.channel.send(`No songs in queue!`);
+                return;
+            }
             msg.channel.send('Current queue:\n' + queue.songs.map((song, id) =>
                 `${id + 1}. ${song.name} - ${song.formattedDuration}`
             ).slice(0, 10).join("\n"), { code: "json" });

@@ -5,7 +5,6 @@ module.exports = {
         if (msg.channel.id == `770730379077353494`) return; // rules
         if (msg.author.bot) return;
         // if (msg.channel.id == `768931736414584902`) return; // the-dungeon
-        if (msg.channel.id == `774807231484526672`) return; // chat-plus
         if (msg.channel.id == `776264945800052746`) return; // Bot-commands
         if (msg.channel.id == `768882922379280464`) return; // message-log
 
