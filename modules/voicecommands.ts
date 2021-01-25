@@ -15,6 +15,10 @@ module.exports = {
             msg.client.distube.play(msg, msg.content.substr(prefix.length + 4))
         };
 
+        if (msg.content.startsWith(`${prefix}playskip`)) {
+            msg.client.distube.playSkip(msg, msg.content.substr(prefix.length + 8))
+        };
+
         if (msg.content.startsWith(`${prefix}pause`)) {
             msg.client.distube.pause(msg)
         };

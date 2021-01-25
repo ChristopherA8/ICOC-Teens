@@ -10,11 +10,10 @@
 // Constants
 const fs = require('fs');
 const Discord = require('discord.js')
-const config = require('./config.json');
 const { prefix, token, webhookURL } = require('./config.json');
 const SQLite = require('better-sqlite3');
 const client = new Discord.Client()
-var colors = require('colors/safe');
+let colors = require('colors/safe');
 const sql = new SQLite('./databases/scores.sqlite');
 const DisTube = require('distube')
 
