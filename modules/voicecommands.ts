@@ -76,6 +76,15 @@ module.exports = {
             msg.channel.send(embed);
         };
 
+        if (msg.content.startsWith(`${prefix}download`)) {
+            let song = msg.client.nowPlaying;
+            if (msg.client.nowPlaying == undefined) {
+                msg.channel.send(`No song found!`);
+                return;
+            }
+            msg.channel.send(`**Song Download Link:** ${song.streamURL}`);
+        };
+
         if (msg.content.startsWith(`${prefix}loop`)) {
             msg.client.distube.setRepeatMode(msg, parseInt(msg.content.substr(prefix.length + 4)));
             switch (parseInt(msg.content.substr(prefix.length + 4))) {
