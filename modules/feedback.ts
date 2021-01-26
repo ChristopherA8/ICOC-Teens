@@ -13,7 +13,7 @@ module.exports = {
         const embed = new Discord.MessageEmbed()
             .setAuthor(`Suggestion`, `https://chr1s.dev/assets/mailbox.png`)
             .setColor(Math.floor(Math.random()*16777215).toString(16))
-            .setDescription(`>>> ${msg}`)
+            .setDescription(`${msg}`)
             .setFooter(`From: ${msg.author.tag}  |  Time: ${time}`);
         suggestions.send(embed);
 

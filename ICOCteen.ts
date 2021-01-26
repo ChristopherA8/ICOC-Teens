@@ -84,13 +84,15 @@ client.on('message', async msg => {
   const { stats } = require('./modules/stats.ts');
   const { voice } = require('./modules/voicecommands.ts');
   const { feedbackListener } = require('./modules/feedback.ts');
+  feedbackListener(msg);
+  if (msg.channel.id == `803446581222309888`) return;
   listen(msg);
   shopMemberWatcher(msg);
   xpListener(msg, client);
   filter(msg, fs, Discord);
   stats(msg, Discord, fs, prefix);
   await voice(msg, prefix);
-  feedbackListener(msg);
+
 
   let botCommandsChannel = msg.guild.channels.cache.get(`776264945800052746`);
 
