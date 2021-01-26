@@ -10,7 +10,7 @@
 // Constants
 const fs = require('fs');
 const Discord = require('discord.js')
-const { prefix, token, webhookURL } = require('./config.json');
+const { prefix, token } = require('./config.json');
 const SQLite = require('better-sqlite3');
 const client = new Discord.Client()
 let colors = require('colors/safe');
@@ -37,11 +37,11 @@ voiceEvents(client);
 client.on('ready', async () => {
   
   const { clubReactions } = require('./modules/clubs.ts');
-  clubReactions(client, Discord); // Club Reactions
+  await clubReactions(client, Discord); // Club Reactions
 
   console.log(colors.red(`Connected as ${client.user.tag}`));
   let guild = await client.guilds.cache.get('698590629344575500');
-  client.user.setActivity(`${guild.members.cache.size} members`, {type: "WATCHING"})
+  await client.user.setActivity(`${guild.members.cache.size} members`, {type: "WATCHING"})
 
   // Check if the table "points" exists.
   const table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'scores';").get();
@@ -70,7 +70,7 @@ client.on('message', async msg => {
 
   // KEEP SPAM OUT OF #RULES
   if ((msg.channel.id == `770730379077353494`)) {
-    msg.delete();
+    await msg.delete();
     return;
   }
 
@@ -83,22 +83,24 @@ client.on('message', async msg => {
   const { filter } = require('./modules/wordfilter.ts');
   const { stats } = require('./modules/stats.ts');
   const { voice } = require('./modules/voicecommands.ts');
+  const { feedbackListener } = require('./modules/feedback.ts');
   listen(msg);
   shopMemberWatcher(msg);
   xpListener(msg, client);
   filter(msg, fs, Discord);
   stats(msg, Discord, fs, prefix);
-  voice(msg, prefix);
+  await voice(msg, prefix);
+  feedbackListener(msg);
+
+  let botCommandsChannel = msg.guild.channels.cache.get(`776264945800052746`);
 
   if ((((msg.channel.id !== `776264945800052746`)) && (msg.content.includes(`!xp`)))) {
-    var botCommandsChannel = msg.guild.channels.cache.get(`776264945800052746`);
-    msg.reply(`Use that in ${botCommandsChannel}`);
+    await msg.reply(`Use that in ${botCommandsChannel}`);
     return;
   }
 
   if (((msg.channel.id !== `776264945800052746`)) && (msg.content.includes(`!top`))) {
-    var botCommandsChannel = msg.guild.channels.cache.get(`776264945800052746`);
-    msg.reply(`Use that in ${botCommandsChannel}`);
+    await msg.reply(`Use that in ${botCommandsChannel}`);
     return;
   }
 
@@ -135,7 +137,7 @@ client.on('message', async msg => {
     }
   } catch (error) {
     console.error(error);
-    msg.reply(`\**Crashlog:\** ${error}`);
+    await msg.reply(`\**Crashlog:\** ${error}`);
   }
 
 });
@@ -145,9 +147,9 @@ client.on('message', async msg => {
   /* =-=-=-=-=-=-=-=-=-= Slash Commands!! =-=-=-=-=-=-=-=-=-= */
 
   const discordJsHandlers = require('./node_modules/discord.js/src/client/websocket/handlers/index');
-  var commandName;
-  var channelID;
-  var guildID;
+  let commandName;
+  let channelID;
+  let guildID;
   discordJsHandlers.INTERACTION_CREATE = (_client, { d: packetData }) => {
     commandName = packetData.data.name;
     channelID = packetData.channel_id;
@@ -160,8 +162,8 @@ client.on('message', async msg => {
   };
 
   function frogge(guildID, channelID) {
-    var guild = client.guilds.cache.find(guild => guild.id == guildID)
-    var channel = guild.channels.cache.get(channelID)
+    let guild = client.guilds.cache.find(guild => guild.id == guildID)
+    let channel = guild.channels.cache.get(channelID)
     let { giphy } = require(`./config.json`);
     let fetch = require(`node-fetch`);
     fetch(`https://api.giphy.com/v1/gifs/random?api_key=${giphy}&tag=frog&rating=g`)
@@ -172,10 +174,10 @@ client.on('message', async msg => {
   }
 
   function bear(guildID, channelID) {
-    var guild = client.guilds.cache.find(guild => guild.id == guildID)
-    var channel = guild.channels.cache.get(channelID)
-    var { tenor } = require(`./config.json`);
-    var fetch = require(`node-fetch`);
+    let guild = client.guilds.cache.find(guild => guild.id == guildID)
+    let channel = guild.channels.cache.get(channelID)
+    let { tenor } = require(`./config.json`);
+    let fetch = require(`node-fetch`);
     fetch(`https://api.tenor.com/v1/random?key=${tenor}&q=cute%20bears&locale=en_US&contentfilter=medium&limit=1`)
     .then(res => res.json())
     .then(api => {

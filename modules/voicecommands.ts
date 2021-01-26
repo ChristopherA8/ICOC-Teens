@@ -11,26 +11,28 @@ module.exports = {
         // Voice commands
         //////////////////////////////////////////////////
 
+        if (msg.content.startsWith(`${prefix}playskip`)) {
+            await msg.client.distube.playSkip(msg, msg.content.substr(prefix.length + 8))
+            return;
+        }
+
         if (msg.content.startsWith(`${prefix}play`)) {
             msg.client.distube.play(msg, msg.content.substr(prefix.length + 4))
-        };
+        }
 
-        if (msg.content.startsWith(`${prefix}playskip`)) {
-            msg.client.distube.playSkip(msg, msg.content.substr(prefix.length + 8))
-        };
 
         if (msg.content.startsWith(`${prefix}pause`)) {
             msg.client.distube.pause(msg)
-        };
+        }
 
         if (msg.content.startsWith(`${prefix}resume`)) {
             msg.client.distube.resume(msg)
-        };
+        }
 
         if (msg.content.startsWith(`${prefix}shuffle`)) {
             msg.client.distube.shuffle(msg)
             msg.channel.send(`Shuffled queue!`);
-        };
+        }
 
         if (msg.content.startsWith(`${prefix}volume`)) {
             if (Number.isNaN(Number(msg.content.substr(prefix.length + 6)))) {
@@ -39,17 +41,17 @@ module.exports = {
             }
             msg.client.distube.setVolume(msg, Number(msg.content.substr(prefix.length + 6)));
             msg.channel.send(`Volume: ${Number(msg.content.substr(prefix.length + 6))}%`);
-        };
+        }
 
         if (msg.content.startsWith(`${prefix}stop`)) {
             msg.client.distube.stop(msg);
             msg.channel.send("Stopped the music!");
-        };
+        }
 
         if (msg.content.startsWith(`${prefix}skip`)) {
             msg.client.distube.skip(msg);
             msg.channel.send("Song skipped!");
-        };
+        }
 
         if (msg.content.startsWith(`${prefix}queue`)) {
             let queue = msg.client.distube.getQueue(msg);
@@ -60,7 +62,7 @@ module.exports = {
             msg.channel.send('Current queue:\n' + queue.songs.map((song, id) =>
                 `${id + 1}. ${song.name} - ${song.formattedDuration}`
             ).slice(0, 10).join("\n"), { code: "json" });
-        };
+        }
 
         if (msg.content.startsWith(`${prefix}np`) || msg.content.startsWith(`${prefix}nowplaying`)) {
             let song = msg.client.nowPlaying;
@@ -74,7 +76,7 @@ module.exports = {
                 return;
             }
             msg.channel.send(embed);
-        };
+        }
 
         if (msg.content.startsWith(`${prefix}download`)) {
             let song = msg.client.nowPlaying;
@@ -83,7 +85,7 @@ module.exports = {
                 return;
             }
             msg.channel.send(`**Song Download Link:** ${song.streamURL}`);
-        };
+        }
 
         if (msg.content.startsWith(`${prefix}loop`)) {
             msg.client.distube.setRepeatMode(msg, parseInt(msg.content.substr(prefix.length + 4)));
