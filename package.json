@@ -18,6 +18,7 @@
     "node-gyp": "^7.1.2",
     "node-notifier": "^8.0.1",
     "postcss": "^8.2.1",
+    "sanitize-html": "^2.3.2",
     "tailwindcss": "^2.0.2",
     "ts-node": "^9.1.1",
     "webhook-discord": "^3.7.7",

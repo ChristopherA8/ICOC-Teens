@@ -6,8 +6,8 @@ module.exports = {
 
         let suggestions = msg.guild.channels.cache.get(`803323220853915679`);
         let time = new Date().toISOString()
-        .replace(/T/, ' ')
-        .replace(/\..+/, '');
+            .replace(/T/, ' ')
+            .replace(/\..+/, '');
 
         const Discord = require('discord.js');
         const embed = new Discord.MessageEmbed()
@@ -15,7 +15,12 @@ module.exports = {
             .setColor(Math.floor(Math.random()*16777215).toString(16))
             .setDescription(`${msg}`)
             .setFooter(`From: ${msg.author.tag}  |  Time: ${time}`);
-        suggestions.send(embed);
+        suggestions.send(embed)
+            .then(message => {
+                message.react(`✅`)
+                message.react(`❌`)
+                message.react(`❔`)
+            });
 
     }
 };

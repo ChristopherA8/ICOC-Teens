@@ -1,4 +1,5 @@
 const Discord25664 = require(`discord.js`);
+const sanitizeHtml = require('sanitize-html');
 module.exports = {
     name: "game",
     execute(msg) {
@@ -55,7 +56,6 @@ module.exports = {
 };
 
 
-
 function embed(msg, api, descApi, platforms) {
     const exampleEmbed = new Discord25664.MessageEmbed()
     .setAuthor(`${api.results[0].name}`)
@@ -64,7 +64,7 @@ function embed(msg, api, descApi, platforms) {
     .setFooter(`Rating: ${api.results[0].rating}/${api.results[0].rating_top}  |  Released: ${api.results[0].released}`)
     .setDescription(``)
     .addFields(
-        { name: `Description:`, value: `${removeHTML(descApi.description).substring(0,250)}`, inline: true },
+        { name: `Description:`, value: `${sanitizeHtml(descApi.description.substring(0,250), { allowedTags: [], allowedAttributes: {} })}`, inline: true },
         { name: `Platforms:`, value: `${platforms.join(`\n`)}`, inline: true },
     )
     .setThumbnail(`${api.results[0].background_image}`)
