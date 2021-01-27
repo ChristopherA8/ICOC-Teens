@@ -133,7 +133,14 @@ module.exports = {
 
         }); */
 
-
+        const { isToday } = require('../../helper_functions/isToday.ts');
+        let rightNow = new Date(`${msg.content.substr(5)}`)
+        const today = isToday(rightNow)
+        if (today) {
+            msg.channel.send(`it's today`)
+        } else {
+            msg.channel.send(`it's not today`)
+        }
 
     },
 };
