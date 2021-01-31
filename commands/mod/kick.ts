@@ -6,6 +6,8 @@ module.exports = {
         //Define member constant
         const member = msg.member;
 
+        const chat = msg.guild.channels.cache.get('698590629344575503');
+
         //Check member permissions
 	    if (member.hasPermission('KICK_MEMBERS')) {
 
@@ -24,11 +26,11 @@ module.exports = {
             } else if (ping.hasPermission('ADMINISTRATOR')) {
                 msg.channel.send(`\**Error:\** You can not kick an Admin!`);
             } else if (inputArr[2] == undefined) {
-                msg.channel.send(`${ping} has been kicked`);
+                chat.send(`${ping} has been kicked`);
                 ping.kick();
             } else if (inputArr[2] !== undefined) {
                 var reason = input.replace(inputArr[0], '').replace(inputArr[1], '').trim();
-                msg.channel.send(`${ping} has been kicked for \`${reason}\``);
+                chat.send(`${ping} has been kicked for \`${reason}\``);
                 ping.kick(reason);
             }
 

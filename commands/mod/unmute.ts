@@ -3,6 +3,8 @@ module.exports = {
 	description: '',
 	execute(msg, args) {
 
+        const chat = msg.guild.channels.cache.get('698590629344575503');
+
         const member = msg.member;
 	    if (member.hasPermission('KICK_MEMBERS')) {
             if (member.roles.cache.some(role => role.name === 'Muted')) {
@@ -19,10 +21,10 @@ module.exports = {
                 } else if (ping.hasPermission('ADMINISTRATOR')) {
                     msg.channel.send(`\**Error:\** You can not unmute an Admin!`);
                 } else if (reason !== "") {
-                    msg.channel.send(`${ping} has been unmuted for \`${reason}\``);
+                    chat.send(`${ping} has been unmuted for \`${reason}\``);
                     ping.roles.remove(role);
                 } else if (reason == "") {
-                    msg.channel.send(`${ping} has been unmuted`);
+                    chat.send(`${ping} has been unmuted`);
                     ping.roles.remove(role.id);
                 }
 

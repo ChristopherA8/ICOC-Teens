@@ -30,7 +30,7 @@ const { welcome } = require('./modules/welcome.ts');
 const { voiceEvents } = require('./modules/voiceEvents.ts');
 logging(client); // Start logging
 commands(client); // Add command files to collection
-webserver(client); // Web Server for literally no reason
+// webserver(client); // Web Server for literally no reason
 welcome(client); // Welcome new members
 voiceEvents(client);
 
@@ -60,15 +60,12 @@ client.on('ready', async () => {
     client.setScore = sql.prepare("INSERT OR REPLACE INTO scores (id, user, guild, points, level, name) VALUES (@id, @user, @guild, @points, @level, @name);");
 
 
-    /* =-=-=-=-=-=-=-=-= Birthdays =-=-=-=-=-=-=-=-= */
-    const { birthdays } = require('./modules/birthdays.ts');
-    birthdays(client);
-    cron.schedule('0 0 */12 * * *', function(){
-        console.log('Checking for birthday');
-    }, {
-        timezone: "America/Chicago"
-    });
-    /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
+    // /* =-=-=-=-=-=-=-=-= Birthdays =-=-=-=-=-=-=-=-= */
+    // const { birthdays } = require('./modules/birthdays.ts');
+    // cron.schedule('0 0 */12 * * *', birthdays(client), {
+    //     timezone: "America/Chicago"
+    // });
+    // /* =-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-= */
 
 });
 
@@ -173,6 +170,8 @@ discordJsHandlers.INTERACTION_CREATE = (_client, { d: packetData }) => {
         frogge(guildID, channelID);
     } else if (commandName == 'bear') {
         bear(guildID, channelID);
+    } else if (commandName == 'jojo') {
+        jojo(guildID, channelID);
     }
 };
 
@@ -194,6 +193,18 @@ function bear(guildID, channelID) {
     let { tenor } = require(`./config.json`);
     let fetch = require(`node-fetch`);
     fetch(`https://api.tenor.com/v1/random?key=${tenor}&q=cute%20bears&locale=en_US&contentfilter=medium&limit=1`)
+        .then(res => res.json())
+        .then(api => {
+            channel.send(api.results[0].url)
+        })
+}
+
+function jojo(guildID, channelID) {
+    let guild = client.guilds.cache.find(guild => guild.id == guildID)
+    let channel = guild.channels.cache.get(channelID)
+    let { tenor } = require(`./config.json`);
+    let fetch = require(`node-fetch`);
+    fetch(`https://api.tenor.com/v1/random?key=${tenor}&q=jojos%20bizzare%20adventure&locale=en_US&contentfilter=medium&limit=1`)
         .then(res => res.json())
         .then(api => {
             channel.send(api.results[0].url)

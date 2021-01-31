@@ -6,21 +6,26 @@ module.exports = {
         const { isToday } = require('../helper_functions/isToday.ts');
         const { dates } = require('../databases/birthdays.json');
         const { getMember } = require('../helper_functions/getMember.ts');
-        // for (const date of dates) {
-        //     if (!isToday(new Date(date))) return;
-        //     console.log(`Today is a birthday`)
-        // }
+
         for (let date in dates) {
             if (isToday(new Date(date))) {
-                let birthdayBoi;
                 dates[date].forEach(id => {
-                    birthdayBoi = getMember(id);
+                    console.log(`Today is ${getMember(id).displayName}'s birthday!`)
+                    getMember(id).roles.add(role);
                 })
-                console.log(`Today is a birthday so ${birthdayBoi} gets ${role}`)
-                continue;
             }
-            console.log(`Today is not ${date}`)
-        }
+
+            // guild.members.cache.filter(mem => mem.roles.cache.has(role.id)).forEach(boi => {
+            //     if (isToday(new Date(date))) {
+            //         dates[date].forEach(id => {
+            //             if (boi.id !== id) {
+            //                 getMember(boi.id).roles.remove(role.id);
+            //             }
+            //         })
+            //     }
+            // })
+
+        } // end of for loop
 
 
     },

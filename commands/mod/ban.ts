@@ -6,6 +6,8 @@ module.exports = {
         //Define member constant
         const member = msg.member;
 
+        const chat = msg.guild.channels.cache.get('698590629344575503');
+
         //Check member permissions
 	    if (member.hasPermission('BAN_MEMBERS')) {
 
@@ -24,11 +26,11 @@ module.exports = {
             } else if (ping.hasPermission('ADMINISTRATOR')) {
                 msg.channel.send(`\**Error:\** You can not ban an Admin!`);
             } else if (inputArr[2] == undefined) {
-                msg.channel.send(`${ping} has been banned`);
+                chat.send(`${ping} has been banned`);
                 ping.ban();
             } else if (inputArr[2] !== undefined) {
                 var reason = input.replace(inputArr[0], '').replace(inputArr[1], '').trim();
-                msg.channel.send(`${ping} has been banned for \`${reason}\``);
+                chat.send(`${ping} has been banned for \`${reason}\``);
                 ping.ban(reason);
             }
 

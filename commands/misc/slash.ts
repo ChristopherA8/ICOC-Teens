@@ -1,5 +1,5 @@
 /*
- module.exports = {
+module.exports = {
     name:"slash",
     execute(msg) {
         msg.channel.send('done');
@@ -16,7 +16,7 @@
 
         // var url = "https://discord.com/api/v8/applications/761792910088994816/commands";
         // 698590629344575500 // ICOC Teens
-        const json = require('./anime.json');
+        const json = require('../other/anime.json');
 
         var headers = {
             "Authorization": `Bot ${token}`,
@@ -28,10 +28,10 @@
             body: JSON.stringify(json),
             headers: headers,
         })
-        .then(res => {
-            res.json()
-            console.log('slash commands updated')
-        })
+            .then(res => {
+                res.json()
+                console.log('slash commands updated')
+            })
 
     },
 };*/
