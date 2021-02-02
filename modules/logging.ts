@@ -28,43 +28,47 @@ module.exports = {
             var addedRole;
             
             //Removed role
-            var staffRoleCountTwo = 0;
+            let staffRoleCountTwo = 0;
             oldMember.roles.cache.forEach((value) => {
                 if (!newMember.roles.cache.find((role) => role.id === value.id)) {
-                change = Changes.removedRole;
-                removedRole = value.name;
+                    change = Changes.removedRole;
+                    removedRole = value.name;
                 }
             
-                var bugHunter = `775448648229453865`;
-                var cheff = `783864152606638130`;
-                var david = `774117150859329586`;
-                var song = `776222027723178004`;
-                var gamer = `759909786472415273`;
-                var frogEw = `776275846406340631`;
-                var boiz = `776221452868648980`;
+                let bugHunter = `775448648229453865`;
+                let cheff = `783864152606638130`;
+                let david = `774117150859329586`;
+                let song = `776222027723178004`;
+                let gamer = `759909786472415273`;
+                let frogEw = `776275846406340631`;
+                let boiz = `776221452868648980`;
+                let travel = `805919361978073139`;
                 newMember.roles.cache.forEach((role) => {
                 switch (role.id) {
                     case bugHunter:
                     staffRoleCountTwo++;
                     break;
                     case cheff:
-                    staffRoleCountTwo++;
-                    break;
+                        staffRoleCountTwo++;
+                        break;
                     case david:
-                    staffRoleCountTwo++;
-                    break;
+                        staffRoleCountTwo++;
+                        break;
                     case song:
-                    staffRoleCountTwo++;
-                    break;
+                        staffRoleCountTwo++;
+                        break;
                     case gamer:
-                    staffRoleCountTwo++;
-                    break;
+                        staffRoleCountTwo++;
+                        break;
                     case frogEw:
-                    staffRoleCountTwo++;
-                    break;
+                        staffRoleCountTwo++;
+                        break;
                     case boiz:
-                    staffRoleCountTwo++;
-                    break;
+                        staffRoleCountTwo++;
+                        break;
+                    case travel:
+                        staffRoleCountTwo++;
+                        break;
                     default:
                     break;
                 }
@@ -95,6 +99,7 @@ module.exports = {
                 var gamer = `759909786472415273`;
                 var frogEw = `776275846406340631`;
                 var boiz = `776221452868648980`;
+                let travel = `805919361978073139`;
                 newMember.roles.cache.forEach((role) => {
                     switch (role.id) {
                     case bugHunter:
@@ -116,6 +121,9 @@ module.exports = {
                         staffRoleCount++;
                         break;
                     case boiz:
+                        staffRoleCount++;
+                        break;
+                    case travel:
                         staffRoleCount++;
                         break;
                     default:
