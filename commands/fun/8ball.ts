@@ -2,6 +2,8 @@ module.exports = {
     name:"8ball",
     execute(msg) {
 
+        // msg.channel.send(`As of today all command decisions will be decided upon in the council.`);
+
         const fetch = require(`node-fetch`);
 
         var input = msg.content.substr(6).trim();

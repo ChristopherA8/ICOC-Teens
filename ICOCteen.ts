@@ -106,15 +106,15 @@ client.on('message', async msg => {
 
     let botCommandsChannel = msg.guild.channels.cache.get(`776264945800052746`);
 
-    if ((((msg.channel.id !== `776264945800052746`)) && (msg.content.includes(`!xp`)))) {
-        await msg.reply(`Use that in ${botCommandsChannel}`);
-        return;
-    }
-
-    if (((msg.channel.id !== `776264945800052746`)) && (msg.content.includes(`!top`))) {
-        await msg.reply(`Use that in ${botCommandsChannel}`);
-        return;
-    }
+    // if ((((msg.channel.id !== `776264945800052746`)) && (msg.content.includes(`!xp`)))) {
+    //     await msg.reply(`Use that in ${botCommandsChannel}`);
+    //     return;
+    // }
+    //
+    // if (((msg.channel.id !== `776264945800052746`)) && (msg.content.includes(`!top`))) {
+    //     await msg.reply(`Use that in ${botCommandsChannel}`);
+    //     return;
+    // }
 
     ///////////////////////////////////
     // Command Handler
