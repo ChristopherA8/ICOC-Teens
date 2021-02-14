@@ -133,14 +133,21 @@ module.exports = {
 
         }); */
 
-        const { isToday } = require('../../helper_functions/isToday.ts');
-        let rightNow = new Date(`${msg.content.substr(5)}`)
-        const today = isToday(rightNow)
-        if (today) {
-            msg.channel.send(`it's today`)
-        } else {
-            msg.channel.send(`it's not today`)
-        }
+        // const { isToday } = require('../../helper_functions/isToday.ts');
+        // let rightNow = new Date(`${msg.content.substr(5)}`)
+        // const today = isToday(rightNow)
+        // if (today) {
+        //     msg.channel.send(`it's today`)
+        // } else {
+        //     msg.channel.send(`it's not today`)
+        // }
+        if (msg.author.id !== `279032930926592000`) return;
+
+        let gabby = msg.guild.members.cache.get('690725850693369926');
+        gabby.roles.add(`766331396977066044`)
+        gabby.roles.add(`808429363392806952`);
+        gabby.roles.add(`698594429711417415`);
+
 
     },
 };

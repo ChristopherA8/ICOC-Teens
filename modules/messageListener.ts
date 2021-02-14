@@ -26,6 +26,15 @@ module.exports = {
         //     msg.channel.send(`uwu`);
         // }
 
+        // if( msg.channel.id !== `808749893862686770`) return;
+        //
+        // let count = Number(msg.content);
+        //
+        // if (isNaN(count)) {
+        //     // msg.delete();
+        // } else {
+        //     msg.channel.send(count - 1)
+        // }
 
     },
 };

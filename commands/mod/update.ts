@@ -3,7 +3,7 @@ module.exports = {
     execute(msg) {
 
         //includes
-        const { prefix, webhookURL } = require('../config.json');
+        const { prefix, webhookURL } = require('../../config.json');
         const webhook = require("webhook-discord")
         const Hook = new webhook.Webhook(webhookURL)
 

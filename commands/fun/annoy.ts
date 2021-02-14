@@ -11,7 +11,13 @@ module.exports = {
             msg.channel.send(`${name}`);
         })
         collector.on('end', end => {
-            msg.channel.send(`I am done annoying you`);
+            msg.channel.send(`I am done annoying you`)
+                .then(message => {
+                        setTimeout(() => {
+                            message.delete();
+                        }, 1000)
+                    }
+                );
         })
 
     },

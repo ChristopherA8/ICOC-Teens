@@ -73,8 +73,8 @@ client.on('ready', async () => {
 client.on('message', async msg => {
 
     let name = msg.content.slice(prefix.length).split(/ +/).shift().toLowerCase();
-    const accept = require('./commands/other/accept.ts');
-    if (name == `accept`) {
+    const accept = require('./commands/other/done.ts');
+    if (name == `done`) {
         accept.execute(msg);
     }
 
