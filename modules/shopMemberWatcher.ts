@@ -1,5 +1,5 @@
 module.exports = {
-    shopMemberWatcher(msg) {
+    shopMemberWatcher(msg) { /*
 
         const fs = require('fs');
         let jsonData = fs.readFileSync('./commands/commerce/members.json');
@@ -16,7 +16,7 @@ module.exports = {
           membersObject.members.push(newMember);
           let data = JSON.stringify(membersObject, null, 4); // Write to file
           fs.writeFileSync('./commands/commerce/members.json', data);
-        }
+        } */
 
     },
 };

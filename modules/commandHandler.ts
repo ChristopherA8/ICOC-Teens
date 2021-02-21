@@ -19,9 +19,9 @@ module.exports = {
         const miscCommandFiles = fs.readdirSync(`${commandDir}/misc`).filter(file => file.endsWith('.ts'));
         const modCommandFiles = fs.readdirSync(`${commandDir}/mod`).filter(file => file.endsWith('.ts'));
         const xpCommandFiles = fs.readdirSync(`${commandDir}/xp`).filter(file => file.endsWith('.ts'));
-        const shopCommandFiles = fs.readdirSync(`${commandDir}/commerce`).filter(file => file.endsWith('.ts'));
-        const combatCommandFiles = fs.readdirSync(`${commandDir}/combat`).filter(file => file.endsWith('.ts'));
-        const gachaCommandFiles = fs.readdirSync(`${commandDir}/gacha`).filter(file => file.endsWith('.ts'));
+        // const shopCommandFiles = fs.readdirSync(`${commandDir}/commerce`).filter(file => file.endsWith('.ts'));
+        // const combatCommandFiles = fs.readdirSync(`${commandDir}/combat`).filter(file => file.endsWith('.ts'));
+        // const gachaCommandFiles = fs.readdirSync(`${commandDir}/gacha`).filter(file => file.endsWith('.ts'));
         const testCommandFiles = fs.readdirSync(`${commandDir}/test`).filter(file => file.endsWith('.ts'));
         
         // Add file names to command collection
@@ -48,7 +48,7 @@ module.exports = {
         for (const file of xpCommandFiles) {
             const command = require(`.${commandDir}/xp/${file}`);
             client.commands.set(command.name, command);
-        }
+        }/*
         for (const file of shopCommandFiles) {
             const command = require(`.${commandDir}/commerce/${file}`);
             client.commands.set(command.name, command);
@@ -60,7 +60,7 @@ module.exports = {
         for (const file of gachaCommandFiles) {
             const command = require(`.${commandDir}/gacha/${file}`);
             client.commands.set(command.name, command);
-        }
+        }*/
         for (const file of testCommandFiles) {
             const command = require(`.${commandDir}/test/${file}`);
             client.commands.set(command.name, command);
