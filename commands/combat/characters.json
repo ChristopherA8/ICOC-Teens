@@ -1,0 +1,60 @@
+{
+    "characters": [
+        {
+            "id": "279032930926592000",
+            "name": "Christopher",
+            "health": 0,
+            "age": "16",
+            "style": "Rogue"
+        },
+        {
+            "id": "329039487474860032",
+            "name": "Justin",
+            "health": 100,
+            "age": "17",
+            "style": "Assassin"
+        },
+        {
+            "id": "690725850693369926",
+            "name": "Gabby",
+            "health": 84,
+            "age": "16",
+            "style": "girl..."
+        },
+        {
+            "id": "689910756711727193",
+            "name": "David",
+            "health": 0,
+            "age": "25",
+            "style": "Rogue"
+        },
+        {
+            "id": "620438897217896459",
+            "name": "Chris",
+            "health": 37,
+            "age": "210",
+            "style": "Assassin"
+        },
+        {
+            "id": "604487281742577674",
+            "name": "Jonah Wolff",
+            "health": 0,
+            "age": "17",
+            "style": "Bard"
+        },
+        {
+            "id": "544890228507410442",
+            "name": "Ares",
+            "health": 100,
+            "age": "64420",
+            "style": "Rogue"
+        },
+        {
+            "id": "577169178327253035",
+            "name": "Pizza",
+            "health": 100,
+            "age": "124",
+            "style": "Assassin"
+        }
+    ]
+}
