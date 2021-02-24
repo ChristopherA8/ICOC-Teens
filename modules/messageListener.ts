@@ -10,7 +10,7 @@ module.exports = {
         }
         
         if (msg.content.includes(`ur mom`) || (msg.content.includes(`your mom`))) {
-          msg.channel.send(`airhorn airhorn airhorn`);
+          msg.channel.send(`airhorn airhorn airhorn`, { tts: true });
         }
 
         // /* =-=-=-= Keep Messages out of #the-dungeon =-=-=-= */
