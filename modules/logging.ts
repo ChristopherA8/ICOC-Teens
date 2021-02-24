@@ -499,7 +499,7 @@ module.exports = {
             .setAuthor(`Message Updated -`)
             .setColor('#00FF86')
             //.setFooter(`Message(s) Author: ${array.author.tag}`)
-            .setDescription(`${array.size} Message(s) Deleted (reverse order): \n\`\`\`${array}\`\`\``)
+            .setDescription(`${array.size} Message(s) Deleted (reverse order): \n\`\`\`${array.subsr(1000)}\`\`\``)
             channel.send(exampleEmbed);
         
         }
