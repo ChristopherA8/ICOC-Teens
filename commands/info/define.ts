@@ -1,5 +1,5 @@
 module.exports = {
-    name:"dictionary",
+    name:"define",
     execute(msg) {
         const fetch = require('node-fetch')
         const Discord = require('discord.js')
