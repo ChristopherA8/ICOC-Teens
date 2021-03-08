@@ -3,7 +3,7 @@ module.exports = {
 
         const guild = client.guilds.cache.get(`698590629344575500`);
         const channel = guild.channels.cache.get('798032803928342549');
-        const message = await channel.messages.fetch(`799722690297593946`);
+        const message = await channel.messages.fetch(`818313191997308938`);
 
         // await message.react('⛩️');
         // await message.react('🎨');
@@ -25,6 +25,7 @@ module.exports = {
         const gamingfilter = (reaction, user) => user.id !== `761792910088994816` && reaction.emoji.name == `🎮`;
         const tvfilter = (reaction, user) => user.id !== `761792910088994816` && reaction.emoji.name == `📺`;
         const musicfilter = (reaction, user) => user.id !== `761792910088994816` && reaction.emoji.name == `🎼`;
+        const petfilter = (reaction, user) => user.id !== `761792910088994816` && reaction.emoji.name == `🐈`;
         const stemfilter = (reaction, user) => user.id !== `761792910088994816` && reaction.emoji.name == `🔨`;
         const travelfilter = (reaction, user) => user.id !== `761792910088994816` && reaction.emoji.name == `🧳`;
 
@@ -37,6 +38,7 @@ module.exports = {
         const gamingcollector = message.createReactionCollector(gamingfilter);
         const tvcollector = message.createReactionCollector(tvfilter);
         const musiccollector = message.createReactionCollector(musicfilter);
+        const petcollector = message.createReactionCollector(petfilter);
         const stemcollector = message.createReactionCollector(stemfilter);
         const travelcollector = message.createReactionCollector(travelfilter);
 
@@ -146,6 +148,18 @@ module.exports = {
                 }).catch(console.error);
             } else {
                 musicClub.permissionOverwrites.get(reactionMember.id).delete();
+            }
+        });
+        petcollector.on('collect', async (r, user) => {
+            r.users.remove(user.id);
+            var reactionMember = message.guild.members.cache.get(user.id);
+            var stemClub = guild.channels.cache.get('818309635232235521');
+            if (!stemClub.permissionOverwrites.find(mem => mem.id == reactionMember.id)) {
+                stemClub.updateOverwrite(reactionMember, {
+                    VIEW_CHANNEL: true
+                }).catch(console.error);
+            } else {
+                stemClub.permissionOverwrites.get(reactionMember.id).delete();
             }
         });
         stemcollector.on('collect', async (r, user) => {

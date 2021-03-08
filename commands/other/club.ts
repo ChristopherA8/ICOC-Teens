@@ -1,5 +1,5 @@
 module.exports = {
-    name:"club",
+    name:"cldfsfdsf",
     async execute(msg) {
 
         if (msg.author.id !== `279032930926592000`) return;
