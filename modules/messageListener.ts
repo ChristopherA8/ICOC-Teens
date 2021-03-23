@@ -9,7 +9,7 @@ module.exports = {
             msg.channel.send(`Therefore, my dear friends, flee from idolatry. - 1 Corinthians 10:14`);
         }
         
-        if (msg.content.includes(`ur mom`) || (msg.content.includes(`your mom`))) {
+        if (msg.content.toLowerCase().includes(`ur mom`) || (msg.content.toLowerCase().includes(`your mom`))) {
           msg.channel.send(`airhorn airhorn airhorn`, { tts: false });
         }
 
