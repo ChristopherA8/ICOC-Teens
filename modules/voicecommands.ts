@@ -17,8 +17,6 @@ module.exports = {
         }
 
         if (msg.content.startsWith(`${prefix}play`)) {
-            msg.channel.send(`mcBruh, not during the movie lol`);
-            return;
             msg.client.distube.play(msg, msg.content.substr(prefix.length + 4))
         }
 
