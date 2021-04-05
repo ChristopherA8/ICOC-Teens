@@ -477,7 +477,14 @@ module.exports = {
         .setColor('#00FF86')
         .setFooter(`Message Author: ${del.author.tag} | In Channel: ${del.channel.name}`)
         .setDescription(`**Message Deleted:** \n\`\`\`${delFormat}\`\`\``);
-        channel.send(exampleEmbed);
+        if (delFormat !== "") {
+            channel.send(exampleEmbed);
+        }
+        if (del.attachments) {
+            del.attachments.forEach(attachment => {
+                channel.send(`Image deleted from **${del.author.tag}**\n` + attachment.url)
+            });
+        }
         
         };
         

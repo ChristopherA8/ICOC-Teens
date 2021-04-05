@@ -11,7 +11,7 @@ module.exports = {
         if (msg.channel.id == `808749893862686770`) return; // count
 
         if (msg.member.roles.cache.some(role => role.id == `698650459187183672`) || msg.author.id == `689910756711727193`) {
-            console.log(`teen leader spoke`)
+            // console.log(`teen leader spoke`)
             return;
         }
 
