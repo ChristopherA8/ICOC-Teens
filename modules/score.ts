@@ -39,9 +39,9 @@ module.exports = {
         // getXP();
     
         const curLevel = Math.floor(0.3 * Math.sqrt(score.points));
-        if(score.level < curLevel) {
-        score.level++;
-        msg.reply(`You've leveled up to level **${curLevel}**!`);
+        if(score.level < curLevel && msg.channel.id !== `698594785803501629`) {
+            score.level++;
+            msg.reply(`You've leveled up to level **${curLevel}**!`);
         }
         client.setScore.run(score);
 
