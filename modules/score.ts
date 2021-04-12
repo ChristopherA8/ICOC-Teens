@@ -9,12 +9,12 @@ module.exports = {
         if (msg.channel.id == `789315997362290730`) return; // clean-memes
         if (msg.channel.id == `768882922379280464`) return; // message-log
         if (msg.channel.id == `808749893862686770`) return; // count
-
+	/*
         if (msg.member.roles.cache.some(role => role.id == `698650459187183672`) || msg.author.id == `689910756711727193`) {
             // console.log(`teen leader spoke`)
             return;
         }
-
+	*/
         let score;
         score = client.getScore.get(msg.author.id, "698590629344575500");
     
