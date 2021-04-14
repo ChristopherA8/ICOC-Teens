@@ -1,6 +1,6 @@
 module.exports = {
     logging(client) {
-        // THIS IS SO FRAKING COOL HAHAHAHAHHAH I CAN DO LOGGING IN A SEPERATE FILE : )   XDXDXDXD
+        // THIS IS SO FREAKING COOL HAHAHAHAHHAH I CAN DO LOGGING IN A SEPERATE FILE : )   XDXDXDXD
         // const { client } = require('../ICOCteen.ts');
         const Discord = require('discord.js');
 
