@@ -3,7 +3,7 @@ module.exports = {
 
         const guild = client.guilds.cache.get(`698590629344575500`);
         const channel = guild.channels.cache.get('798032803928342549');
-        const message = await channel.messages.fetch(`818313191997308938`);
+        const message = await channel.messages.fetch(`832029100746604591`);
 
         // await message.react('⛩️');
         // await message.react('🎨');
@@ -28,6 +28,7 @@ module.exports = {
         const petfilter = (reaction, user) => user.id !== `761792910088994816` && reaction.emoji.name == `🐈`;
         const stemfilter = (reaction, user) => user.id !== `761792910088994816` && reaction.emoji.name == `🔨`;
         const travelfilter = (reaction, user) => user.id !== `761792910088994816` && reaction.emoji.name == `🧳`;
+        const natureFilter = (reaction, user) => user.id !== `761792910088994816` && reaction.emoji.name == `🌳`;
 
         const animecollector = message.createReactionCollector(animefilter);
         const artcollector = message.createReactionCollector(artfilter);
@@ -41,6 +42,7 @@ module.exports = {
         const petcollector = message.createReactionCollector(petfilter);
         const stemcollector = message.createReactionCollector(stemfilter);
         const travelcollector = message.createReactionCollector(travelfilter);
+        const naturecollector = message.createReactionCollector(natureFilter);
 
         animecollector.on('collect', async (r, user) => {
             r.users.remove(user.id);
@@ -184,6 +186,18 @@ module.exports = {
                 }).catch(console.error);
             } else {
                 stemClub.permissionOverwrites.get(reactionMember.id).delete();
+            }
+        });
+        naturecollector.on('collect', async (r, user) => {
+            r.users.remove(user.id);
+            var reactionMember = message.guild.members.cache.get(user.id);
+            var natureClub = guild.channels.cache.get('831227653159387248');
+            if (!natureClub.permissionOverwrites.find(mem => mem.id == reactionMember.id)) {
+                natureClub.updateOverwrite(reactionMember, {
+                    VIEW_CHANNEL: true
+                }).catch(console.error);
+            } else {
+                natureClub.permissionOverwrites.get(reactionMember.id).delete();
             }
         });
 
