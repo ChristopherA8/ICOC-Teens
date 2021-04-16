@@ -44,52 +44,58 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 // Constants
-var fs = require('fs');
-var Discord = require('discord.js');
-var _a = require('./config.json'), prefix = _a.prefix, token = _a.token;
-var SQLite = require('better-sqlite3');
+var fs = require("fs");
+var Discord = require("discord.js");
+var _a = require("./config.json"), prefix = _a.prefix, token = _a.token;
+var SQLite = require("better-sqlite3");
 var client = new Discord.Client();
 exports.client = client;
-var colors = require('colors/safe');
-var sql = new SQLite('./databases/scores.sqlite');
-var DisTube = require('distube');
-var cron = require('node-cron');
+var colors = require("colors/safe");
+var sql = new SQLite("./databases/scores.sqlite");
+var DisTube = require("distube");
+var cron = require("node-cron");
 // New DisTube instance
-client.distube = new DisTube(client, { searchSongs: false, emitNewSongOnly: true });
+client.distube = new DisTube(client, {
+    searchSongs: false,
+    emitNewSongOnly: true
+});
 // Custom Modules
-var logging = require('./modules/logging.ts').logging;
-var commands = require('./modules/commandHandler.ts').commands;
-var webserver = require('./modules/webserver.ts').webserver;
-var welcome = require('./modules/welcome.ts').welcome;
-var voiceEvents = require('./modules/voiceEvents.ts').voiceEvents;
+var logging = require("./modules/logging.ts").logging;
+var commands = require("./modules/commandHandler.ts").commands;
+var webserver = require("./modules/webserver.ts").webserver;
+var welcome = require("./modules/welcome.ts").welcome;
+var voiceEvents = require("./modules/voiceEvents.ts").voiceEvents;
 logging(client); // Start logging
 commands(client); // Add command files to collection
-// webserver(client); // Web Server for literally no reason
 welcome(client); // Welcome new members
 voiceEvents(client);
 // Runs on ready
-client.on('ready', function () { return __awaiter(_this, void 0, void 0, function () {
+client.on("ready", function () { return __awaiter(_this, void 0, void 0, function () {
     var clubReactions, guild, table;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                clubReactions = require('./modules/clubs.ts').clubReactions;
+                clubReactions = require("./modules/clubs.ts").clubReactions;
                 return [4 /*yield*/, clubReactions(client, Discord)];
             case 1:
                 _a.sent(); // Club Reactions
                 console.log(colors.red("Connected as " + client.user.tag));
-                return [4 /*yield*/, client.guilds.cache.get('698590629344575500')];
+                return [4 /*yield*/, client.guilds.cache.get("698590629344575500")];
             case 2:
                 guild = _a.sent();
-                return [4 /*yield*/, client.user.setActivity(guild.members.cache.size + " members", { type: "WATCHING" })
-                    // Check if the table "points" exists.
-                ];
+                return [4 /*yield*/, client.user.setActivity(guild.members.cache.size + " members", {
+                        type: "WATCHING"
+                    })];
             case 3:
                 _a.sent();
-                table = sql.prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'scores';").get();
-                if (!table['count(*)']) {
+                table = sql
+                    .prepare("SELECT count(*) FROM sqlite_master WHERE type='table' AND name = 'scores';")
+                    .get();
+                if (!table["count(*)"]) {
                     // If the table isn't there, create it and setup the database correctly.
-                    sql.prepare("CREATE TABLE scores (id TEXT PRIMARY KEY, user TEXT, guild TEXT, points INTEGER, level INTEGER, name TEXT);").run();
+                    sql
+                        .prepare("CREATE TABLE scores (id TEXT PRIMARY KEY, user TEXT, guild TEXT, points INTEGER, level INTEGER, name TEXT);")
+                        .run();
                     // Ensure that the "id" row is always unique and indexed.
                     sql.prepare("CREATE UNIQUE INDEX idx_scores_id ON scores (id);").run();
                     sql.pragma("synchronous = 1");
@@ -102,58 +108,33 @@ client.on('ready', function () { return __awaiter(_this, void 0, void 0, functio
         }
     });
 }); });
-client.on('message', function (msg) { return __awaiter(_this, void 0, void 0, function () {
-    var name, accept, listen, shopMemberWatcher, xpListener, filter, stats, voice, feedbackListener, botCommandsChannel, args, commandName, command, error_1;
+client.on("message", function (msg) { return __awaiter(_this, void 0, void 0, function () {
+    var name, accept, loadModules, args, commandName, command, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                if (msg.channel.type === "dm")
+                    return [2 /*return*/];
+                if (msg.author.bot)
+                    return [2 /*return*/];
                 name = msg.content.slice(prefix.length).split(/ +/).shift().toLowerCase();
-                accept = require('./commands/other/done.ts');
+                accept = require("./commands/other/done.ts");
                 if (name == "done") {
                     accept.execute(msg);
                 }
-                if (!((msg.channel.id == "770730379077353494") && (msg.author.id !== "329039487474860032"))) return [3 /*break*/, 2];
+                if (!(msg.channel.id == "770730379077353494" &&
+                    msg.author.id !== "329039487474860032")) return [3 /*break*/, 2];
                 return [4 /*yield*/, msg["delete"]()];
             case 1:
                 _a.sent();
                 return [2 /*return*/];
             case 2:
-                if (msg.channel.type === 'dm')
-                    return [2 /*return*/];
-                if (msg.author.bot)
-                    return [2 /*return*/];
-                listen = require('./modules/messageListener.ts').listen;
-                shopMemberWatcher = require('./modules/shopMemberWatcher.ts').shopMemberWatcher;
-                xpListener = require('./modules/score.ts').xpListener;
-                filter = require('./modules/wordfilter.ts').filter;
-                stats = require('./modules/stats.ts').stats;
-                voice = require('./modules/voicecommands.ts').voice;
-                feedbackListener = require('./modules/feedback.ts').feedbackListener;
-                feedbackListener(msg);
-                if (msg.channel.id == "803446581222309888")
-                    return [2 /*return*/];
-                listen(msg);
-                shopMemberWatcher(msg);
-                xpListener(msg, client);
-                filter(msg, fs, Discord);
-                stats(msg, Discord, fs, prefix);
-                return [4 /*yield*/, voice(msg, prefix)];
-            case 3:
-                _a.sent();
-                botCommandsChannel = msg.guild.channels.cache.get("776264945800052746");
-                // if ((((msg.channel.id !== `776264945800052746`)) && (msg.content.includes(`!xp`)))) {
-                //     await msg.reply(`Use that in ${botCommandsChannel}`);
-                //     return;
-                // }
-                //
-                // if (((msg.channel.id !== `776264945800052746`)) && (msg.content.includes(`!top`))) {
-                //     await msg.reply(`Use that in ${botCommandsChannel}`);
-                //     return;
-                // }
+                loadModules = require("./modules/modules.ts").loadModules;
+                loadModules(msg, client, fs, Discord, prefix);
                 ///////////////////////////////////
                 // Command Handler
                 ///////////////////////////////////
-                if (!msg.content.startsWith(prefix) || msg.author.bot)
+                if (!msg.content.startsWith(prefix))
                     return [2 /*return*/];
                 args = msg.content.slice(prefix.length).split(/ +/);
                 commandName = args.shift().toLowerCase();
@@ -163,13 +144,10 @@ client.on('message', function (msg) { return __awaiter(_this, void 0, void 0, fu
                 if (command.args && !args.length) {
                     return [2 /*return*/, msg.channel.send("**Error:** You didn't provide any arguments, " + msg.author + "!")];
                 }
-                _a.label = 4;
-            case 4:
-                _a.trys.push([4, 5, , 7]);
+                _a.label = 3;
+            case 3:
+                _a.trys.push([3, 4, , 6]);
                 if (msg.content.startsWith(prefix + "clear")) {
-                    command.execute(msg, args);
-                }
-                else if (msg.content.startsWith(prefix + "teens")) {
                     command.execute(msg, args);
                 }
                 else if (msg.content.startsWith(prefix + "ticket")) {
@@ -179,25 +157,102 @@ client.on('message', function (msg) { return __awaiter(_this, void 0, void 0, fu
                     command.execute(msg, args);
                 }
                 else {
-                    // setTimeout(() => {
-                    //   msg.delete();
-                    // }, 3000);
-                    command.execute(msg, args);
+                    // Permission system
+                    /**
+                     * 1. @\everyone
+                     * 2. ICOC Goat
+                     * 3. ICOC Champ
+                     * 4. Partner In Christ
+                     * 5. Staff
+                     * 6. Teen Leaders
+                     * 7. Admin
+                     * 8. Owner
+                     * 9. Bot Owner
+                     * 10. nothing, it just looks more even this way :)
+                     **/
+                    switch (command.permissions) {
+                        case 1:
+                            command.execute(msg, args);
+                            break;
+                        case 2:
+                            if (msg.member.roles.cache.some(function (role) { return role.id == "698643225443041311"; } // ICOC Goat
+                            )) {
+                                command.execute(msg, args);
+                                break;
+                            }
+                            return [2 /*return*/];
+                        case 3:
+                            if (msg.member.roles.cache.some(function (role) { return role.id == "776286858342170636"; } // ICOC Champ
+                            )) {
+                                command.execute(msg, args);
+                                break;
+                            }
+                            return [2 /*return*/];
+                        case 4:
+                            if (msg.member.roles.cache.some(function (role) { return role.id == "776557333656109078"; } // Partner in Christ
+                            )) {
+                                command.execute(msg, args);
+                                break;
+                            }
+                            return [2 /*return*/];
+                        case 5:
+                            if (msg.member.roles.cache.some(function (role) { return role.id == "698594429711417415"; } // Staff
+                            )) {
+                                command.execute(msg, args);
+                                break;
+                            }
+                            return [2 /*return*/];
+                        case 6:
+                            if (msg.member.roles.cache.some(function (role) { return role.id == "698650459187183672"; } // Teen Leaders
+                            )) {
+                                command.execute(msg, args);
+                                break;
+                            }
+                            return [2 /*return*/];
+                        case 7:
+                            if (msg.member.hasPermission("ADMINISTRATOR")) {
+                                command.execute(msg, args);
+                                break;
+                            }
+                            return [2 /*return*/];
+                        case 8:
+                            if (msg.member.roles.cache.some(function (role) { return role.id == "698594265185517568"; } // Owner
+                            )) {
+                                command.execute(msg, args);
+                                break;
+                            }
+                            return [2 /*return*/];
+                        case 9:
+                            if (msg.member.id == "279032930926592000") {
+                                // Bot Owner :)
+                                command.execute(msg, args);
+                                break;
+                            }
+                            msg.channel.send("You are not the bot owner");
+                            return [2 /*return*/];
+                        case 10:
+                            msg.channel.send("Access Denied: Missing Permission Level 10");
+                            // command.execute(msg, args);
+                            break;
+                        default:
+                            command.execute(msg, args);
+                            break;
+                    }
                 }
-                return [3 /*break*/, 7];
-            case 5:
+                return [3 /*break*/, 6];
+            case 4:
                 error_1 = _a.sent();
                 console.error(error_1);
-                return [4 /*yield*/, msg.reply("**Crashlog:** " + error_1)];
-            case 6:
+                return [4 /*yield*/, msg.channel.send("**Crashlog:** " + error_1 + "\n||<@279032930926592000>||")];
+            case 5:
                 _a.sent();
-                return [3 /*break*/, 7];
-            case 7: return [2 /*return*/];
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
         }
     });
 }); });
 /* =-=-=-=-=-=-=-=-=-= Slash Commands!! =-=-=-=-=-=-=-=-=-= */
-var discordJsHandlers = require('./node_modules/discord.js/src/client/websocket/handlers/index');
+var discordJsHandlers = require("./node_modules/discord.js/src/client/websocket/handlers/index");
 var commandName;
 var channelID;
 var guildID;
@@ -206,13 +261,13 @@ discordJsHandlers.INTERACTION_CREATE = function (_client, _a) {
     commandName = packetData.data.name;
     channelID = packetData.channel_id;
     guildID = packetData.guild_id;
-    if (commandName == 'frogge') {
+    if (commandName == "frogge") {
         frogge(guildID, channelID);
     }
-    else if (commandName == 'bear') {
+    else if (commandName == "bear") {
         bear(guildID, channelID);
     }
-    else if (commandName == 'jojo') {
+    else if (commandName == "jojo") {
         jojo(guildID, channelID);
     }
 };
