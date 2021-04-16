@@ -25,9 +25,15 @@ module.exports = {
             msg.client.distube.pause(msg)
         }
 
-        if (msg.content.startsWith(`${prefix}resume`)) {
-            msg.client.distube.resume(msg)
-        }
+        // Not working for some reason (Maybe resume is outdated, and replaced by a different command idk lookup distube to see how to fix this)
+        // if (msg.content.startsWith(`${prefix}resume`)) {
+        //     if (msg.client.nowPlaying == undefined) {
+        //         msg.channel.send(`No song to resume!`);
+        //         return;
+        //     }
+        //     msg.client.distube.resume(msg)
+        //     msg.channel.send("Resuming Music");
+        // }
 
         if (msg.content.startsWith(`${prefix}shuffle`)) {
             msg.client.distube.shuffle(msg)
@@ -241,6 +247,7 @@ module.exports = {
         }
         }
 
+        // THIS IS REALLY INTERESTING
         /* //!record
         if (msg.content.startsWith(`${prefix}record`)) {
         if (msg.channel.type === 'dm') return;

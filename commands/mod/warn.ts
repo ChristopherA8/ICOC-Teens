@@ -39,7 +39,7 @@ module.exports = {
                     msg.channel.send(`Temporary mute expired for ${ping}`);
                 }, 300000); // time in ms
 
-            } else if (check.warns == 10) {
+            } else if (check.warns >= 10) {
               ping.kick();
             }
         }

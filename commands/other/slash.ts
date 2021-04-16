@@ -16,7 +16,7 @@
 
         // var url = "https://discord.com/api/v8/applications/761792910088994816/commands";
         // 698590629344575500 // ICOC Teens
-        const json = require('./anime.json');
+        const json = require('./slashCommandSetup.json');
 
         var headers = {
             "Authorization": `Bot ${token}`,
