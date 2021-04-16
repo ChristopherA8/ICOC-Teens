@@ -47,6 +47,10 @@ client.on("ready", async () => {
     type: "WATCHING",
   });
 
+  /**
+    SQLite XP system - https://anidiots.guide/coding-guides/sqlite-based-points-system
+  **/
+
   // Check if the table "points" exists.
   const table = sql
     .prepare(
