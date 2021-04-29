@@ -541,10 +541,14 @@ module.exports = {
         (channel) => channel.id === `768882922379280464`
       );
 
-      var i = 1;
-      var bulkDel = bulk.map((b) => b.content).join(`\n`);
+      let bulkDel = bulk.map((b) => b.content).join(`\n`); // old
+      let bulkDelReversed = bulk.array().reverse();
 
-      bulkDelEmbed(bulk, channel, bulkDel);
+      bulkDelEmbed(
+        bulk,
+        channel,
+        bulkDelReversed.map((b) => b.content).join(`\n`)
+      );
 
       ///////////////
       // EMBED
@@ -556,9 +560,7 @@ module.exports = {
           .setColor("#00FF86")
           //.setFooter(`Message(s) Author: ${array.author.tag}`)
           .setDescription(
-            `${
-              array.size
-            } Message(s) Deleted (reverse order): \n\`\`\`${array.substr(
+            `${bulk.size} Message(s) Deleted: \n\`\`\`${array.substr(
               0,
               1000
             )}\`\`\``
