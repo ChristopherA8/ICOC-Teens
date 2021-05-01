@@ -86,6 +86,9 @@ client.on("ready", async () => {
 });
 
 client.on("message", async (msg) => {
+  const { reactionListener } = require("./modules/suggestionReaction.ts");
+  reactionListener(msg);
+
   if (msg.channel.type === "dm") return;
   if (msg.author.bot) return;
 
