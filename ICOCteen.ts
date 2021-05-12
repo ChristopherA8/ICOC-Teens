@@ -111,6 +111,9 @@ client.on("message", async (msg) => {
   const { loadModules } = require("./modules/modules.ts");
   loadModules(msg, client, fs, Discord, prefix);
 
+  const { execute } = require("./commands/commerce/register.ts");
+  execute(msg);
+
   ///////////////////////////////////
   // Command Handler
   ///////////////////////////////////

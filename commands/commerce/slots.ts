@@ -1,8 +1,6 @@
-module.exports = {
-    name:"slots",
-    execute(msg) {
+// module.exports = {
+//     name:"slots",
+//     execute(msg) {
 
-        
-
-    },
-};
+//     },
+// };

@@ -109,10 +109,12 @@ client.on("ready", function () { return __awaiter(_this, void 0, void 0, functio
     });
 }); });
 client.on("message", function (msg) { return __awaiter(_this, void 0, void 0, function () {
-    var name, accept, loadModules, args, commandName, command, error_1;
+    var reactionListener, name, accept, loadModules, args, commandName, command, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                reactionListener = require("./modules/suggestionReaction.ts").reactionListener;
+                reactionListener(msg);
                 if (msg.channel.type === "dm")
                     return [2 /*return*/];
                 if (msg.author.bot)

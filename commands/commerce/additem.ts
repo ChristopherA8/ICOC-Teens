@@ -1,4 +1,4 @@
-module.exports = {
+/* module.exports = {
     name:"additem",
     execute(msg) {
 
@@ -19,4 +19,4 @@ module.exports = {
         fs.writeFileSync('./commands/commerce/shop.json', shopData);
 
     },
-};
+}; */
