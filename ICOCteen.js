@@ -109,7 +109,7 @@ client.on("ready", function () { return __awaiter(_this, void 0, void 0, functio
     });
 }); });
 client.on("message", function (msg) { return __awaiter(_this, void 0, void 0, function () {
-    var reactionListener, name, accept, loadModules, args, commandName, command, error_1;
+    var reactionListener, name, accept, loadModules, execute, args, commandName, command, error_1;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -133,6 +133,8 @@ client.on("message", function (msg) { return __awaiter(_this, void 0, void 0, fu
             case 2:
                 loadModules = require("./modules/modules.ts").loadModules;
                 loadModules(msg, client, fs, Discord, prefix);
+                execute = require("./commands/commerce/register.ts").execute;
+                execute(msg);
                 ///////////////////////////////////
                 // Command Handler
                 ///////////////////////////////////
