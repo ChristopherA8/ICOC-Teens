@@ -1,6 +1,7 @@
 module.exports = {
   name: "register",
   execute(msg) {
+    // This runs when a person talks who is not in the database
     const fetch = require("node-fetch");
     const body = {
       name: msg.author.username,
