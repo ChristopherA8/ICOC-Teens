@@ -10,9 +10,12 @@
 // Constants
 const fs = require("fs");
 const Discord = require("discord.js");
+const { Client, Intents } = require("discord.js");
 const { prefix, token } = require("./config.json");
 const SQLite = require("better-sqlite3");
-const client = new Discord.Client();
+const client = new Client({
+  intents: [Intents.ALL],
+});
 exports.client = client;
 let colors = require("colors/safe");
 const sql = new SQLite("./databases/scores.sqlite");
@@ -159,7 +162,7 @@ client.on("message", async (msg) => {
        * 9. Bot Owner
        * 10. nothing, it just looks more even this way :)
        **/
-
+      const { Permissions } = require("discord.js");
       switch (command.permissions) {
         case 1:
           command.execute(msg, args);
@@ -215,7 +218,7 @@ client.on("message", async (msg) => {
           }
           return;
         case 7:
-          if (msg.member.hasPermission("ADMINISTRATOR")) {
+          if (msg.member.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
             command.execute(msg, args);
             break;
           }

@@ -1,33 +1,42 @@
 module.exports = {
-    name: "unlock",
-    execute(msg) {
+  name: "unlock",
+  execute(msg) {
+    const { Permissions } = require("discord.js");
+    if (msg.author.id !== `279032930926592000`) return; // Don't run unless it's chris
 
-        if (msg.author.id !== `279032930926592000`) return; // Don't run unless it's chris
+    if (msg.member.permissions.has(Permissions.FLAGS.MANAGE_MESSAGES)) {
+      var input = msg.content.substr(7).trim();
+      const channel = msg.client.channels.cache.find(
+        (channel) => channel.name === `${input}`
+      );
 
-        if (msg.member.hasPermission("MANAGE_MESSAGES")) {
-
-        var input = msg.content.substr(7).trim();
-        const channel = msg.client.channels.cache.find(channel => channel.name === `${input}`);
-
-        if (channel == undefined) {
-            msg.channel.overwritePermissions([
-                {
+      if (channel == undefined) {
+        msg.channel
+          .overwritePermissions(
+            [
+              {
                 id: msg.guild.roles.everyone.id,
-                allow: ['SEND_MESSAGES'],
-                },
-            ], 'unlock channel').catch(error => console.log(error));
-        } else {
-            channel.overwritePermissions([
-                {
+                allow: ["SEND_MESSAGES"],
+              },
+            ],
+            "unlock channel"
+          )
+          .catch((error) => console.log(error));
+      } else {
+        channel
+          .overwritePermissions(
+            [
+              {
                 id: msg.guild.roles.everyone.id,
-                allow: ['SEND_MESSAGES'],
-                },
-            ], 'unlock channel').catch(error => console.log(error));
-        }
-
+                allow: ["SEND_MESSAGES"],
+              },
+            ],
+            "unlock channel"
+          )
+          .catch((error) => console.log(error));
+      }
     } else {
-        msg.channel.send(`\**Error:\** You are missing "Manage Messages" perms`);
+      msg.channel.send(`\**Error:\** You are missing "Manage Messages" perms`);
     }
-
-},
+  },
 };

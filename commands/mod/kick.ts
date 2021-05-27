@@ -1,45 +1,42 @@
 module.exports = {
-	name: 'kick',
-	description: '',
-	execute(msg, args) {
+  name: "kick",
+  description: "",
+  execute(msg, args) {
+    const { Permissions } = require("discord.js");
+    //Define member constant
+    const member = msg.member;
 
-        //Define member constant
-        const member = msg.member;
+    const chat = msg.guild.channels.cache.get("698590629344575503");
 
-        const chat = msg.guild.channels.cache.get('698590629344575503');
+    //Check member permissions
+    if (member.permissions.has(Permissions.FLAGS.KICK_MEMBERS)) {
+      //Parse message content
+      var input = msg.content;
+      var inputArr = input.split(" ");
 
-        //Check member permissions
-	    if (member.hasPermission('KICK_MEMBERS')) {
+      //Define pinged member constant
+      const ping = msg.mentions.members.first();
 
-            //Parse message content
-            var input = msg.content;
-            var inputArr = input.split(' ');
-
-            //Define pinged member constant
-            const ping = msg.mentions.members.first();
-
-            //Check for mention
-            if (ping == undefined) {
-                msg.channel.send(`\**Error:\** Ping the person you want to kick!`);
-            } else if (ping.id == msg.author.id) {
-                msg.channel.send(`\**Error:\** You cannot kick yourself!`);
-            } else if (ping.hasPermission('ADMINISTRATOR')) {
-                msg.channel.send(`\**Error:\** You can not kick an Admin!`);
-            } else if (inputArr[2] == undefined) {
-                chat.send(`${ping} has been kicked`);
-                ping.kick();
-            } else if (inputArr[2] !== undefined) {
-                var reason = input.replace(inputArr[0], '').replace(inputArr[1], '').trim();
-                chat.send(`${ping} has been kicked for \`${reason}\``);
-                ping.kick(reason);
-            }
-
-        } else {
-            msg.channel.send(`\**Error:\** You are missing "Kick" perms`);
-        }
-        
-
-
-
-	},
+      //Check for mention
+      if (ping == undefined) {
+        msg.channel.send(`\**Error:\** Ping the person you want to kick!`);
+      } else if (ping.id == msg.author.id) {
+        msg.channel.send(`\**Error:\** You cannot kick yourself!`);
+      } else if (ping.permissions.has(Permissions.FLAGS.ADMINISTRATOR)) {
+        msg.channel.send(`\**Error:\** You can not kick an Admin!`);
+      } else if (inputArr[2] == undefined) {
+        chat.send(`${ping} has been kicked`);
+        ping.kick();
+      } else if (inputArr[2] !== undefined) {
+        var reason = input
+          .replace(inputArr[0], "")
+          .replace(inputArr[1], "")
+          .trim();
+        chat.send(`${ping} has been kicked for \`${reason}\``);
+        ping.kick(reason);
+      }
+    } else {
+      msg.channel.send(`\**Error:\** You are missing "Kick" perms`);
+    }
+  },
 };
