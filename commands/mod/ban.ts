@@ -28,12 +28,12 @@ module.exports = {
         chat.send(`${ping} has been banned`);
         ping.ban();
       } else if (inputArr[2] !== undefined) {
-        var reason = input
+        var reasonString = input
           .replace(inputArr[0], "")
           .replace(inputArr[1], "")
           .trim();
-        chat.send(`${ping} has been banned for \`${reason}\``);
-        ping.ban(reason);
+        chat.send(`${ping} has been banned for \`${reasonString}\``);
+        ping.ban({ reason: reasonString });
       }
     } else {
       msg.channel.send(`\**Error:\** You are missing "ban" perms`);

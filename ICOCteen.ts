@@ -46,9 +46,12 @@ client.on("ready", async () => {
 
   console.log(colors.red(`Connected as ${client.user.tag}`));
   let guild = await client.guilds.cache.get("698590629344575500");
-  await client.user.setActivity(`${guild.members.cache.size} members`, {
-    type: "WATCHING",
-  });
+  await client.user.setActivity(
+    `why does COMPETING exist ${guild.members.cache.size} members`,
+    {
+      type: "COMPETING",
+    }
+  );
 
   /**
     SQLite XP system - https://anidiots.guide/coding-guides/sqlite-based-points-system
@@ -256,67 +259,47 @@ client.on("message", async (msg) => {
   }
 });
 
-/* =-=-=-=-=-=-=-=-=-= Slash Commands!! =-=-=-=-=-=-=-=-=-= */
-
-const discordJsHandlers = require("./node_modules/discord.js/src/client/websocket/handlers/index");
-let commandName;
-let channelID;
-let guildID;
-discordJsHandlers.INTERACTION_CREATE = (_client, { d: packetData }) => {
-  commandName = packetData.data.name;
-  channelID = packetData.channel_id;
-  guildID = packetData.guild_id;
-  if (commandName == "frogge") {
-    frogge(guildID, channelID);
-  } else if (commandName == "bear") {
-    bear(guildID, channelID);
-  } else if (commandName == "jojo") {
-    jojo(guildID, channelID);
-  }
-};
-
-function frogge(guildID, channelID) {
-  let guild = client.guilds.cache.find((guild) => guild.id == guildID);
-  let channel = guild.channels.cache.get(channelID);
+client.on("interaction", async (interaction) => {
+  const fetch = require("node-fetch");
+  let { tenor } = require(`./config.json`);
   let { giphy } = require(`./config.json`);
-  let fetch = require(`node-fetch`);
-  fetch(
-    `https://api.giphy.com/v1/gifs/random?api_key=${giphy}&tag=frog&rating=g`
-  )
-    .then((res) => res.json())
-    .then((api) => {
-      channel.send(api.data.url);
-    });
-}
-
-function bear(guildID, channelID) {
-  let guild = client.guilds.cache.find((guild) => guild.id == guildID);
-  let channel = guild.channels.cache.get(channelID);
-  let { tenor } = require(`./config.json`);
-  let fetch = require(`node-fetch`);
-  fetch(
-    `https://api.tenor.com/v1/random?key=${tenor}&q=cute%20bears&locale=en_US&contentfilter=medium&limit=1`
-  )
-    .then((res) => res.json())
-    .then((api) => {
-      channel.send(api.results[0].url);
-    });
-}
-
-function jojo(guildID, channelID) {
-  let guild = client.guilds.cache.find((guild) => guild.id == guildID);
-  let channel = guild.channels.cache.get(channelID);
-  let { tenor } = require(`./config.json`);
-  let fetch = require(`node-fetch`);
-  fetch(
-    `https://api.tenor.com/v1/random?key=${tenor}&q=jojos%20bizzare%20adventure&locale=en_US&contentfilter=medium&limit=1`
-  )
-    .then((res) => res.json())
-    .then((api) => {
-      channel.send(api.results[0].url);
-    });
-}
-
-/* =-=-=-=-=-=-=-=-=-= END OF Slash Commands!! =-=-=-=-=-=-=-=-=-= */
+  console.log(interaction);
+  // Slash Commands
+  if (!interaction.isCommand()) return;
+  switch (interaction.commandName) {
+    case "jojo":
+      fetch(
+        `https://api.tenor.com/v1/random?key=${tenor}&q=jojos%20bizzare%20adventure&locale=en_US&contentfilter=medium&limit=1`
+      )
+        .then((res) => res.json())
+        .then(async (api) => {
+          await interaction.reply(api.results[0].url);
+        });
+      break;
+    case "frogge":
+      fetch(
+        `https://api.giphy.com/v1/gifs/random?api_key=${giphy}&tag=frog&rating=g`
+      )
+        .then((res) => res.json())
+        .then((api) => {
+          interaction.reply(api.data.url);
+        });
+      break;
+    case "bear":
+      fetch(
+        `https://api.tenor.com/v1/random?key=${tenor}&q=cute%20bears&locale=en_US&contentfilter=medium&limit=1`
+      )
+        .then((res) => res.json())
+        .then((api) => {
+          interaction.reply(api.results[0].url);
+        });
+      break;
+    default:
+      console.log(
+        `Interaction received for command named: ${interaction.commandName}`
+      );
+      break;
+  }
+});
 
 client.login(token);
