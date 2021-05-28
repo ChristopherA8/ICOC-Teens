@@ -92,6 +92,24 @@ client.on("ready", async () => {
 });
 
 client.on("message", async (msg) => {
+  // Adding new slash commands
+  /*   if (!client.application?.owner) await client.application?.fetch();
+
+  if (
+    msg.content.toLowerCase() === "!deploy" &&
+    msg.author.id === client.application?.owner.id
+  ) {
+    const data = {
+      name: "xp",
+      description: "Get users xp",
+    };
+
+    const command = await client.guilds.cache
+      .get("698590629344575500")
+      ?.commands.create(data);
+    console.log(command);
+  } */
+
   const { reactionListener } = require("./modules/suggestionReaction.ts");
   reactionListener(msg);
 
@@ -263,7 +281,7 @@ client.on("interaction", async (interaction) => {
   const fetch = require("node-fetch");
   let { tenor } = require(`./config.json`);
   let { giphy } = require(`./config.json`);
-  console.log(interaction);
+  // console.log(interaction);
   // Slash Commands
   if (!interaction.isCommand()) return;
   switch (interaction.commandName) {
@@ -293,6 +311,39 @@ client.on("interaction", async (interaction) => {
         .then((api) => {
           interaction.reply(api.results[0].url);
         });
+      break;
+    case "xp":
+      const SQLite = require("better-sqlite3");
+
+      // Create SQLite database
+      const sql = new SQLite("./databases/scores.sqlite");
+
+      sql.prepare("SELECT * FROM scores WHERE user = ? AND guild = ?");
+      sql.prepare(
+        "INSERT OR REPLACE INTO scores (id, user, guild, points, level, name) VALUES (@id, @user, @guild, @points, @level, @name);"
+      );
+
+      let score;
+      score = sql
+        .prepare("SELECT * FROM scores WHERE user = ? AND guild = ?")
+        .get(interaction.user.id, "698590629344575500");
+      if (score == undefined) {
+        interaction.reply(`Talk first to get xp!`, { ephemeral: true });
+      } else {
+        const exampleEmbed = new Discord.MessageEmbed()
+          .setAuthor(
+            `${interaction.user.tag}`,
+            `${interaction.user.displayAvatarURL({ dynamic: true })}`
+          )
+          .setColor("#00FF86")
+          .addFields(
+            { name: "**❯ XP:**", value: `${score.points}`, inline: true },
+            { name: "**❯ Level:**", value: `${score.level}`, inline: true }
+          );
+        interaction.reply(exampleEmbed);
+      }
+
+      // interaction.reply(`here is your xp`, { ephemeral: true });
       break;
     default:
       console.log(
