@@ -22,3 +22,5 @@ commands/commerce/membersbackup.json
 sounds
 /.idea
 ICOCteen.js
+.VSCodeCounter
+/stats.json
